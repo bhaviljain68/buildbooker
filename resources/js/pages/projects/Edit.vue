@@ -1,0 +1,167 @@
+<script setup>
+import { ref } from 'vue'
+import { useForm, usePage, router } from '@inertiajs/vue3'
+import FormInput from '@/components/FormInput.vue'
+import FormTextarea from '@/components/FormTextarea.vue'
+import BackButton from '@/components/BackButton.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
+
+const { props, flash } = usePage()
+const project = props.project || {}
+console.log('Project from props:', project)
+
+const fileInput = ref(null)
+const fileName = ref('')
+const previewUrl = ref(project.logo_file || '')  // use `logo_file` from backend
+
+const form = useForm({
+  name: project.name || '',
+  jurisdiction: project.jurisdiction || '',
+  office_display_address: project.office_display_address || '',
+  site_display_address: project.site_display_address || '',
+  total_units: project.total_units || '',
+  rera_no: project.rera_no || '',
+  logo_file: null,
+})
+
+const errors = ref(props.errors || {})
+
+const triggerFileInput = () => fileInput.value.click()
+
+const handleFileSelect = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    console.log('Selected File:', file)
+    fileName.value = file.name
+    form.logo_file = file
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      previewUrl.value = e.target.result
+      console.log('Base64 Preview:', previewUrl.value)
+    }
+    reader.readAsDataURL(file)
+  } else {
+    fileName.value = ''
+    previewUrl.value = ''
+    form.logo_file = null
+  }
+}
+
+const resetForm = () => {
+  form.reset()
+  fileName.value = ''
+  previewUrl.value = ''
+}
+
+function submitForm() {
+  form.transform((data) => ({
+    ...data,
+    _method: 'put',
+  })).post(route('projects.update', project.id), {
+    preserveState: true,
+    forceFormData: true,
+    onSuccess: () => {
+      toast.success("Project updated successfully!");
+      router.visit(route('organisation.edit'));
+    },
+    onError: (errors) => {
+      console.error('Update failed:', errors);
+    }
+  });
+}
+</script>
+
+<template>
+  <AppLayout>
+    <div class="py-0 lg:py-10">
+      <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+
+        <!-- Back Button -->
+        <div class="flex items-start justify-start mb-4">
+          <BackButton :prevRoute="route('projects.index')" />
+        </div>
+
+        <!-- Flash Messages -->
+        <!-- <div v-if="flash.success" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+        <p class="font-bold">Success</p>
+        <p>{{ flash.success }}</p>
+      </div>
+      <div v-if="flash.error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+        <p class="font-bold">Error</p>
+        <p>{{ flash.error }}</p>
+      </div> -->
+
+        <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
+          <div class="text-gray-900">
+            <!-- Title -->
+            <div class="flex items-center justify-between pt-8 py-4 border-gray-200 px-4">
+              <h6 class="m-0 font-bold text-cyan-700 text-center lg:text-3xl w-full underline underline-offset-8">
+                {{ form.name }}
+              </h6>
+            </div>
+
+            <!-- Form -->
+            <form @submit.prevent="submitForm" enctype="multipart/form-data" class="p-7 bg-white rounded">
+              <div class="grid grid-cols-1 gap-y-4">
+                <!-- Project Name -->
+                <FormInput v-model="form.name" label="Project Name" required :error="errors.name"
+                  help="(This will be displayed on your receipts)" />
+
+                <!-- Project Logo -->
+                <div>
+                  <label class="text-sm font-medium text-gray-700">
+                    <span class="text-red-500">*</span> Project Logo
+                    <span class="ml-1 text-gray-400 text-xs">(Displayed on your receipts)</span>
+                  </label>
+                  <input type="text" id="logo_selector"
+                    class="mt-1 block w-full px-3 py-3 rounded-md shadow-sm cursor-pointer border"
+                    :class="errors.logo_file ? 'border-red-500' : 'border-gray-300'"
+                    :value="fileName || project.logo_file" readonly @click="triggerFileInput" required />
+                  <input ref="fileInput" type="file" accept="image/jpeg, image/jpg, image/png, image/webp"
+                    class="hidden" @change="handleFileSelect" />
+                  <div class="mt-2 text-sm text-red-600" v-if="errors.logo_file">{{ errors.logo_file }}</div>
+                  <div
+                    class="mt-4 w-full h-[150px] bg-gray-100 flex items-center justify-center rounded-md border border-gray-300">
+                    <img v-if="previewUrl" :src="previewUrl" class="h-full object-cover" />
+                    <span v-else class="text-gray-500">Image preview will appear here...</span>
+                  </div>
+                </div>
+
+                <!-- Jurisdiction -->
+                <FormInput v-model="form.jurisdiction" label="Governing Jurisdiction" required
+                  :error="errors.jurisdiction" help="(Displayed on your receipts)" />
+
+                <!-- Office Address -->
+                <FormTextarea v-model="form.office_display_address" label="Office Address" required
+                  :error="errors.office_display_address" help="(Displayed on your receipts)" />
+
+                <!-- Site Address -->
+                <FormTextarea v-model="form.site_display_address" label="Site Address" required
+                  :error="errors.site_display_address" help="(Displayed on your receipts)" />
+
+                <!-- Total Units -->
+                <FormInput v-model.number="form.total_units" label="Total Number Of Units" type="number" required
+                  :error="errors.total_units" />
+
+                <!-- RERA No -->
+                <FormInput v-model="form.rera_no" label="Project RERA No." :error="errors.rera_no" help="(Optional)" />
+              </div>
+
+              <!-- Submit / Reset -->
+              <div class="flex flex-wrap justify-between mt-6 gap-4">
+                <button type="submit"
+                  class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg px-10 py-2.5">
+                  Submit
+                </button>
+                <button type="button" @click="resetForm"
+                  class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg px-10 py-2.5">
+                  Reset
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </AppLayout>
+</template>
