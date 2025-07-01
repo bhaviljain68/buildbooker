@@ -53,8 +53,8 @@ function submitForm() {
 <template>
   <AppLayout>
     <form @submit.prevent="submitForm">
-      <div class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5">
-        <h1 class="font-bold text-cyan-700 text-center lg:text-xl underline underline-offset-8 pt-4">
+      <div class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
+        <h1 class="font-bold text-primary text-center lg:text-2xl pt-10">
           Customer & Booking Details
         </h1>
 
@@ -62,7 +62,7 @@ function submitForm() {
         <div>
           <label class="text-sm font-medium text-gray-700">Select Existing Customer</label>
           <select v-model="form.selectedCustomerId" @change="setCustomerDetails"
-                  class="mt-1 block w-full px-3 py-3 rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
+                  class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
             <option disabled value="">Select</option>
             <option v-for="customer in props.customers" :key="customer.id" :value="customer.id">
               {{ customer.name }} ({{ customer.email }})
@@ -112,7 +112,7 @@ function submitForm() {
 
         <!-- Booking Section -->
         <div class="py-4">
-          <h1 class="font-bold text-cyan-700 text-center lg:text-lg border-t border-gray-300 py-4">
+          <h1 class="font-bold text-primary text-center lg:text-xl border-t border-gray-300 py-4 pt-7">
             Booking Details
           </h1>
 
@@ -126,7 +126,7 @@ function submitForm() {
               @input="recalculateTotal"
               :error="form.errors.base"
               required
-              class="text-right"
+              class="text-left"
             />
 
             <!-- GST Amount -->
@@ -138,7 +138,7 @@ function submitForm() {
               @input="recalculateTotal"
               :error="form.errors.gst"
               required
-              class="text-right"
+              class="text-left"
             />
 
             <!-- Total Amount -->
@@ -154,13 +154,13 @@ function submitForm() {
         </div>
 
         <!-- Buttons -->
-        <div class="flex justify-between mb-6 gap-4 mt-6">
+        <div class="flex justify-between mb-6 gap-4 mb-10">
           <button type="submit"
-                  class="bg-green-700 w-full text-white px-10 py-2.5 rounded-lg hover:bg-green-800">
+                  class="bg-primary w-full text-white px-10 py-2.5 rounded-lg hover:bg-teal-800">
             Submit
           </button>
           <button type="reset" @click="resetForm"
-                  class="bg-yellow-400 text-white px-10 py-2.5 rounded-lg w-full hover:bg-yellow-500">
+                  class="bg-teal-500 text-white px-10 py-2.5 rounded-lg w-full hover:bg-teal-600">
             Reset
           </button>
         </div>

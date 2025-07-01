@@ -17,7 +17,7 @@ defineEmits(['update:modelValue']);
       @input="$emit('update:modelValue', $event.target.value)"
       :required="required"
       rows="4"
-      class="mt-1 block w-full px-3 py-3 border border-gary-200 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
+      class="mt-1 block w-full px-3 py-3 bg-white border border-gary-400 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
       :class="error ? 'border-red-500' : 'border-gray-300'"
     ></textarea>
 

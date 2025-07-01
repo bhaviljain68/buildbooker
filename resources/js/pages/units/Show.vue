@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 import BackButton from '@/components/BackButton.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 
 const props = defineProps({
     unit: Object
@@ -41,6 +42,7 @@ const tabClass = (tab) => {
 </script>
 
 <template>
+    <AppLayout>
     <div class="py-0 lg:py-10">
         <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
             <div class="mb-4 flex justify-between items-center">
@@ -50,25 +52,25 @@ const tabClass = (tab) => {
                 <BackButton :href="route('units.index', { organisation: orgId, project: props.unit.project.id })"></BackButton>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg px-8">
+            <div class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-8">
                 <div class="text-gray-800 py-8">
                     <div class="flex flex-col items-center justify-center py-4 border-gray-200 mb-8">
-                        <img :src="unit.project.logo" :alt="`${unit.project.name}_logo`" class="max-h-10" />
+                        <img :src="unit.project.logo" :alt="`${unit.project.name}_logo`" class="max-h-24" />
                         <h6
-                            class="m-0 text-cyan-700 font-bold text-center lg:text-3xl w-full underline underline-offset-8 mt-4">
+                            class="m-0 text-primary font-bold text-center lg:text-3xl w-full mt-4">
                             Unit : {{ unit.unit_no }}
                         </h6>
                     </div>
 
                     <!-- Unit Details -->
                     <div
-                        class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-500 bg-cyan-200 bg-opacity-10 rounded-lg">
-                        <div class="flex flex-col gap-4 p-8 border-r border-b border-cyan-300">
+                        class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-500 bg-teal-700 text-white bg-opacity-10 rounded-lg">
+                        <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
                             <p class="text-xl">Unit Type</p>
                             <p class="text-2xl">{{ ucwords(unit.type) }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-4 p-8 border-r border-b border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
                             <p class="text-xl">Status</p>
                             <p class="text-2xl">
                                 {{ unit.is_sold ? 'Sold' : 'Not Sold' }}
@@ -76,28 +78,28 @@ const tabClass = (tab) => {
                             </p>
                         </div>
 
-                        <div class="flex flex-col gap-4 p-8 border-b border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-b border-teal-500">
                             <p class="text-xl">Selling Price</p>
                             <p class="text-2xl">₹ {{ unit.total_amount }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-4 p-8 border-r border-b border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
                             <p class="text-xl">Customer Name</p>
                             <p class="text-2xl">{{ ucwords(unit.customer.name) }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-4 p-8 border-r border-b border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
                             <p class="text-xl">Customer Contact Number</p>
                             <p class="text-2xl">{{ unit.customer.mobile }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-4 p-8 border-b border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-b border-teal-500">
                             <p class="text-xl">Customer Email</p>
                             <p class="text-2xl break-words whitespace-normal">{{ unit.customer.email || 'N/A' }}</p>
                         </div>
 
                         <!-- Base Amount -->
-                        <div class="flex flex-col gap-4 p-8 border-r border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-r border-teal-500">
                             <div>
                                 <p class="text-xl">Base Amount</p>
                                 <p><span class="text-green-700">Received</span> / <span class="text-red-700">Due</span>
@@ -110,7 +112,7 @@ const tabClass = (tab) => {
                         </div>
 
                         <!-- GST Amount -->
-                        <div class="flex flex-col gap-4 p-8 border-r border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-r border-teal-500">
                             <div>
                                 <p class="text-xl">GST Amount</p>
                                 <p><span class="text-green-700">Received</span> / <span class="text-red-700">Due</span>
@@ -123,7 +125,7 @@ const tabClass = (tab) => {
                         </div>
 
                         <!-- Total Amount -->
-                        <div class="flex flex-col gap-4 p-8 border-cyan-300">
+                        <div class="flex flex-col gap-4 p-8 border-teal-500">
                             <div>
                                 <p class="text-xl">Total Amount</p>
                                 <p><span class="text-green-700">Received</span> / <span class="text-red-700">Due</span>
@@ -138,7 +140,7 @@ const tabClass = (tab) => {
 
                     <!-- Transactions Table -->
                     <div class="mt-8 lg:mx-24">
-                        <details class="mt-4 rounded-lg bg-cyan-200 bg-opacity-10 border border-cyan-500">
+                        <details class="mt-4 rounded-lg bg-cyan-200 bg-opacity-10 border border-teal-500">
                             <summary class="cursor-pointer px-4 py-3 font-semibold text-cyan-800">
                                 View Transactions
                             </summary>
@@ -201,4 +203,5 @@ const tabClass = (tab) => {
             </div>
         </div>
     </div>
+    </AppLayout>
 </template>

@@ -4,8 +4,9 @@ import { Icon } from "@iconify/vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
 // import Logo from "./Logo.vue";
-const page = usePage();
-const organizationId = computed(() => page.props.auth.user);
+// const page = usePage();
+// const organizationId = computed(() => page.props.auth.user);
+const props = defineProps(['user'])
 
 const showDropdownSelectAction = ref(false);
 
@@ -14,6 +15,7 @@ const visible = ref(false);
 
 
 <template>
+    <!-- <pre> {{props.user.name }}</pre> -->
     <!-- Toggle Button -->
     <div class="flex justify-between mt-3 lg:mx-10 mx-5">
         <div>
@@ -33,6 +35,7 @@ const visible = ref(false);
             <div class="flex items-center justify-between px-7 py-5 border-b">
                 <div class="flex items-center gap-2">
                     <Logo />
+                   
                     <!-- <span class="font-inter font-medium text-[30px] leading-[16px] tracking-[0]">Logo</span> -->
                 </div>
                 <button @click="visible = false" class="p-1 rounded-md hover:bg-gray-200">

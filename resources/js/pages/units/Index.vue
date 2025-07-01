@@ -3,6 +3,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { Icon } from '@iconify/vue';
 import { computed } from 'vue';
+import ButtonLink from '@/components/ButtonLink.vue';
+import BackButton from '@/components/BackButton.vue';
 defineProps(['project', 'units']);
 const toast = new ToastMagic();
 // const formatCurrency = (value) => {
@@ -49,24 +51,24 @@ function cancelBooking() {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
+            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-0">
                 <div class="mb-4 flex justify-between items-center">
-                    <Link :href="route('projects.index')"
+                    <!-- <Link :href="route('projects.index')"
                         class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
                     <Icon icon="pajamas:go-back" width="16" height="16" />
-                    Go Back</Link>
-                    <Link :href="route('units.create', project)"
-                        class="rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-base bg-gray-800 hover:bg-gray-900 text-zinc-100">
-                    <Icon icon="ic:twotone-add" width="24" height="24" />
-                    Add Units</Link>
+                    Go Back</Link> -->
+                    <BackButton :prevRoute="route('projects.index')" />
+                    <ButtonLink icon="ic:twotone-add" class=" bg-primary" :href="route('units.create', project)">
+                        Add Units
+                    </ButtonLink>
+
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-md sm:rounded-lg px-8">
+                <div class="bg-gray-100 mt-10 border-t-4 border-primary overflow-hidden shadow-md sm:rounded-lg px-8">
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center py-4 border-b border-gray-200 mb-8">
-                            <img :src="project.logo" :alt="`${project.name}_logo`" class="max-h-10" />
-                            <h6
-                                class="m-0 text-cyan-700 font-bold text-center lg:text-3xl w-full underline underline-offset-8 mt-4">
+                            <img :src="project.logo" :alt="`${project.name}_logo`" class="max-h-24" />
+                            <h6 class="m-0 text-primary font-bold text-center lg:text-3xl w-full mt-4">
                                 Project Units
                             </h6>
                         </div>
@@ -75,7 +77,7 @@ function cancelBooking() {
                             <template
                                 v-for="(header, index) in ['Unit No.', 'Unit Type', 'Status', 'Book', 'Customer Name', 'Selling Price', 'Amt. Received', 'Amt. Due', 'Ledger', 'Actions']"
                                 :key="index">
-                                <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 border-zinc-100 text-center"
+                                <p class="bg-secondary font-black text-zinc-100 border-r py-4 border-zinc-100 text-center"
                                     :class="{ 'rounded-tl-lg': index === 0, 'rounded-tr-lg': index === 9 }">
                                     {{ header }}
                                 </p>
@@ -95,7 +97,7 @@ function cancelBooking() {
                                     <!-- Book Button if not sold -->
                                     <Link v-if="!unit.is_sold"
                                         :href="route('units.booking', { project: unit.project_id, unit: unit.id })"
-                                        class="rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-green-600 hover:bg-green-700 text-white">
+                                        class="rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-green-700 hover:bg-green-700 text-white">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                                         <g fill="none" stroke="currentColor" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-width="1.5">
@@ -109,12 +111,24 @@ function cancelBooking() {
 
                                     <!-- Cancel Button if sold -->
                                     <button v-else @click="cancelBooking"
-                                        class="rounded-lg flex items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-600 hover:bg-red-700 text-white">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="M12 2a10 10 0 1 0 0 20a10 10 0 0 0 0-20M9.46 8.46a1 1 0 1 1 1.41-1.41L12 8.59l1.12-1.12a1 1 0 1 1 1.41 1.41L13.41 10l1.12 1.12a1 1 0 0 1-1.41 1.41L12 11.41l-1.12 1.12a1 1 0 0 1-1.41-1.41L10.59 10z" />
-                                        </svg>
+                                        class="rounded-lg flex gap-x-1 items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-700 hover:bg-red-700 text-white">
+                                       
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24">
+                                                <g fill="none" stroke="currentColor" stroke-dasharray="24"
+                                                    stroke-dashoffset="24" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2">
+                                                    <path d="M5 5l14 14">
+                                                        <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                            dur="0.4s" values="24;0" />
+                                                    </path>
+                                                    <path d="M19 5l-14 14">
+                                                        <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                            begin="0.4s" dur="0.4s" values="24;0" />
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                      
                                         Cancel
                                     </button>
                                 </div>
@@ -141,17 +155,17 @@ function cancelBooking() {
                                 </p>
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
                                     <Link :href="route('units.show', unit.id)"
-                                        :class="['px-2 py-1 rounded text-white', unit.is_sold ? 'bg-blue-500' : 'rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-gray-800 hover:bg-gray-900 text-zinc-100 opacity-80 cursor-not-allowed']">
+                                        :class="['px-2 py-1 rounded text-white', unit.is_sold ? 'bg-primary rounded-lg gap-x-2 flex items-center px-3 py-1' : 'rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-teal-700 hover:bg-teal-700 text-zinc-100 opacity-80 cursor-not-allowed']">
                                     <Icon icon="lets-icons:view-alt-fill" width="20" height="20" /> View</Link>
                                 </div>
 
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center gap-x-2"
                                     :class="{ 'rounded-br-lg': index === units.length - 1 }">
                                     <Link :href="route('units.edit', { project, unit })"
-                                        class="bg-cyan-600 text-white px-2 py-1 rounded">
+                                        class="bg-green-700 text-white px-2 py-1 rounded">
                                     <Icon icon="bxs:edit" width="20" height="20" />
                                     </Link>
-                                    <button @click="handleDelete(unit)" class="bg-red-600 text-white px-2 py-1 rounded">
+                                    <button @click="handleDelete(unit)" class="bg-red-700 text-white px-2 py-1 rounded">
                                         <Icon icon="mingcute:delete-fill" width="20" height="20" />
                                     </button>
                                 </div>

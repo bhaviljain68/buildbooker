@@ -10,7 +10,7 @@ defineProps({
 
 <template>
     <a :href="prevRoute"
-        class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
+        class="bg-teal-700 hover:bg-teal-600 text-white cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
         <Icon icon="pajamas:go-back" width="16" height="16" />
         Go Back
     </a>

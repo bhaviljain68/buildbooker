@@ -13,26 +13,27 @@ const props = defineProps(['projects']);
                 <!-- Add Button -->
                 <div class="mb-4 flex justify-end items-center">
 
-                    <ButtonLink icon="ic:twotone-add" class="bg-primary" :route="route('projects.create')">
+                    <ButtonLink icon="ic:twotone-add" class=" bg-primary" :route="route('projects.create')">
                         Add New Project
                     </ButtonLink>
+                    
                 </div>
 
                 <!-- Flash Messages -->
-                <div class="bg-white overflow-hidden shadow-md sm:rounded-lg px-4 border-t border-red-800">
+                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-4 border-t-4 border-primary">
                     <div class="text-gray-900">
 
                         <!-- Header -->
                         <div class="text-gray-800 py-8">
                             <div class="flex items-center justify-between py-4 border-gray-200 mb-8">
                                 <h6
-                                    class="m-0 text-cyan-700 font-bold text-center lg:text-3xl w-full underline underline-offset-8">
+                                    class="m-0 text-primary font-bold text-center lg:text-3xl w-full underline underline-offset-8">
                                     Your Projects
                                 </h6>
                             </div>
 
                             <!-- Table Header -->
-                            <div class="grid grid-cols-8 font-black rounded-t-lg bg-gray-800 text-zinc-100">
+                            <div class="grid grid-cols-8 font-black rounded-t-lg bg-secondary text-zinc-100">
                                 <p
                                     class="border-x py-4 border-l-gray-800 border-zinc-100 col-span-2 flex justify-center gap-x-4 px-2 items-center rounded-tl-lg">
                                     Project Name
