@@ -48,7 +48,7 @@
 
 <body class="font-sans antialiased">
     @inertia
-    {!! ToastMagic::scripts() !!}
+     {!! ToastMagic::scripts() !!}
 </body>
 
 </html>

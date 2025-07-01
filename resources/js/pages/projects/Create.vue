@@ -4,7 +4,7 @@ import { useForm, usePage, Link, router } from '@inertiajs/vue3';
 import FormInput from '@/components/FormInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import FormTextarea from '@/components/FormTextarea.vue';
-// const toast = new ToastMagic();
+const toast = new ToastMagic();
 import BackButton from '@/components/BackButton.vue';
 const props = defineProps(['errors']);
 
