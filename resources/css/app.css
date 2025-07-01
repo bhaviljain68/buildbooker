@@ -166,6 +166,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.my-input {
+    @apply text-sm border-0 border-b-2 border-dashed border-gray-300 ring-0 p-0 mb-0 focus:ring-0 focus:font-bold
+}
+
+.my-label {
+    @apply line-through
+}
+
 @theme inline {
     --font-sans: Instrument Sans, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 

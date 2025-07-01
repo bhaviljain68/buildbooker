@@ -32,28 +32,28 @@ function formatCurrency(amount) {
                     </ButtonLink>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-md sm:rounded-lg px-8">
+                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg px-8 border-t-4 border-primary mt-10">
                   
                     <div class="text-gray-800 py-8">
-                        <div class="flex flex-col items-center justify-center py-4 border-gray-200 mb-8">
-                            <img :src="project?.logo" :alt="`${project?.name}_logo`" class="max-h-10" />
+                        <div class="flex flex-col items-center justify-center border-gray-200 mb-8">
+                            <img :src="project?.logo" :alt="`${project?.name}_logo`" class="max-h-24" />
                             <h6
-                                class="text-cyan-700 font-bold text-center lg:text-3xl w-full underline underline-offset-8 mt-4">
+                                class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
                                 Project Transactions
                             </h6>
                         </div>
 
                         <div class="grid grid-cols-8 rounded-t-lg border-b rounded-b-lg">
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center rounded-tl-lg">Unit
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tl-lg">Unit
                                 No.
                             </p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">Date</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">Instrument</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">Amount</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">GST</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">Receipt No.</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center">Receipt</p>
-                            <p class="bg-gray-800 font-black text-zinc-100 border-r py-4 text-center rounded-tr-lg">
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Date</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Instrument</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Amount</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">GST</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Receipt No.</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Receipt</p>
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tr-lg">
                                 Actions
                             </p>
 
@@ -85,7 +85,7 @@ function formatCurrency(amount) {
                                         <ReceiptModel :project="project" :transaction="transaction" size="sm" />
                                     </div>
                                     <div
-                                        class="border-b py-2 border-r border-gray-300 flex justify-center items-center gap-x-2 last:rounded-br-lg">
+                                        class="border-b py-2 px-5 border-r border-gray-300 flex justify-center items-center gap-x-2 last:rounded-br-lg">
                                         <ButtonLink
                                             :route="route('transactions.edit', [transaction.id, unit.id, project.id])"
                                             icon="mage:edit" status="info">

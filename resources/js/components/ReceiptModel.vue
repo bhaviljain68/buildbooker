@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
 import Receipt_bs from './receipt_bs.vue'
+import { Icon } from '@iconify/vue';
 
 const props = defineProps({
   project: Object,
@@ -27,7 +28,8 @@ function downloadReceipt() {
   <div class="relative">
     <!-- View Button -->
     <button @click="open = true"
-      class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-1 px-3 rounded">
+      class="flex items-center justify-center gap-2 mx-auto bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2 px-4 rounded-lg transition duration-200">
+      <Icon icon="fluent-mdl2:view" width="18" height="18" />
       View
     </button>
 

@@ -29,15 +29,15 @@ function submitForm() {
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
                 <!-- Back Button -->
                 <div class="flex justify-start w-full mb-4">
                     <BackButton :prevRoute="route('customers.index', projectId)" />
                 </div>
 
                 <!-- Form Card -->
-                <div class="bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
+                <div class="bg-gray-100 shadow-sm sm:rounded-lg">
+                    <div class="p-6 bg-gray-100 border-t-4 border-primary rounded-lg">
                         <form @submit.prevent="submitForm">
                             <!-- Name -->
                             <div class="mb-4">
@@ -64,13 +64,13 @@ function submitForm() {
                             </div>
 
                             <!-- Buttons -->
-                            <div class="mb-4">
+                            <div class="mb-4 flex">
                                 <button type="submit"
-                                    class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                    class="bg-primary text-white w-full px-4 py-2 rounded-md hover:bg-teal-800">
                                     Update
                                 </button>
                                 <Link :href="route('customers.index', projectId)"
-                                    class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 ml-2">
+                                    class="bg-teal-600 text-white/80 w-full text-center px-4 py-2 rounded-md hover:bg-teal-400 ml-2">
                                 Cancel
                                 </Link>
                             </div>
