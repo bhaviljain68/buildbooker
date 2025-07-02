@@ -34,8 +34,8 @@ const visible = ref(false);
             <!-- Header -->
             <div class="flex items-center justify-between px-7 py-5 border-b">
                 <div class="flex items-center gap-2">
-                    <Logo />
-                   
+                     <img src="/images/app_logo.png" alt="Logo" class="w-40 mx-auto" />
+
                     <!-- <span class="font-inter font-medium text-[30px] leading-[16px] tracking-[0]">Logo</span> -->
                 </div>
                 <button @click="visible = false" class="p-1 rounded-md hover:bg-gray-200">
@@ -57,7 +57,7 @@ const visible = ref(false);
                     <li>
                         <a href="/dashboard" @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
-                            <Icon icon="ic:round-dashboard" width="20" height="20" />
+                            <Icon icon="ix:project" width="22" height="22" />
                             <span
                                 class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Projects</span>
                         </a>
@@ -65,7 +65,7 @@ const visible = ref(false);
                     <li>
                         <a href="/dashboard" @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
-                            <Icon icon="ic:round-dashboard" width="20" height="20" />
+                            <Icon icon="raphael:customer" width="24" height="24" />
                             <span
                                 class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Customers</span>
                         </a>
@@ -73,7 +73,7 @@ const visible = ref(false);
                     <li>
                         <a href="/dashboard" @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
-                            <Icon icon="ic:round-dashboard" width="20" height="20" />
+                            <Icon icon="tabler:transaction-dollar" width="24" height="24" />
                             <span
                                 class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Transaction</span>
                         </a>

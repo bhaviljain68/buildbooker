@@ -22,9 +22,11 @@ const submit = () => {
 </script>
 
 <template>
+    
     <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
         <Head title="Forgot password" />
 
+        <div class="lg:mx-auto w-full sm:max-w-4xl px-6 py-4 bg-gray-100 shadow-md overflow-hidden sm:rounded-lg">  
         <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
             {{ status }}
         </div>
@@ -37,7 +39,7 @@ const submit = () => {
                     <InputError :message="form.errors.email" />
                 </div>
 
-                <div class="my-6 flex items-center justify-start">
+                <div class="my-6 flex items-center justify-start text-white">
                     <Button class="w-full" :disabled="form.processing">
                         <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
                         Email password reset link
@@ -50,5 +52,7 @@ const submit = () => {
                 <TextLink :href="route('login')">log in</TextLink>
             </div>
         </div>
+          </div>
     </AuthLayout>
+  
 </template>

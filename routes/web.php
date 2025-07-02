@@ -4,6 +4,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -14,9 +15,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', [DashBoardController::class, 'analytics'])->middleware(['auth', 'verified'])->name('dashboard');
-// Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-// Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-// Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // Route::resource('payment-receipts', PaymentReceiptController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
 // Route::get('payment-receipts-download-pdf/{id}', [PaymentReceiptController::class, 'downloadPaymentRecipt'])->name('payment-receipts-download-pdf');
 // Route::get('/receipt/download/{project}/{transaction}', [PaymentReceiptController::class, 'newDownloadPaymentReceipts'])->name('new-payment-receipts-download-pdf');

@@ -28,57 +28,59 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthBase>
+    <!-- <AuthBase>
 
-        <Head />
+        <Head /> -->
 
-        <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
+        <div v-if="status" class="mb-4  text-sm font-medium text-green-600">
             {{ status }}
         </div>
-
-        <form @submit.prevent="submit"
-            class="lg:mx-auto w-full sm:max-w-4xl px-3 lg:px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="email">Email</Label>
-                    <Input id="email" type="email" required autofocus :tabindex="1" autocomplete="email"
-                        v-model="form.email" placeholder="email@example.com" class="h-10" />
-                    <InputError :message="form.errors.email" />
-                </div>
-
-                <div class="grid gap-2">
-                    <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm"
-                            :tabindex="5">
-                            Forgot password?
-                        </TextLink>
+        <div class="flex flex-col justify-center items-center text-center min-h-screen">
+            <img src="/images/app_logo.png" alt="Logo" class="w-90 mx-auto" />
+            <form @submit.prevent="submit"
+                class="lg:mx-auto w-full bg-gray-100 sm:max-w-4xl mt-10 px-3 lg:px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">
+                <div class="grid gap-6">
+                    <div class="grid gap-2">
+                        <Label for="email">Email</Label>
+                        <Input id="email" type="email" required autofocus :tabindex="1" autocomplete="email"
+                            v-model="form.email" placeholder="email@example.com" class="h-10 bg-white" />
+                        <InputError :message="form.errors.email" />
                     </div>
-                    <Input id="password" type="password" required :tabindex="2" autocomplete="current-password"
-                        v-model="form.password" placeholder="Password" class="h-10" />
-                    <InputError :message="form.errors.password" />
+
+                    <div class="grid gap-2">
+                        <div class="flex items-center justify-between">
+                            <Label for="password">Password</Label>
+                            <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm"
+                                :tabindex="5">
+                                Forgot password?
+                            </TextLink>
+                        </div>
+                        <Input id="password" type="password" required :tabindex="2" autocomplete="current-password"
+                            v-model="form.password" placeholder="Password" class="h-10 bg-white" />
+                        <InputError :message="form.errors.password" />
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <Label for="remember" class="flex items-center space-x-3">
+                            <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
+                            <span>Remember me</span>
+                        </Label>
+                    </div>
+
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
-                        <span>Remember me</span>
-                    </Label>
+                <div class="flex justify-end gap-5">
+                    <div class="text-center text-sm text-muted-foreground mt-5">
+
+                        <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                    </div>
+
+                    <Button type="submit" class="mt-4 text-white" :tabindex="4" :disabled="form.processing">
+                        <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
+                        Log in
+                    </Button>
                 </div>
-
-            </div>
-
-            <div class="flex justify-end gap-5">
-                <div class="text-center text-sm text-muted-foreground mt-5">
-                   
-                    <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
-                </div>
-
-                <Button type="submit" class="mt-4" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Log in
-                </Button>
-            </div>
-        </form>
-    </AuthBase>
+            </form>
+        </div>
+    <!-- </AuthBase> -->
 </template>
