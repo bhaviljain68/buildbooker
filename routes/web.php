@@ -38,7 +38,8 @@ Route::post('units/{project}/{unit}/update', [UnitController::class, 'update'])-
 
 // customer 
 Route::get('customers/create/{project}', [CustomerController::class, 'create'])->name('customers.create');
-Route::get('customers/{project}', [CustomerController::class, 'index'])->name('customers.index');
+// Route::get('customers/{project}', [CustomerController::class, 'index'])->name('customers.index');
+Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
 Route::post('customers/{project}', [CustomerController::class, 'store'])->name('customers.store');
 Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 

@@ -3,20 +3,18 @@ import { ref } from "vue";
 import { Icon } from "@iconify/vue";
 import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
-// import Logo from "./Logo.vue";
-// const page = usePage();
-// const organizationId = computed(() => page.props.auth.user);
-const props = defineProps(['user'])
-
-const showDropdownSelectAction = ref(false);
+const page = usePage();
+const user = computed(() => page.props.auth.user);
+const organisation = computed(() => page.props.organisation);
+const projectId = computed(() => page.props.project?.id)
+console.log("user", user);
 
 const visible = ref(false);
 </script>
-
-
 <template>
-    <!-- <pre> {{props.user.name }}</pre> -->
+    <!-- <pre> {{organisation.logo }}</pre> -->
     <!-- Toggle Button -->
+
     <div class="flex justify-between mt-3 lg:mx-10 mx-5">
         <div>
             <button v-if="!visible" @click="visible = true"
@@ -33,11 +31,13 @@ const visible = ref(false);
             role="region">
             <!-- Header -->
             <div class="flex items-center justify-between px-7 py-5 border-b">
-                <div class="flex items-center gap-2">
-                     <img src="/images/app_logo.png" alt="Logo" class="w-40 mx-auto" />
 
-                    <!-- <span class="font-inter font-medium text-[30px] leading-[16px] tracking-[0]">Logo</span> -->
+                <div class="flex items-center gap-2">
+                    <img v-if="$page.props.organisation?.logo" :src="$page.props.organisation.logo"
+                        alt="Organisation Logo" class="w-40 mx-auto" />
+                    <img v-else src="/images/app_logo.png" alt="Default Logo" class="w-40 mx-auto" />
                 </div>
+
                 <button @click="visible = false" class="p-1 rounded-md hover:bg-gray-200">
                     <Icon icon="material-symbols:close" width="24" height="24" />
                 </button>
@@ -55,20 +55,28 @@ const visible = ref(false);
                         </a>
                     </li>
                     <li>
-                        <a href="/dashboard" @click="visible = false"
+                        <Link :href="route('organisation.edit', $page.props.auth.user.organisation_id)"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
-                            <Icon icon="ix:project" width="22" height="22" />
-                            <span
-                                class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Projects</span>
-                        </a>
+                        <Icon icon="charm:organisation" width="20" height="20" />
+                        <span
+                            class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Organisation</span>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/dashboard" @click="visible = false"
+                        <Link :href="route('projects.index')" @click="visible = false"
+                            class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
+                        <Icon icon="ix:project" width="22" height="22" />
+                        <span
+                            class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Projects</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link  :href="route('customers.index')"  @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
                             <Icon icon="raphael:customer" width="24" height="24" />
                             <span
                                 class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Customers</span>
-                        </a>
+                    </Link>
                     </li>
                     <li>
                         <a href="/dashboard" @click="visible = false"
@@ -78,22 +86,19 @@ const visible = ref(false);
                                 class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Transaction</span>
                         </a>
                     </li>
-
                 </ul>
                 <!-- Bottom "Preference" Link -->
                 <div class="p-4 absolute inset-x-0 bottom-0">
-                    <!-- </li> -->
 
-                    <a :href="route('logout')" class="flex items-center p-2 rounded hover:bg-gray-100 text-[#FF0000]">
-                        <Icon icon="lucide:log-out" width="18" height="18" />
+                    <a :href="route('profile.edit')"
+                        class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
+                        <Icon icon="ix:user-profile-filled" width="24" height="24" />
                         <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]">profile</span>
                     </a>
                     <a :href="route('logout')" class="flex items-center p-2 rounded hover:bg-gray-100 text-[#FF0000]">
                         <Icon icon="lucide:log-out" width="18" height="18" />
                         <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]">Log Out</span>
                     </a>
-
-
                 </div>
             </nav>
         </aside>
