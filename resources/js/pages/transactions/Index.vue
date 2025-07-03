@@ -1,23 +1,38 @@
 <script setup>
 import { computed } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 import ButtonLink from '@/components/ButtonLink.vue';
 import BackButton from '@/components/BackButton.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Icon } from '@iconify/vue';
+const toast = new ToastMagic();
 // import Receipt_bs from '@/components/receipt_bs.vue';
 import ReceiptModel from '@/components/ReceiptModel.vue';
 
-const props = defineProps(['transactions','project','organisation']);
+const props = defineProps(['transactions', 'project', 'organisation']);
 console.log('Transactions:', props.transactions);
 
 function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
-    maximumFractionDigits: 0 // Removes `.00`
-  }).format(amount);
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0 // Removes `.00`
+    }).format(amount);
 }
+function deleteTransaction(id, projectId) {
+    if (confirm('Are you sure you want to delete this transaction?')) {
+        router.visit(route('delete-transaction', id), {
+            onSuccess: () => {
+                toast.success("Transaction deleted successfully!");
+                router.visit(route('transactions.index', projectId));
+            },
+            onError: () => {
+                toast.error("Failed to delete transaction.");
+            }
+        })
+    }
+}
+
 </script>
 
 <template>
@@ -33,18 +48,18 @@ function formatCurrency(amount) {
                 </div>
 
                 <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg px-8 border-t-4 border-primary mt-10">
-                  
+
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center border-gray-200 mb-8">
                             <img :src="project?.logo" :alt="`${project?.name}_logo`" class="max-h-24" />
-                            <h6
-                                class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
+                            <h6 class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
                                 Project Transactions
                             </h6>
                         </div>
 
                         <div class="grid grid-cols-8 rounded-t-lg border-b rounded-b-lg">
-                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tl-lg">Unit
+                            <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tl-lg">
+                                Unit
                                 No.
                             </p>
                             <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center">Date</p>
@@ -70,7 +85,7 @@ function formatCurrency(amount) {
                                         {{ transaction.payment_type.replace('_', ' ').toUpperCase() }}
                                     </p>
                                     <div class="border-b py-2 border-r border-gray-300 text-center">
-                                         {{ formatCurrency(transaction.transaction_amount) }}
+                                        {{ formatCurrency(transaction.transaction_amount) }}
                                     </div>
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
                                         {{ transaction.gst }}
@@ -78,7 +93,7 @@ function formatCurrency(amount) {
 
                                     <!-- {{  }} -->
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
-                                        {{ transaction.receipt_number  }}
+                                        {{ transaction.receipt_number }}
                                     </p>
                                     <div class="border-b py-2 border-r border-gray-300 text-center">
                                         <!-- <pre>{{ transaction.customer }}</pre> -->
@@ -91,10 +106,16 @@ function formatCurrency(amount) {
                                             icon="mage:edit" status="info">
 
                                         </ButtonLink>
-                                        <a :href="route('unit-unbook', unit.id)"
+                                        <!-- <a :href="route('unit-unbook', unit.id)"
                                             @click.prevent="() => { if (confirm('Are you sure you want to delete this transaction?')) window.location.href = route('unit-unbook', unit.id) }">
                                             <ButtonLink icon="mingcute:delete-fill" status="error" />
-                                        </a>
+                                        </a> -->
+                                        <!-- <a href="#" @click.prevent="confirmUnbook(unit.id)">
+                                            <ButtonLink icon="mingcute:delete-fill" status="error" />
+                                        </a> -->
+
+                                        <ButtonLink icon="mingcute:delete-fill" status="error"
+                                            @click="deleteTransaction(transaction.id, project.id)" />
                                     </div>
                                 </template>
                             </template>

@@ -77,6 +77,19 @@ class UnitController extends Controller
         }
     }
 
+    public function editBooking(Project $project, Unit $unit)
+    {
+        $unit->load('customer');
+        $booking = $unit->customer?->transactions()->latest()->first(); // Or however you fetch it
+
+        return Inertia::render('EditBooking', [
+            'project' => $project,
+            'unit' => $unit,
+            'booking' => $booking,
+            'customers' => Customer::all(),
+        ]);
+    }
+
 
     public function index(Organisation $organisation, Project $project)
     {
@@ -187,14 +200,20 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Unit $unit, Request $request)
+    public function show(Request $request, Unit $unit)
     {
         $unit->load("project");
-        $unit->transactions->load("customer.units");
+        $unit->load([
+            'project',
+            'transactions.customer.units'
+        ]);
+        // $unit->transactions->load("customer.units");
         if ($request->expectsJson()) {
             return response()->json([$unit]);
         }
-        return Inertia('units/Show', ["unit" => $unit]);
+        return Inertia('units/Show', [
+            'unit' => $unit
+        ]);
     }
 
     /**

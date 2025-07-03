@@ -45,6 +45,13 @@ function cancelBooking() {
     }
 }
 
+function editUnit(unitId) {
+    // If `project` is already a prop
+    router.visit(route('units.booking.edit', {
+        project: unit.project_id, // or props.project.id
+        unit: unitId
+    }))
+}
 
 </script>
 
@@ -90,8 +97,17 @@ function cancelBooking() {
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{
                                     unit.type }}</p>
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{
-                                    unit.is_sold ? 'Sold' : 'Not Sold' }}</p>
+                                    unit.is_sold ? 'Sold' : 'Not Sold' }}
+                                    <!-- Show Edit button only if sold -->
+                                <div v-if="unit.is_sold" class="flex justify-center mt-2">
+                                    <Link
+                                        :href="route('units.booking.edit', { project: unit.project_id, unit: unit.id })"
+                                        class="bg-green-700 ml-2 -mt-2 text-white px-1 py-1 rounded hover:bg-teal-600">
+                                    <Icon icon="bxs:edit" width="15" height="15" />
+                                    </Link>
 
+                                </div>
+                                </p>
                                 <div
                                     class="border-b py-2 border-r border-gray-300 flex justify-center items-center w-full">
                                     <!-- Book Button if not sold -->
@@ -112,6 +128,7 @@ function cancelBooking() {
                                     <!-- Cancel Button if sold -->
                                     <button v-else @click="cancelBooking"
                                         class="rounded-lg flex gap-x-1 items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-700 hover:bg-red-700 text-white">
+
 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">

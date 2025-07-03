@@ -8,6 +8,7 @@ use App\Models\Organisation;
 use App\Models\Project;
 use App\Models\Transaction;
 use App\Models\Unit;
+use Devrabiul\ToastMagic\Facades\ToastMagic;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -47,7 +48,6 @@ class TransactionController extends Controller
         abort(404);
     }
 
-    // 💾 Store transaction (get customer_id from unit)
     public function store(TransactionStoreRequest $request, Unit $unit = null)
     {
         try {
@@ -63,7 +63,7 @@ class TransactionController extends Controller
                 ? '#G' . str_pad($increment, 5, '0', STR_PAD_LEFT)
                 : '#' . str_pad($increment, 5, '0', STR_PAD_LEFT);
 
-                
+
             Transaction::create([
                 'customer_id'        => $unit->customer_id,
                 'unit_id'            => $unit->id,
@@ -82,6 +82,7 @@ class TransactionController extends Controller
 
             DB::commit();
 
+            ToastMagic::success('Transaction added successfully.');
             return redirect()->route('transactions.index', [
                 'organisation' => Auth::user()->organisation_id,
                 'project'      => $unit->project_id,
@@ -92,7 +93,6 @@ class TransactionController extends Controller
         }
     }
 
-    // ✏️ Edit form
     public function edit(Transaction $transaction, Unit $unit = null, Project $project = null)
     {
         $findProjects = Organisation::find(Auth::user()->organisation_id)->projects->pluck('id')->toArray();
@@ -124,7 +124,7 @@ class TransactionController extends Controller
         abort(404);
     }
 
-    // 🔁 Update transaction
+
     public function update(TransactionStoreRequest $request, Transaction $transaction)
     {
         try {
@@ -162,7 +162,29 @@ class TransactionController extends Controller
         }
     }
 
-    // ❌ Unbook transaction (delete + reset unit)
+    public function deleteTransaction(Transaction $transaction)
+    {
+        $totalTransactions = $transaction->unit->transactions->count();
+        if ($totalTransactions === 1) {
+            // $this->unBook($transaction->unit->id);
+            $this->unBook($transaction->unit);
+            return redirect()->back()->with('success', 'Transaction deleted successfully!');
+        } else {
+            try {
+                DB::beginTransaction();
+
+                $transaction->delete(); // Soft delete
+
+                DB::commit();
+                ToastMagic::success('Transaction deleted successfully.');
+                return redirect()->back()->with('success', 'Transaction deleted successfully!');
+            } catch (Exception $e) {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'An error occurred while deleting the current transaction details.');
+            }
+        }
+    }
+
     public function unBook(Unit $unit)
     {
         try {
@@ -177,6 +199,7 @@ class TransactionController extends Controller
             $unit->save();
 
             DB::commit();
+            ToastMagic::success('Unit unbooked successfully.');
             return redirect()->back()->with('success', 'Transaction deleted successfully.');
         } catch (Exception $e) {
             DB::rollBack();

@@ -4,7 +4,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import BackButton from '@/components/BackButton.vue'
 import { useForm } from '@inertiajs/vue3'
 import FormInput from '@/components/FormInput.vue'
-
+const toast = new ToastMagic()
 const props = defineProps(['units', 'project'])
 
 console.log('Props:', props.units);
@@ -35,10 +35,10 @@ function submitTransaction() {
 
     form.post(route('transactions.store', { unit: state.selectedUnit.id }), {
         onSuccess: () => {
-            console.log('Transaction submitted successfully')
+            toast.success("Transaction submitted successfully!");
         },
-        onError: (errors) => {
-            console.error('Validation errors:', errors)
+        onError: () => {
+            toast.error("Failed to Transaction deleted.");
         }
     })
 }

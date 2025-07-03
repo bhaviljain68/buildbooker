@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UnitController;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +26,9 @@ Route::resource('organisation', OrganisationController::class)->only(['show', 'e
 
 Route::get('projects/{project}/units/{unit}/booking', [UnitController::class, 'booking'])->name('units.booking');
 Route::post('projects/{project}/units/x{unit}/booking', [UnitController::class, 'saveBooking'])->name('units.booking.store');
+// GET route to render the edit form
+Route::get('/projects/{project}/units/{unit}/edit-booking', [UnitController::class, 'editBooking'])->name('units.booking.edit');
+
 
 Route::resource('projects', ProjectController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
 Route::resource('units', UnitController::class)->only(['show']);
@@ -50,6 +54,7 @@ Route::get('unit-transactions/{unit}', [TransactionController::class, 'create'])
 // Route::delete('unit-transactions/{unit}', [TransactionController::class, 'unBook'])->name('unit-transactions.unBook');
 Route::get('unit-unbook/{unit}', [TransactionController::class, 'unBook'])->name('unit-unbook');
 Route::get('transactions/{organisation}/{project}', [TransactionController::class, 'index'])->name('transactions.index');
+Route::get('delete-transaction/{transaction}', [TransactionController::class, 'deleteTransaction'])->name('delete-transaction');
 Route::get('transactions/{project}', [TransactionController::class, 'create'])->name('transactions.create');
 Route::get('transactions/{transaction}/{unit}/{project}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
 Route::post('transactions/{unit}', [TransactionController::class, 'store'])->name('transactions.store');
