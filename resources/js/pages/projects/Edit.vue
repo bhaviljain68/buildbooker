@@ -12,7 +12,7 @@ console.log('Project from props:', project)
 
 const fileInput = ref(null)
 const fileName = ref('')
-const previewUrl = ref(project.logo_file || '')  // use `logo_file` from backend
+const previewUrl = ref(project.logo_file || '') 
 
 const form = useForm({
   name: project.name || '',
@@ -81,27 +81,18 @@ function submitForm() {
           <BackButton :prevRoute="route('projects.index')" />
         </div>
 
-        <!-- Flash Messages -->
-        <!-- <div v-if="flash.success" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
-        <p class="font-bold">Success</p>
-        <p>{{ flash.success }}</p>
-      </div>
-      <div v-if="flash.error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
-        <p class="font-bold">Error</p>
-        <p>{{ flash.error }}</p>
-      </div> -->
 
-        <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
+        <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg border-t-4 border-primary mt-10">
           <div class="text-gray-900">
             <!-- Title -->
             <div class="flex items-center justify-between pt-8 py-4 border-gray-200 px-4">
-              <h6 class="m-0 font-bold text-cyan-700 text-center lg:text-3xl w-full underline underline-offset-8">
+              <h6 class="m-0 font-bold text-primary text-center lg:text-3xl w-full">
                 {{ form.name }}
               </h6>
             </div>
 
             <!-- Form -->
-            <form @submit.prevent="submitForm" enctype="multipart/form-data" class="p-7 bg-white rounded">
+            <form @submit.prevent="submitForm" enctype="multipart/form-data" class="p-7 bg-gary-100 rounded">
               <div class="grid grid-cols-1 gap-y-4">
                 <!-- Project Name -->
                 <FormInput v-model="form.name" label="Project Name" required :error="errors.name"
@@ -114,14 +105,14 @@ function submitForm() {
                     <span class="ml-1 text-gray-400 text-xs">(Displayed on your receipts)</span>
                   </label>
                   <input type="text" id="logo_selector"
-                    class="mt-1 block w-full px-3 py-3 rounded-md shadow-sm cursor-pointer border"
+                    class="mt-1 block w-full px-3 py-3 rounded-md bg-white shadow-sm cursor-pointer border"
                     :class="errors.logo_file ? 'border-red-500' : 'border-gray-300'"
                     :value="fileName || project.logo_file" readonly @click="triggerFileInput" required />
                   <input ref="fileInput" type="file" accept="image/jpeg, image/jpg, image/png, image/webp"
                     class="hidden" @change="handleFileSelect" />
                   <div class="mt-2 text-sm text-red-600" v-if="errors.logo_file">{{ errors.logo_file }}</div>
                   <div
-                    class="mt-4 w-full h-[150px] bg-gray-100 flex items-center justify-center rounded-md border border-gray-300">
+                    class="mt-4 w-full h-[150px] bg-white flex items-center justify-center rounded-md border border-gray-300">
                     <img v-if="previewUrl" :src="previewUrl" class="h-full object-cover" />
                     <span v-else class="text-gray-500">Image preview will appear here...</span>
                   </div>
@@ -148,13 +139,13 @@ function submitForm() {
               </div>
 
               <!-- Submit / Reset -->
-              <div class="flex flex-wrap justify-between mt-6 gap-4">
+              <div class="flex flex-row justify-between mt-6 gap-4">
                 <button type="submit"
-                  class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg px-10 py-2.5">
+                  class="text-white bg-primary hover:bg-teal-800 w-full font-medium rounded-lg px-10 py-2.5">
                   Submit
                 </button>
                 <button type="button" @click="resetForm"
-                  class="text-white bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg px-10 py-2.5">
+                  class="text-white bg-teal-600 hover:bg-teal-500 w-full font-medium rounded-lg px-10 py-2.5">
                   Reset
                 </button>
               </div>

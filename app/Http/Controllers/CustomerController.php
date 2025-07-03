@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Organisation;
 use App\Models\Project;
 use App\Models\Unit;
+use Devrabiul\ToastMagic\Facades\ToastMagic;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -97,10 +98,10 @@ class CustomerController extends Controller
                 'total_amount' => null,
             ]);
         }
-
-        $projectId = $customer->project_id;
         $customer->delete();
+        $projectId = $customer->project_id;
 
+        ToastMagic::success('Customer deleted successfully.');
         return redirect()->route('customers.index', $projectId)->with('success', 'Customer deleted.');
     }
 

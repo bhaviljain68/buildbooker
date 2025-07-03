@@ -5,6 +5,7 @@ import BackButton from '@/components/BackButton.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Icon } from '@iconify/vue';
 import ButtonLink from '@/components/ButtonLink.vue'
+const toast = new ToastMagic();
 
 const { props } = usePage()
 const project = props.project
@@ -16,20 +17,17 @@ const getDueAmount = (customer) => {
     }, 0)
 }
 
-const confirmDelete = (customer) => {
-    // const unitLength = customer.units.length
-
-    let message = ''
-    if (unitLength === 0) {
-        message = 'Are you sure you want to proceed?'
-    } else if (unitLength === 1) {
-        message = 'This customer has a transaction or unit. Are you sure you want to proceed? This will unbook the unit and transaction!'
-    } else {
-        message = 'This customer cannot be deleted because they have multiple transactions or units.'
-    }
-
-    if (confirm(message) && unitLength < 2) {
-        router.delete(route('customers.destroy', customer.id))
+function confirmDelete(customer) {
+    {
+        router.delete(route('customers.destroy', customer.id), {
+            onSuccess: () => {
+                toast.success("Delete Customer successfully!");
+                router.visit(route('customers.index', project.id));
+            },
+            onError: () => {
+                 toast.error("Failed to delete customer. Please try again.");
+            },
+        })
     }
 }
 
@@ -43,14 +41,15 @@ const confirmDelete = (customer) => {
                 <div class="flex justify-between w-full mb-4">
                     <BackButton :prevRoute="route('projects.index')" />
                     <!-- <p>{{ route('customers.create', project.id) }}</p> -->
-                    <ButtonLink icon="ic:twotone-add" :href="route('customers.create', project.id)">Add Customer</ButtonLink>
+                    <ButtonLink icon="ic:twotone-add" :href="route('customers.create', project.id)">Add Customer
+                    </ButtonLink>
 
                 </div>
-                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-4 text-gray-800 py-8 border-t-4 border-primary">
+                <div
+                    class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-4 text-gray-800 py-8 border-t-4 border-primary">
                     <!-- Title -->
                     <div class="flex items-center justify-between py-4 mb-8 border-gray-200">
-                        <h6
-                            class="m-0 text-primary font-bold text-center lg:text-3xl w-full">
+                        <h6 class="m-0 text-primary font-bold text-center lg:text-3xl w-full">
                             Customers for <b>{{ project.name }}</b>
                         </h6>
                     </div>
@@ -90,9 +89,13 @@ const confirmDelete = (customer) => {
                                 <div class="border-r border-b border-gray-300 py-1 flex justify-center items-center">
                                     <div class="flex flex-row gap-x-2">
                                         <Link :href="route('customers.edit', customer.id)"
-                                            class="btn-sm bg-green-800 text-white rounded px-2 py-1"><Icon icon="lucide:edit" width="20" height="20" /></Link>
+                                            class="btn-sm bg-green-800 text-white rounded px-2 py-1">
+                                        <Icon icon="lucide:edit" width="20" height="20" />
+                                        </Link>
                                         <button @click="confirmDelete(customer)"
-                                            class="btn-sm bg-red-700 text-white rounded px-2 py-1"><Icon icon="mingcute:delete-fill" width="20" height="20" /></button>
+                                            class="btn-sm bg-red-700 text-white rounded px-2 py-1">
+                                            <Icon icon="mingcute:delete-fill" width="20" height="20" />
+                                        </button>
                                     </div>
                                 </div>
                             </template>

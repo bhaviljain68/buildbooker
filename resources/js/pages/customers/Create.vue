@@ -55,7 +55,7 @@ function submit() {
               :required="true" />
           </div>
 
-          <button type="submit" class="bg-primary mt-8 w-full text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <button type="submit" class="bg-primary mt-8 w-full text-white px-4 py-2 rounded-lg hover:bg-teal-700">
             Save Customer
           </button>
         </form>

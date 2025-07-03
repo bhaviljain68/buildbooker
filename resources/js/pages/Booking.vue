@@ -32,7 +32,7 @@ function setCustomerDetails() {
 function recalculateTotal() {
   const base = parseFloat(form.customer.base) || 0
   const gst = parseFloat(form.customer.gst) || 0
-  form.customer.total = (base + gst).toFixed(2)
+  form.customer.total = (base + gst).toFixed()
 }
 
 function resetForm() {
@@ -53,7 +53,8 @@ function submitForm() {
 <template>
   <AppLayout>
     <form @submit.prevent="submitForm">
-      <div class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
+      <div
+        class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
         <h1 class="font-bold text-primary text-center lg:text-2xl pt-10">
           Customer & Booking Details
         </h1>
@@ -62,7 +63,7 @@ function submitForm() {
         <div>
           <label class="text-sm font-medium text-gray-700">Select Existing Customer</label>
           <select v-model="form.selectedCustomerId" @change="setCustomerDetails"
-                  class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
+            class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
             <option disabled value="">Select</option>
             <option v-for="customer in props.customers" :key="customer.id" :value="customer.id">
               {{ customer.name }} ({{ customer.email }})
@@ -72,42 +73,18 @@ function submitForm() {
 
         <!-- Customer Info -->
         <div class="flex flex-col gap-4 mt-4">
-          <FormInput
-            label="Customer Name"
-            id="customer_name"
-            v-model="form.customer.name"
-            :error="form.errors.name"
-            required
-          />
+          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name" :error="form.errors.name"
+            required="true" />
 
           <div class="flex gap-2">
-            <FormInput
-              label="Mobile No."
-              id="customer_phone"
-              type="number"
-              v-model="form.customer.phone"
-              :error="form.errors.phone"
-              required
-              class="w-full"
-            />
-            <FormInput
-              label="Email"
-              id="customer_email"
-              type="email"
-              v-model="form.customer.email"
-              :error="form.errors.email"
-              required
-              class="w-full"
-            />
+            <FormInput label="Mobile No." id="customer_phone" type="number" v-model="form.customer.phone"
+              :error="form.errors.phone" required="true" class="w-full" />
+            <FormInput label="Email" id="customer_email" type="email" v-model="form.customer.email"
+              :error="form.errors.email" required="true" class="w-full" />
           </div>
 
-          <FormTextarea
-            label="Address"
-            id="customer_address"
-            v-model="form.customer.address"
-            :error="form.errors.address"
-            required
-          />
+          <FormTextarea label="Address" id="customer_address" v-model="form.customer.address"
+            :error="form.errors.address" required="true" />
         </div>
 
         <!-- Booking Section -->
@@ -118,49 +95,39 @@ function submitForm() {
 
           <div class="grid grid-cols-3 gap-x-2">
             <!-- Base Amount -->
-            <FormInput
-              label="Base Amount"
-              id="base_amount"
-              type="text"
-              v-model="form.customer.base"
-              @input="recalculateTotal"
-              :error="form.errors.base"
-              required
-              class="text-left"
-            />
+            <FormInput label="Base Amount" id="base_amount" type="number" v-model="form.customer.base"
+              @input="recalculateTotal" :error="form.errors.base" required="true" class="text-left">
+              <template #prefix>
+                <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
+              </template>
+            </FormInput>
 
-            <!-- GST Amount -->
-            <FormInput
-              label="GST Amount"
-              id="gst_amount"
-              type="text"
-              v-model="form.customer.gst"
-              @input="recalculateTotal"
-              :error="form.errors.gst"
-              required
-              class="text-left"
-            />
+            
+            <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
+              @input="recalculateTotal" :error="form.errors.gst" required="true" class="pl-7">
+              <template #prefix>
+                <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
+              </template>
+            </FormInput>
+
+
 
             <!-- Total Amount -->
-            <FormInput
-              label="Total Amount"
-              id="total_amount"
-              type="text"
-              :modelValue="form.customer.total"
-              disabled
-              class="bg-gray-100 text-right"
-            />
+            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total">
+              <template #prefix>
+                <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
+              </template>
+            </FormInput>
           </div>
         </div>
 
         <!-- Buttons -->
         <div class="flex justify-between mb-6 gap-4 mb-10">
-          <button type="submit"
-                  class="bg-primary w-full text-white px-10 py-2.5 rounded-lg hover:bg-teal-800">
+          <button type="submit" class="bg-primary w-full text-white px-10 py-2.5 rounded-lg hover:bg-teal-800">
             Submit
           </button>
           <button type="reset" @click="resetForm"
-                  class="bg-teal-500 text-white px-10 py-2.5 rounded-lg w-full hover:bg-teal-600">
+            class="bg-teal-500 text-white px-10 py-2.5 rounded-lg w-full hover:bg-teal-600">
             Reset
           </button>
         </div>

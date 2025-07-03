@@ -8,13 +8,15 @@ defineEmits(['update:modelValue']);
       <span v-if="required" class="text-red-500 text-xs align-super">*</span>
       {{ label }}
       <span v-if="hint" class="text-gray-400 text-xs">{{ hint }}</span>
-      <!-- <span v-if="required" class="text-red-500 text-lg">*</span>
-      <span v-else class="text-gray-400 text-sm">(optional)</span> -->
+
     </label>
-    <input :id="id" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
-      :required="required"
-      class="mt-1 block w-full px-3 py-3 bg-white border border-gary-400 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
-      :class="error ? 'border-red-500' : 'border-gray-300'" />
-    <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
-  </div>
+    <div class="relative">
+      <slot name="prefix" />
+      <input :id="id" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
+        :required="required"
+        class="mt-1 block w-full px-3 py-3 bg-white pl-5 border border-gary-400 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
+        :class="error ? 'border-red-500' : 'border-gray-300'" />
+    </div>
+      <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
+    </div>
 </template>

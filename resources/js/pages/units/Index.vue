@@ -112,23 +112,23 @@ function cancelBooking() {
                                     <!-- Cancel Button if sold -->
                                     <button v-else @click="cancelBooking"
                                         class="rounded-lg flex gap-x-1 items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-700 hover:bg-red-700 text-white">
-                                       
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24">
-                                                <g fill="none" stroke="currentColor" stroke-dasharray="24"
-                                                    stroke-dashoffset="24" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2">
-                                                    <path d="M5 5l14 14">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset"
-                                                            dur="0.4s" values="24;0" />
-                                                    </path>
-                                                    <path d="M19 5l-14 14">
-                                                        <animate fill="freeze" attributeName="stroke-dashoffset"
-                                                            begin="0.4s" dur="0.4s" values="24;0" />
-                                                    </path>
-                                                </g>
-                                            </svg>
-                                      
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24">
+                                            <g fill="none" stroke="currentColor" stroke-dasharray="24"
+                                                stroke-dashoffset="24" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2">
+                                                <path d="M5 5l14 14">
+                                                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s"
+                                                        values="24;0" />
+                                                </path>
+                                                <path d="M19 5l-14 14">
+                                                    <animate fill="freeze" attributeName="stroke-dashoffset"
+                                                        begin="0.4s" dur="0.4s" values="24;0" />
+                                                </path>
+                                            </g>
+                                        </svg>
+
                                         Cancel
                                     </button>
                                 </div>
@@ -153,11 +153,25 @@ function cancelBooking() {
                                     {{ unit.gst_amount === 0 ? 'N/A' :
                                         formatCurrency(unit.gst_amount) }}
                                 </p>
-                                <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
+                                <!-- <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
                                     <Link :href="route('units.show', unit.id)"
-                                        :class="['px-2 py-1 rounded text-white', unit.is_sold ? 'bg-primary rounded-lg gap-x-2 flex items-center px-3 py-1' : 'rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-teal-700 hover:bg-teal-700 text-zinc-100 opacity-80 cursor-not-allowed']">
+                                        :class="['px-2 py-1 rounded text-white', !unit.is_sold ? 'bg-primary rounded-lg gap-x-2 flex items-center px-3 py-1' : 'rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-teal-700 hover:bg-teal-700 text-zinc-100 opacity-80 cursor-not-allowed']">
                                     <Icon icon="lets-icons:view-alt-fill" width="20" height="20" /> View</Link>
+                                </div> -->
+                                <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
+                                    <Link v-if="unit.is_sold" :href="route('units.show', unit.id)"
+                                        class="bg-primary text-white hover:bg-primary-dark rounded-lg flex items-center gap-x-2 px-3 py-1 text-base transition-colors">
+                                    <Icon icon="lets-icons:view-alt-fill" width="20" height="20" />
+                                    View
+                                    </Link>
+
+                                    <div v-else
+                                        class="bg-teal-700 text-zinc-100 opacity-80 cursor-not-allowed rounded-lg flex items-center gap-x-2 px-3 py-1 text-base">
+                                        <Icon icon="lets-icons:view-alt-fill" width="20" height="20" />
+                                        View
+                                    </div>
                                 </div>
+
 
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center gap-x-2"
                                     :class="{ 'rounded-br-lg': index === units.length - 1 }">

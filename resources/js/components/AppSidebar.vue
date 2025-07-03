@@ -34,7 +34,7 @@ const visible = ref(false);
 
                 <div class="flex items-center gap-2">
                     <img v-if="$page.props.organisation?.logo" :src="$page.props.organisation.logo"
-                        alt="Organisation Logo" class="w-40 mx-auto" />
+                        alt="Organisation Logo" class="w-20 mx-auto" />
                     <img v-else src="/images/app_logo.png" alt="Default Logo" class="w-40 mx-auto" />
                 </div>
 
