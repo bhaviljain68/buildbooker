@@ -24,7 +24,7 @@ function setCustomerDetails() {
   if (selected) {
     form.customer.name = selected.name
     form.customer.email = selected.email
-    form.customer.phone = selected.phone
+    form.customer.mobile = selected.mobile
     form.customer.address = selected.address
   }
 }
@@ -64,7 +64,7 @@ function submitForm() {
           <label class="text-sm font-medium text-gray-700">Select Existing Customer</label>
           <select v-model="form.selectedCustomerId" @change="setCustomerDetails"
             class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
-            <option disabled value="">Select</option>
+            <option value="">New Customer Select</option>
             <option v-for="customer in props.customers" :key="customer.id" :value="customer.id">
               {{ customer.name }} ({{ customer.email }})
             </option>
@@ -73,18 +73,17 @@ function submitForm() {
 
         <!-- Customer Info -->
         <div class="flex flex-col gap-4 mt-4">
-          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name" :error="form.errors.name"
-            required="true" />
-
+          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name"
+            :disabled="!!form.selectedCustomerId" :error="form.errors.name" required="true" />
           <div class="flex gap-2">
-            <FormInput label="Mobile No." id="customer_phone" type="number" v-model="form.customer.phone"
-              :error="form.errors.phone" required="true" class="w-full" />
+            <FormInput label="Mobile No." id="customer_mobile" type="number" v-model="form.customer.mobile"
+              :error="form.errors.mobile" :disabled="!!form.selectedCustomerId" required="true" class="w-full" />
             <FormInput label="Email" id="customer_email" type="email" v-model="form.customer.email"
-              :error="form.errors.email" required="true" class="w-full" />
+              :error="form.errors.email" :disabled="!!form.selectedCustomerId" required="true" class="w-full" />
           </div>
 
           <FormTextarea label="Address" id="customer_address" v-model="form.customer.address"
-            :error="form.errors.address" required="true" />
+            :error="form.errors.address" :disabled="!!form.selectedCustomerId" required="true" />
         </div>
 
         <!-- Booking Section -->
@@ -102,7 +101,7 @@ function submitForm() {
               </template>
             </FormInput>
 
-            
+
             <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
               @input="recalculateTotal" :error="form.errors.gst" required="true" class="pl-7">
               <template #prefix>

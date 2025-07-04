@@ -11,9 +11,10 @@ const unitTypes = ['apartment', 'shop', 'showroom', 'plot']
 const units = ref([
     {
         unit_no: props.unit?.unit_no ?? '',
-        unit_type: props.unit?.unit_type ?? '',
+        unit_type: props.unit?.type ?? '',
     },
 ])
+console.log('units type', units);
 
 function submitForm() {
     router.post(

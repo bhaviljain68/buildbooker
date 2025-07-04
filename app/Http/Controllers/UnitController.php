@@ -36,7 +36,7 @@ class UnitController extends Controller
             $validated = $request->validate([
                 'customer.name' => 'required|string|max:255',
                 'customer.email' => 'nullable|email|max:255',
-                'customer.phone' => 'nullable|numeric',
+                'customer.mobile' => 'nullable|numeric',
                 'customer.address' => 'nullable|string|max:500',
                 'customer.base' => 'required|numeric|min:0',
                 'customer.gst' => 'required|numeric|min:0',
@@ -45,10 +45,11 @@ class UnitController extends Controller
             // dd($validated);
             // Create or find the customer by phone number
             $customer = Customer::firstOrCreate(
-                ['mobile' => $validated['customer']['phone']],
+               
                 [
                     'name' => $validated['customer']['name'],
                     'email' => $validated['customer']['email'],
+                    'mobile' => $validated['customer']['phone'],
                     'address' => $validated['customer']['address'],
                     'project_id' => $project->id, // Optional if customer belongs to project
                 ]

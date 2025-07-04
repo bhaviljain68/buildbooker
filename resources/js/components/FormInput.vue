@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['label', 'id', 'modelValue', 'error', 'required', 'type', 'hint']);
+defineProps(['label', 'id', 'modelValue', 'error', 'required', 'type', 'hint', 'disabled']);
 defineEmits(['update:modelValue']);
 </script>
 <template>
@@ -13,10 +13,10 @@ defineEmits(['update:modelValue']);
     <div class="relative">
       <slot name="prefix" />
       <input :id="id" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
-        :required="required"
+        :required="required" :disabled="disabled"
         class="mt-1 block w-full px-3 py-3 bg-white pl-5 border border-gary-400 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
-        :class="error ? 'border-red-500' : 'border-gray-300'" />
+        :class="[error ? 'border-red-500' : 'border-gray-300', disabled ? 'bg-blue-400 cursor-not-allowed' : '']" />
     </div>
-      <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
-    </div>
+    <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
+  </div>
 </template>

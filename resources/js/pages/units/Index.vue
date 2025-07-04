@@ -5,7 +5,7 @@ import { Icon } from '@iconify/vue';
 import { computed } from 'vue';
 import ButtonLink from '@/components/ButtonLink.vue';
 import BackButton from '@/components/BackButton.vue';
-defineProps(['project', 'units']);
+const props = defineProps(['project', 'units','unit']);
 const toast = new ToastMagic();
 // const formatCurrency = (value) => {
 //     return parseFloat(value).toLocaleString('en-IN', {
@@ -40,18 +40,18 @@ function handleDelete(unit) {
     });
 }
 function cancelBooking() {
-    if (confirm('All transactions will be removed after unbook. Are you sure you want to unbook?')) {
-        window.location.href = route('unit-unbook', { unit: unit.id })
-    }
+  if (confirm('Are you sure you want to cancel this booking?')) {
+    router.visit(route('unit-unbook', props.unit.id), {
+      onSuccess: () => {
+        alert('Booking cancelled successfully!')
+      },
+      onError: () => {
+        alert('Failed to cancel booking.')
+      }
+    })
+  }
 }
 
-function editUnit(unitId) {
-    // If `project` is already a prop
-    router.visit(route('units.booking.edit', {
-        project: unit.project_id, // or props.project.id
-        unit: unitId
-    }))
-}
 
 </script>
 
@@ -128,8 +128,6 @@ function editUnit(unitId) {
                                     <!-- Cancel Button if sold -->
                                     <button v-else @click="cancelBooking"
                                         class="rounded-lg flex gap-x-1 items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-700 hover:bg-red-700 text-white">
-
-
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">
                                             <g fill="none" stroke="currentColor" stroke-dasharray="24"

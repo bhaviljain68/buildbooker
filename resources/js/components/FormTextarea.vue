@@ -1,5 +1,5 @@
 <script setup>
-defineProps(['label', 'id', 'modelValue', 'error', 'required', 'hint']);
+defineProps(['label', 'id', 'modelValue', 'error', 'required', 'hint','disabled']);
 defineEmits(['update:modelValue']);
 </script>
 
@@ -18,7 +18,7 @@ defineEmits(['update:modelValue']);
       :required="required"
       rows="4"
       class="mt-1 block w-full px-3 py-3 bg-white border border-gary-400 rounded-md shadow-sm focus:ring-cyan-700 focus:border-cyan-700"
-      :class="error ? 'border-red-500' : 'border-gray-300'"
+      :class="[error ? 'border-red-500' : 'border-gray-300', disabled ? 'bg-blue-400 cursor-not-allowed' : '']"
     ></textarea>
 
     <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
