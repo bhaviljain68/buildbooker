@@ -18,6 +18,21 @@ class CustomerController extends Controller
         return Inertia::render('customers/Index', compact('project'));
     }
 
+    public function getOrgCustomers(Organisation $organisation)
+    {
+        $organisation->load('projects.customers.units'); // Eager load nested
+
+        $project = $organisation->projects[0] ?? null;
+
+        // If there's at least one project, grab its customers
+        $customers = $project ? $project->customers : collect();
+
+        return Inertia::render('customers/Index', [
+            'project' => $project,
+            'customers' => $customers
+        ]);
+    }
+
     public function create(Project $project)
     {
         // dd($project);
@@ -103,13 +118,5 @@ class CustomerController extends Controller
 
         ToastMagic::success('Customer deleted successfully.');
         return redirect()->route('customers.index', $projectId)->with('success', 'Customer deleted.');
-    }
-
-
-    public function getOrgCustomers(Organisation $organisation)
-    {
-        $organisation->load('projects.customers');
-        $project = $organisation->projects[0] ?? false;
-        return Inertia::render('customers/Index', compact('project'));
     }
 }

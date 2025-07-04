@@ -22,6 +22,7 @@ class UnitController extends Controller
     // Show booking form
     public function booking(Project $project, Unit $unit)
     {
+        // dd($customers = Customer::all());
         return Inertia::render('Booking', [
             'project' => $project,
             'unit' => $unit,
@@ -45,11 +46,10 @@ class UnitController extends Controller
             // dd($validated);
             // Create or find the customer by phone number
             $customer = Customer::firstOrCreate(
-               
+                ['mobile' => $validated['customer']['mobile']],
                 [
                     'name' => $validated['customer']['name'],
                     'email' => $validated['customer']['email'],
-                    'mobile' => $validated['customer']['phone'],
                     'address' => $validated['customer']['address'],
                     'project_id' => $project->id, // Optional if customer belongs to project
                 ]

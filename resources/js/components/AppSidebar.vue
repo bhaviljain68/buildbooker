@@ -71,12 +71,13 @@ const visible = ref(false);
                         </Link>
                     </li>
                     <li>
-                        <Link   @click="visible = false"
+                        <Link :href="route('org-customers', $page.props.auth.user.organisation_id)"
+                            @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
-                            <Icon icon="raphael:customer" width="24" height="24" />
-                            <span
-                                class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Customers</span>
-                    </Link>
+                        <Icon icon="raphael:customer" width="24" height="24" />
+                        <span
+                            class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Customers</span>
+                        </Link>
                     </li>
                     <li>
                         <a href="/dashboard" @click="visible = false"

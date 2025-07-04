@@ -11,11 +11,15 @@ const { props } = usePage()
 const project = props.project
 
 const getDueAmount = (customer) => {
+    if (!customer.units || !Array.isArray(customer.units)) return 0
+
     return customer.units.reduce((sum, unit) => {
-        const used = unit.transactions.reduce((tSum, t) => tSum + t.transaction_amount, 0)
-        return sum + (unit.total_amount - used)
+        const transactions = Array.isArray(unit.transactions) ? unit.transactions : []
+        const used = transactions.reduce((tSum, t) => tSum + (t.transaction_amount || 0), 0)
+        return sum + ((unit.total_amount || 0) - used)
     }, 0)
 }
+
 
 function confirmDelete(customer) {
     {
@@ -25,7 +29,7 @@ function confirmDelete(customer) {
                 router.visit(route('customers.index', project.id));
             },
             onError: () => {
-                 toast.error("Failed to delete customer. Please try again.");
+                toast.error("Failed to delete customer. Please try again.");
             },
         })
     }
@@ -73,11 +77,16 @@ function confirmDelete(customer) {
                                     class="col-span-2 border-x border-b border-gray-300 py-2 flex flex-col justify-center items-center">
                                     {{ customer.name }}
                                 </div>
-                                <div
-                                    class="border-x border-b border-gray-300 py-2 flex flex-col justify-center items-center">
+                                <div class="border-x border-b border-gray-300 py-2 flex flex-col justify-center items-center"
+                                    v-if="customer.units && Array.isArray(customer.units)">
+
                                     <span v-if="customer.units.length === 1">{{ customer.units[0].unit_no }}</span>
                                     <span v-else>{{customer.units.map(u => u.unit_no).join(', ')}}</span>
                                 </div>
+                                <!-- <div v-else
+                                    class="border-x border-b border-gray-300 py-2 flex flex-col justify-center items-center text-gray-400 italic">
+                                    No units available
+                                </div> -->
                                 <div
                                     class="border-x border-b border-gray-300 py-2 flex flex-col justify-center items-center">
                                     {{ customer.mobile }}
