@@ -2,7 +2,7 @@
 import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { useForm } from '@inertiajs/vue3'
+import { router, useForm } from '@inertiajs/vue3'
 
 const props = defineProps(['customer', 'project', 'unit'])
 console.log('customers data', props.customer);
@@ -18,7 +18,7 @@ const form = useForm({
         total: props.unit?.total_amount || ''
     }
 })
-console.log('edit customer', form );
+console.log('edit customer', form);
 
 console.log('Booking Details:', form.customer)
 function recalculateTotal() {
@@ -26,20 +26,23 @@ function recalculateTotal() {
     const gst = parseFloat(form.customer.gst) || 0
     form.customer.total = (base + gst).toFixed()
 }
-
-function resetForm() {
-    form.reset()
-    form.customer.total = ''
-}
-
 function submitForm() {
-    form.put(route('units.booking.edit', {
+    console.log('Submitting:', form.data());
+
+    form.post(route('units.booking.update', {
         project: props.project.id,
         unit: props.unit.id,
     }), {
-        onSuccess: () => alert('Booking updated successfully!')
-    })
+        onSuccess: () => {
+
+            console.log('Redirecting to Booking.vue...');
+        },
+        onError: () => {
+            alert('Failed to update booking.');
+        }
+    });
 }
+
 </script>
 
 <template>
@@ -99,10 +102,6 @@ function submitForm() {
                     <button type="submit"
                         class="bg-primary w-full text-white px-10 py-2.5 rounded-lg hover:bg-teal-800">
                         Update
-                    </button>
-                    <button type="reset" @click="resetForm"
-                        class="bg-teal-500 text-white px-10 py-2.5 rounded-lg w-full hover:bg-teal-600">
-                        Reset
                     </button>
                 </div>
             </div>

@@ -29,7 +29,8 @@ Route::get('projects/{project}/units/{unit}/booking', [UnitController::class, 'b
 Route::post('projects/{project}/units/x{unit}/booking', [UnitController::class, 'saveBooking'])->name('units.booking.store');
 // GET route to render the edit form
 Route::get('/projects/{project}/units/{unit}/edit-booking', [UnitController::class, 'editBooking'])->name('units.booking.edit');
-
+Route::post('/projects/{project}/units/{unit}/edit-booking', [UnitController::class, 'updateBooking'])->name('units.booking.update');
+// Route::get('/projects/{project}/units/{unit}/booking', [UnitController::class, 'showBooking'])->name('units.booking.show');
 
 Route::resource('projects', ProjectController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
 Route::resource('units', UnitController::class)->only(['show']);

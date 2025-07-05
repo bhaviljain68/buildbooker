@@ -143,7 +143,6 @@ function cancelBooking() {
                                                 </path>
                                             </g>
                                         </svg>
-
                                         Cancel
                                     </button>
                                 </div>

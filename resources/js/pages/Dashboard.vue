@@ -57,7 +57,7 @@ const formatCurrency = (amount) => {
 
             <!-- Project List -->
             <div v-if="projects.length" v-for="project in projects" :key="project.id"
-                class="p-4 m-4 bg-gray-200 rounded-lg">
+                class="p-4 m-4 bg-teal-100 rounded-lg">
                 <!-- Logo -->
                 <div class="flex flex-col lg:flex-row gap-4 items-center mb-6 justify-center pt-6">
                     <img :src="project.project_logo" alt="Project Logo" class="h-18 w-18" />

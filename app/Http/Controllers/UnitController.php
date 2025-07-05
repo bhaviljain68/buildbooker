@@ -82,9 +82,7 @@ class UnitController extends Controller
     {
 
         $unit->load('customer');
-
-        // Debug the loaded customer
-        // dd($unit->customers); // ✅ this works
+        // dd($unit->customers);]
 
         return Inertia::render('EditBooking', [
             'project' => $project,
@@ -94,6 +92,49 @@ class UnitController extends Controller
         ]);
     }
 
+    public function updateBooking(Request $request, Project $project, Unit $unit)
+    {
+
+        $data = $request->validate([
+            'customer.name' => 'required|string|max:255',
+            'customer.email' => 'nullable|email',
+            'customer.phone' => 'nullable|string|max:20',
+            'customer.address' => 'nullable|string|max:255',
+            'base' => 'required|numeric',
+            'gst' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+
+        // Update unit pricing
+        $unit->update([
+            'base_amount' => $data['base'],
+            'gst_amount' => $data['gst'],
+            'total_amount' => $data['total'],
+        ]);
+
+        // Update associated customer
+        if ($unit->customer) {
+            $unit->customer->update([
+                'name' => $data['customer']['name'],
+                'email' => $data['customer']['email'],
+                'mobile' => $data['customer']['phone'],
+                'address' => $data['customer']['address'],
+            ]);
+        }
+
+        // return redirect()->route('units.booking.edit', [$project, $unit])->with('success', 'Booking updated successfully.');
+        return redirect()->route('units.booking.show', [$project, $unit])
+            ->with('success', 'Booking updated successfully.');
+    }
+    // public function showBooking(Project $project, Unit $unit)
+    // {
+    //     $unit->load('customer'); 
+
+    //     return Inertia::render('Booking', [
+    //         'project' => $project,
+    //         'unit' => $unit,
+    //     ]);
+    // }
 
     public function index(Organisation $organisation, Project $project)
     {
