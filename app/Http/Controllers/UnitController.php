@@ -85,7 +85,7 @@ class UnitController extends Controller
 
         return Inertia::render('EditBooking', [
             'project' => $project,
-            'unit' => $unit,
+            'unit' => $unit,    
             'booking' => $booking,
             'customers' => Customer::all(),
         ]);

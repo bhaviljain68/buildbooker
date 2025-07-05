@@ -25,7 +25,7 @@ function downloadReceipt() {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="">
     <!-- View Button -->
     <button @click="open = true"
       class="flex items-center justify-center gap-2 mx-auto bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2 px-4 rounded-lg transition duration-200">
@@ -34,7 +34,7 @@ function downloadReceipt() {
     </button>
 
     <!-- Modal Overlay -->
-    <div v-if="open" class="fixed inset-0 z-50 flex items-center overflow-y-auto justify-center bg-gray-500 bg-gray-75">
+    <div v-if="open" class="fixed inset-0 z-50 flex items-center overflow-y-auto justify-center bg-gray-100">
       <!-- Modal Box -->
       <div class="rounded-lg shadow-lg relative">
         <!-- Close Button Top Right -->

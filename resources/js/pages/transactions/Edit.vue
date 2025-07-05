@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import BackButton from '@/components/BackButton.vue'
@@ -18,6 +18,8 @@ const form = useForm({
     bank_branch: props.transaction.bank_branch || ''
 })
 
+console.log('Transaction Data:',form);
+
 // Submit handler
 const submitUpdate = () => {
     form.post(route('transactions.update', props.transaction.id), {
@@ -29,6 +31,33 @@ const submitUpdate = () => {
         }
     })
 }
+// onMounted(() => {
+//   for (const key of ['payment_date', 'receipt_date']) {
+//     if (form[key]) {
+//       const date = new Date(form[key])
+//       if (!isNaN(date)) {
+//         form[key] = date.toISOString().split('T')[0]  // format to 'YYYY-MM-DD'
+//       }
+//     }
+//   }
+// })
+function convertToYyyyMmDd(dateString) {
+  const date = new Date(dateString)
+  if (isNaN(date)) return ''
+
+  const dd = String(date.getDate()).padStart(2, '0')
+  const mm = String(date.getMonth() + 1).padStart(2, '0')
+  const yyyy = date.getFullYear()
+
+  return `${yyyy}-${mm}-${dd}`
+}
+onMounted(() => {
+  for (const key of ['payment_date', 'receipt_date']) {
+    if (form[key]) {
+      form[key] = convertToYyyyMmDd(form[key])
+    }
+  }
+})
 </script>
 
 <template>
@@ -48,34 +77,19 @@ const submitUpdate = () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Payment Date -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">
-                                    Date Of Payment
-                                </label> -->
                                 <FormInput label="Date of Payment" hint="(This will be displayed on your
                                             receipts)" v-model="form.payment_date" type="date"
                                     :error="form.errors.payment_date" />
-                                <!-- <input v-model="form.payment_date" type="date"
-                                class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none" /> -->
                             </div>
 
                             <!-- Receipt Date -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">
-                                    Date Of Receipt
-                                </label>
-                                <input v-model="form.receipt_date" type="date"
-                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none" /> -->
                                 <FormInput label="Date of Receipt" hint="(This will be displayed on your
                                             receipts)" v-model="form.receipt_date" type="date"  />
                             </div>
 
                             <!-- Transaction Amount -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">
-                                    Transaction Amount
-                                </label>
-                                <input v-model="form.transaction_amount" type="text" placeholder="Transaction Amount"
-                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none" /> -->
                                     <FormInput label="Transaction Amount" hint="(This will be displayed on your
                                             receipts)" v-model="form.transaction_amount" type="text"/>
                             </div>
@@ -108,30 +122,18 @@ const submitUpdate = () => {
 
                             <!-- Payment Reference -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">
-                                    Payment Reference
-                                </label>
-                                <input v-model="form.payment_reference" :disabled="form.payment_type === 'cash'"
-                                    placeholder="Reference No"
-                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none disabled:bg-gray-100" /> -->
                                     <FormInput label="Payment Reference No" hint="(Not required for cash)"
                                         v-model="form.payment_reference" type="text" :disabled="form.payment_type === 'cash'" />
                             </div>
 
                             <!-- Bank Name -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">Bank Name</label>
-                                <input v-model="form.bank_name" placeholder="Bank Name"
-                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none" /> -->
                                     <FormInput label="Bank Name" hint="(This will be displayed on your
                                             receipts)" v-model="form.bank_name" type="text"/>
                             </div>
 
                             <!-- Bank Branch -->
                             <div>
-                                <!-- <label class="block font-medium text-gray-700 mb-1">Bank Branch</label>
-                                <input v-model="form.bank_branch" placeholder="Bank Branch"
-                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring focus:ring-cyan-100 focus:outline-none" /> -->
                                     <FormInput label="Bank Branch" hint="(This will be displayed on your
                                             receipts)" v-model="form.bank_branch" type="text"/>
                             </div>

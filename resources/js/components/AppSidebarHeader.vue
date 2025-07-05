@@ -53,6 +53,7 @@ const user = computed(() => page.props.auth.user);
   >
     <div class="flex items-center gap-2">
       <h1>{{ user?.name }}</h1>
+      <!-- <h1>{{ user? }}</h1> -->
       <template v-if="breadcrumbs && breadcrumbs.length > 0">
         <Breadcrumbs :breadcrumbs="breadcrumbs" />
       </template>

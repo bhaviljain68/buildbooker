@@ -10,13 +10,14 @@ const form = useForm({
     customer: {
         name: props.booking?.customer?.name || '',
         email: props.booking?.customer?.email || '',
-        phone: props.booking?.customer?.phone || '',
+        phone: props.booking?.customer?.mobile || '',
         address: props.booking?.customer?.address || '',
         base: props.unit?.base_amount || '',
         gst: props.unit?.gst_amount || '',
         total: props.unit?.total_amount || ''
     }
 })
+console.log('edit customer', form );
 
 console.log('Booking Details:', form.customer)
 function recalculateTotal() {
@@ -56,7 +57,7 @@ function submitForm() {
                         readonly />
 
                     <div class="flex gap-2">
-                        <FormInput label="Mobile No." id="customer_phone" type="number" v-model="form.customer.phone"
+                        <FormInput label="Mobile No." id="customer_mobile" type="number" v-model="form.customer.phone"
                             required readonly class="w-full" />
                         <FormInput label="Email" id="customer_email" type="email" v-model="form.customer.email" required
                             readonly class="w-full" />

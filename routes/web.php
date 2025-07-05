@@ -3,6 +3,7 @@
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\OrganisationController;
+use App\Http\Controllers\PaymentReceiptController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\TransactionController;
