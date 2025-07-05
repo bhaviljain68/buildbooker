@@ -4,14 +4,15 @@ import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { useForm } from '@inertiajs/vue3'
 
-const props = defineProps(['customers', 'project', 'unit', 'booking'])
+const props = defineProps(['customer', 'project', 'unit'])
+console.log('customers data', props.customer);
 
 const form = useForm({
     customer: {
-        name: props.booking?.customer?.name || '',
-        email: props.booking?.customer?.email || '',
-        phone: props.booking?.customer?.mobile || '',
-        address: props.booking?.customer?.address || '',
+        name: props.customer?.name || '',
+        email: props.customer?.email || '',
+        phone: props.customer?.mobile || '',
+        address: props.customer?.address || '',
         base: props.unit?.base_amount || '',
         gst: props.unit?.gst_amount || '',
         total: props.unit?.total_amount || ''
@@ -32,10 +33,9 @@ function resetForm() {
 }
 
 function submitForm() {
-    form.put(route('units.booking.update', {
+    form.put(route('units.booking.edit', {
         project: props.project.id,
         unit: props.unit.id,
-        booking: props.booking.id
     }), {
         onSuccess: () => alert('Booking updated successfully!')
     })

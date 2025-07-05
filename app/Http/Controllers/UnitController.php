@@ -80,14 +80,17 @@ class UnitController extends Controller
 
     public function editBooking(Project $project, Unit $unit)
     {
+
         $unit->load('customer');
-        $booking = $unit->customer?->transactions()->latest()->first(); // Or however you fetch it
+
+        // Debug the loaded customer
+        // dd($unit->customers); // ✅ this works
 
         return Inertia::render('EditBooking', [
             'project' => $project,
-            'unit' => $unit,    
-            'booking' => $booking,
+            'unit' => $unit,
             'customers' => Customer::all(),
+            'customer' => $unit->customer,
         ]);
     }
 
