@@ -1,5 +1,6 @@
 <script setup>
 import { Icon } from '@iconify/vue';
+import { Link } from '@inertiajs/vue3';
 defineProps({
     route: String,
     icon: String,
@@ -15,7 +16,7 @@ defineProps({
 </script>
 
 <template>
-    <a :href="route"
+    <Link :href="route"
         class="rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2 text-base bg-primary hover:bg-teal-800 text-zinc-100"
         :class="{
             'bg-blue-600 hover:bg-blue-700 text-white': status === 'primary',
@@ -26,7 +27,7 @@ defineProps({
         }">
         <Icon v-if="icon" :icon="icon" width="24" height="24" />
         <slot>{{ title }}</slot>
-    </a>
+    </Link>
 </template>
 
 <style scoped>

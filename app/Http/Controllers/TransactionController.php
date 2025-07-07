@@ -166,15 +166,13 @@ class TransactionController extends Controller
     {
         $totalTransactions = $transaction->unit->transactions->count();
         if ($totalTransactions === 1) {
-            // $this->unBook($transaction->unit->id);
-            $this->unBook($transaction->unit);
+            $this->unBook($transaction->unit->id);
+            // $this->unBook($transaction->unit);
             return redirect()->back()->with('success', 'Transaction deleted successfully!');
         } else {
             try {
                 DB::beginTransaction();
-
                 $transaction->delete(); // Soft delete
-
                 DB::commit();
                 ToastMagic::success('Transaction deleted successfully.');
                 return redirect()->back()->with('success', 'Transaction deleted successfully!');

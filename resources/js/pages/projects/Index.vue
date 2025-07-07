@@ -100,7 +100,7 @@ const props = defineProps(['projects']);
                                     <div
                                         class="border-r py-1 border-gray-300 flex justify-center items-center rounded-br-lg">
                                         <ButtonLink icon="material-symbols:settings"
-                                            :route="route('projects.edit', [project.organisation_id, project.id])">
+                                            :route="route('projects.edit',  project.id  )">
                                             Manage
                                         </ButtonLink>
                                     </div>

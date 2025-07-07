@@ -30,13 +30,12 @@ class ProjectController extends Controller
         return Inertia::render('projects/Create');
     }
 
-
-
     /**
      * Display the specified resource.
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
             'name' => 'required|max:255|string',
             'jurisdiction' => 'required|max:255|string',
@@ -51,6 +50,7 @@ class ProjectController extends Controller
             $logoPath = processLogoImage($request->logo_file, $request->name, 'project_logos');
             $request->merge(['organisation_id' => auth()->user()->organisation_id, 'logo' => $logoPath]);
             $request->files->remove('logo_file');
+
             Project::create($request->except('logo_file'));
 
             return redirect()->back()->with('success', 'Project Created successfully');
@@ -68,6 +68,7 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
+      
         $request->validate([
             'name' => 'required|max:255|string',
             'jurisdiction' => 'required|max:255|string',

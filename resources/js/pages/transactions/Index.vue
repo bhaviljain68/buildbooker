@@ -16,22 +16,27 @@ function formatCurrency(amount) {
     return new Intl.NumberFormat('en-IN', {
         style: 'currency',
         currency: 'INR',
-        maximumFractionDigits: 0 // Removes `.00`
+        maximumFractionDigits: 0
     }).format(amount);
 }
-function deleteTransaction(id, projectId) {
+function deleteTransaction(transactionId, organisationId, projectId) {
     if (confirm('Are you sure you want to delete this transaction?')) {
-        router.visit(route('delete-transaction', id), {
+        router.visit(route('delete-transaction', transactionId), {
+            method: 'get',
             onSuccess: () => {
                 toast.success("Transaction deleted successfully!");
-                router.visit(route('transactions.index', projectId));
+                router.visit(route('transactions.index', {
+                    organisation: organisationId,
+                    project: projectId,
+                }));
             },
             onError: () => {
                 toast.error("Failed to delete transaction.");
             }
-        })
+        });
     }
 }
+
 
 </script>
 
@@ -104,18 +109,10 @@ function deleteTransaction(id, projectId) {
                                         <ButtonLink
                                             :route="route('transactions.edit', [transaction.id, unit.id, project.id])"
                                             icon="mage:edit" status="info">
-
                                         </ButtonLink>
-                                        <!-- <a :href="route('unit-unbook', unit.id)"
-                                            @click.prevent="() => { if (confirm('Are you sure you want to delete this transaction?')) window.location.href = route('unit-unbook', unit.id) }">
-                                            <ButtonLink icon="mingcute:delete-fill" status="error" />
-                                        </a> -->
-                                        <!-- <a href="#" @click.prevent="confirmUnbook(unit.id)">
-                                            <ButtonLink icon="mingcute:delete-fill" status="error" />
-                                        </a> -->
 
                                         <ButtonLink icon="mingcute:delete-fill" status="error"
-                                            @click="deleteTransaction(transaction.id, project.id)" />
+                                            @click="deleteTransaction(transaction.id, organisation.id, project.id)" />
                                     </div>
                                 </template>
                             </template>

@@ -5,15 +5,8 @@ import { Icon } from '@iconify/vue';
 import { computed } from 'vue';
 import ButtonLink from '@/components/ButtonLink.vue';
 import BackButton from '@/components/BackButton.vue';
-const props = defineProps(['project', 'units','unit']);
+const props = defineProps(['project', 'units', 'unit']);
 const toast = new ToastMagic();
-// const formatCurrency = (value) => {
-//     return parseFloat(value).toLocaleString('en-IN', {
-//         minimumFractionDigits: 2,
-//         maximumFractionDigits: 2,
-//     });
-// };
-
 
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-IN', {
@@ -39,19 +32,18 @@ function handleDelete(unit) {
         },
     });
 }
-function cancelBooking() {
-  if (confirm('Are you sure you want to cancel this booking?')) {
-    router.visit(route('unit-unbook', props.unit.id), {
-      onSuccess: () => {
-        alert('Booking cancelled successfully!')
-      },
-      onError: () => {
-        alert('Failed to cancel booking.')
-      }
-    })
-  }
+function cancelBooking(unitId) {
+    if (confirm('All transactions will be removed after unbook. Are you sure you want to unbook?')) {
+        router.visit(route('unit-unbook', unitId), {
+            onSuccess: () => {
+                toast.success('Unit unbooked successfully!');
+            },
+            onError: () => {
+                toast.error('Failed to unbook unit.');
+            }
+        });
+    }
 }
-
 
 </script>
 
@@ -126,7 +118,7 @@ function cancelBooking() {
                                     </Link>
 
                                     <!-- Cancel Button if sold -->
-                                    <button v-else @click="cancelBooking"
+                                    <button v-else @click="cancelBooking(unit.id)"
                                         class="rounded-lg flex gap-x-1 items-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-red-700 hover:bg-red-700 text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24">

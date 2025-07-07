@@ -58,8 +58,6 @@ function submitForm() {
     ...data,
     _method: 'put',
   })).post(route('projects.update', project.id), {
-    preserveState: true,
-    forceFormData: true,
     onSuccess: () => {
       toast.success("Project updated successfully!");
       router.visit(route('organisation.edit'));
@@ -92,7 +90,7 @@ function submitForm() {
             </div>
 
             <!-- Form -->
-            <form @submit.prevent="submitForm" enctype="multipart/form-data" class="p-7 bg-gary-100 rounded">
+            <form @submit.prevent="submitForm"  class="p-7 bg-gary-100 rounded">
               <div class="grid grid-cols-1 gap-y-4">
                 <!-- Project Name -->
                 <FormInput v-model="form.name" label="Project Name" required :error="errors.name"
