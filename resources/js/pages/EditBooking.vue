@@ -27,8 +27,6 @@ function recalculateTotal() {
     form.customer.total = (base + gst).toFixed()
 }
 function submitForm() {
-    console.log('Submitting:', form.data());
-
     form.post(route('units.booking.update', {
         project: props.project.id,
         unit: props.unit.id,
@@ -41,6 +39,7 @@ function submitForm() {
             alert('Failed to update booking.');
         }
     });
+    console.log('Submitting:', form.data());
 }
 
 </script>

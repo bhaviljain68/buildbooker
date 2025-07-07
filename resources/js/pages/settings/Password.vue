@@ -55,7 +55,7 @@ const updatePassword = () => {
         <Head title="Password settings" />
 
         <SettingsLayout>
-            <div class="space-y-6">
+            <div class="space-y-6 bg-gray-100 p-6 rounded">
                 <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
 
                 <form @submit.prevent="updatePassword" class="space-y-6">
@@ -66,7 +66,7 @@ const updatePassword = () => {
                             ref="currentPasswordInput"
                             v-model="form.current_password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-white"
                             autocomplete="current-password"
                             placeholder="Current password"
                         />
@@ -80,7 +80,7 @@ const updatePassword = () => {
                             ref="passwordInput"
                             v-model="form.password"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-white"
                             autocomplete="new-password"
                             placeholder="New password"
                         />
@@ -93,7 +93,7 @@ const updatePassword = () => {
                             id="password_confirmation"
                             v-model="form.password_confirmation"
                             type="password"
-                            class="mt-1 block w-full"
+                            class="mt-1 block w-full bg-white"
                             autocomplete="new-password"
                             placeholder="Confirm password"
                         />
@@ -101,7 +101,7 @@ const updatePassword = () => {
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <Button :disabled="form.processing">Save password</Button>
+                        <Button :disabled="form.processing" class="text-gray-200">Save password</Button>
 
                         <Transition
                             enter-active-class="transition ease-in-out"

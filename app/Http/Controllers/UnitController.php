@@ -123,18 +123,19 @@ class UnitController extends Controller
         }
 
         // return redirect()->route('units.booking.edit', [$project, $unit])->with('success', 'Booking updated successfully.');
-        return redirect()->route('units.booking.show', [$project, $unit])
+        return redirect()->route('EditBooking', [$project, $unit])
             ->with('success', 'Booking updated successfully.');
     }
-    // public function showBooking(Project $project, Unit $unit)
-    // {
-    //     $unit->load('customer'); 
+    public function showBooking(Request $request, Project $project, Unit $unit)
+    {
+    //    dd($request->all());
+        $unit->load('customer'); 
 
-    //     return Inertia::render('Booking', [
-    //         'project' => $project,
-    //         'unit' => $unit,
-    //     ]);
-    // }
+        return Inertia::render('Booking', [
+            'project' => $project,
+            'unit' => $unit,
+        ]);
+    }
 
     public function index(Organisation $organisation, Project $project)
     {

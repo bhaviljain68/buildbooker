@@ -7,7 +7,6 @@ const page = usePage();
 const user = computed(() => page.props.auth.user);
 const organisation = computed(() => page.props.organisation);
 const projectId = computed(() => page.props.project?.id)
-console.log("user", user);
 
 const visible = ref(false);
 </script>

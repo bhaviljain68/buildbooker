@@ -45,7 +45,7 @@ function confirmDelete(customer) {
                 <div class="flex justify-between w-full mb-4">
                     <BackButton :prevRoute="route('projects.index')" />
                     <!-- <p>{{ route('customers.create', project.id) }}</p> -->
-                    <ButtonLink icon="ic:twotone-add" :href="route('customers.create', project.id)">Add Customer
+                    <ButtonLink  v-if="project" icon="ic:twotone-add" :href="route('customers.create', project.id)">Add Customer
                     </ButtonLink>
 
                 </div>
