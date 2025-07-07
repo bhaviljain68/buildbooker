@@ -1,4 +1,5 @@
 <script setup>
+import { Download } from 'lucide-vue-next'
 import { computed } from 'vue'
 
 const props = defineProps({
@@ -7,7 +8,7 @@ const props = defineProps({
   onClose: Function,
   onDownload: Function
 })
-
+// console.log('Download url',props.onDownload);
 const formattedReceiptDate = computed(() => {
   return new Date(props.transaction.receipt_date).toLocaleDateString('en-GB')
 })

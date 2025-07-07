@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
-import Receipt_bs from './receipt_bs.vue'
 import { Icon } from '@iconify/vue';
+import Receipt_bs from './Receipt_bs.vue';
 
 const props = defineProps({
   project: Object,
