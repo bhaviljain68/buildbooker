@@ -101,17 +101,14 @@ function submitForm() {
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
-
-            
+ 
             <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
               @input="recalculateTotal" :error="form.errors.gst" required="true" class="pl-7">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
-
-
-
+            
             <!-- Total Amount -->
             <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total">
               <template #prefix>

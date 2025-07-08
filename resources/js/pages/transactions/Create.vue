@@ -7,7 +7,6 @@ import FormInput from '@/components/FormInput.vue'
 const toast = new ToastMagic()
 const props = defineProps(['units', 'project'])
 
-console.log('Props:', props.units);
 // Reactive state
 const state = reactive({
     selectedUnit: null,

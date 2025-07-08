@@ -20,8 +20,8 @@ Route::get('/dashboard', [DashBoardController::class, 'analytics'])->middleware(
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
- Route::resource('payment-receipts', PaymentReceiptController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
- Route::get('payment-receipts-download-pdf/{id}', [PaymentReceiptController::class, 'downloadPaymentRecipt'])->name('payment-receipts-download-pdf');
+Route::resource('payment-receipts', PaymentReceiptController::class)->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
+Route::get('payment-receipts-download-pdf/{id}', [PaymentReceiptController::class, 'downloadPaymentRecipt'])->name('payment-receipts-download-pdf');
 Route::get('/receipt/download/{project}/{transaction}', [PaymentReceiptController::class, 'newDownloadPaymentReceipts'])->name('new-payment-receipts-download-pdf');
 Route::resource('organisation', OrganisationController::class)->only(['show', 'edit', 'update']);
 

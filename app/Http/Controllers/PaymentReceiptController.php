@@ -23,7 +23,7 @@ class PaymentReceiptController extends Controller
 
         try {
             // Render the HTML for the PDF
-            $html = view('receipt_BS', [
+            $html = view('Receipt_bs', [
                 'project' => $project,
                 'transaction' => $transaction,
             ])->render();

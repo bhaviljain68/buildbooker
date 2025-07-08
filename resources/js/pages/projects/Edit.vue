@@ -6,9 +6,8 @@ import FormTextarea from '@/components/FormTextarea.vue'
 import BackButton from '@/components/BackButton.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 
-const { props, flash } = usePage()
+const { props } = usePage()
 const project = props.project || {}
-console.log('Project from props:', project)
 
 const fileInput = ref(null)
 const fileName = ref('')

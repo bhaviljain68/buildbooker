@@ -14,7 +14,6 @@ const units = ref([
         unit_type: props.unit?.type ?? '',
     },
 ])
-console.log('units type', units);
 
 function submitForm() {
     router.post(

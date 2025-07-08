@@ -7,7 +7,6 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import ReceiptModel from '@/components/ReceiptModel.vue'
 
 const props = defineProps(['unit', 'project', 'organisation', 'transaction'])
-console.log('project:', props.project);
 
 // Capitalize first letter of each word
 const ucwords = (str) => str?.replace(/\b\w/g, char => char.toUpperCase()) || ''

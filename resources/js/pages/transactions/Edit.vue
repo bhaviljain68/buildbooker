@@ -18,8 +18,6 @@ const form = useForm({
     bank_branch: props.transaction.bank_branch || ''
 })
 
-console.log('Transaction Data:',form);
-
 // Submit handler
 const submitUpdate = () => {
     form.post(route('transactions.update', props.transaction.id), {
@@ -31,16 +29,6 @@ const submitUpdate = () => {
         }
     })
 }
-// onMounted(() => {
-//   for (const key of ['payment_date', 'receipt_date']) {
-//     if (form[key]) {
-//       const date = new Date(form[key])
-//       if (!isNaN(date)) {
-//         form[key] = date.toISOString().split('T')[0]  // format to 'YYYY-MM-DD'
-//       }
-//     }
-//   }
-// })
 function convertToYyyyMmDd(dateString) {
   const date = new Date(dateString)
   if (isNaN(date)) return ''
@@ -63,7 +51,6 @@ onMounted(() => {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-
             <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
                 <BackButton :prevRoute="route('projects.index')" />
             </div>

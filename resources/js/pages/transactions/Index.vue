@@ -6,11 +6,9 @@ import BackButton from '@/components/BackButton.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Icon } from '@iconify/vue';
 const toast = new ToastMagic();
-// import Receipt_bs from '@/components/receipt_bs.vue';
 import ReceiptModel from '@/components/ReceiptModel.vue';
 
 const props = defineProps(['transactions', 'project', 'organisation']);
-console.log('Transactions:', props.transactions);
 
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-IN', {
@@ -36,7 +34,6 @@ function deleteTransaction(transactionId, organisationId, projectId) {
         });
     }
 }
-
 
 </script>
 

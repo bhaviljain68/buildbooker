@@ -3,9 +3,8 @@ import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { router, useForm } from '@inertiajs/vue3'
-
+const toast = new ToastMagic();
 const props = defineProps(['customer', 'project', 'unit'])
-console.log('customers data', props.customer);
 
 const form = useForm({
     customer: {
@@ -18,33 +17,23 @@ const form = useForm({
         total: props.unit?.total_amount || ''
     }
 })
-console.log('edit customer', form);
 
-console.log('Booking Details:', form.customer)
 function recalculateTotal() {
     const base = parseFloat(form.customer.base) || 0
     const gst = parseFloat(form.customer.gst) || 0
     form.customer.total = (base + gst).toFixed()
 }
 function submitForm() {
-    console.log(form.customer.name);
-    console.log(form.customer.email);
-    console.log(form.customer.phone);
-    console.log(form.customer.address);
-    console.log(form.customer.base);
-    console.log(form.customer.gst);
-    console.log(form.customer.total);
-    
     form.post(route('units.booking.update', {
         project: props.project.id,
         unit: props.unit.id,
     }),
         {
             onSuccess: () => {
-                console.log('Redirecting to Booking.vue...');
+                toast.success('Redirecting to Booking.vue...');
             },
             onError: () => {
-                alert('Failed to update booking.');
+                toast.error('Failed to update booking.');
             }
         });
     console.log('Submitting:', form.data());
