@@ -23,7 +23,7 @@ const formattedPaymentDate = computed(() => {
     <div v-for="i in 2" :key="i">
       <div class="flex justify-between pt-5">
         <div>
-          <img :src="project.logo" alt="Logo" height="100" width="100" />
+          <img :src="project?.logo" alt="Logo" height="100" width="100" />
         </div>
         <div class="w-[350px]">
           <table class="w-full table-auto border-collapse">
@@ -31,7 +31,7 @@ const formattedPaymentDate = computed(() => {
               <tr>
                 <td class="text-xs text-right">
                   <span class="font-bold pr-4 align-top">Office :</span>
-                  {{ project.office_display_address }}
+                  {{ project?.office_display_address }}
                 </td>
               </tr>
               <tr>
@@ -69,7 +69,7 @@ const formattedPaymentDate = computed(() => {
         
         <div class="text-sm mt-2 text-left">
           deposits below amount for {{ transaction.unit?.type }} Number:
-          <input :value="transaction.unit?.unit_no" class="my-input w-16 text-center" disabled />
+          <input :value="transaction.unit_no" class="my-input w-16 text-center" disabled />
           at <b>"{{ project.name }}"</b>, accepting all the conditions by the developers for becoming a member.
         </div>
 

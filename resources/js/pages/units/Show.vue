@@ -4,9 +4,9 @@ import { usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 import BackButton from '@/components/BackButton.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
+import ReceiptModel from '@/components/ReceiptModel.vue'
 
-
-const props = defineProps(['unit', 'project', 'organisation'])
+const props = defineProps(['unit', 'project', 'organisation', 'transaction'])
 console.log('project:', props.project);
 
 // Capitalize first letter of each word
@@ -38,6 +38,7 @@ const tabClass = (tab) => {
 
 <template>
     <AppLayout>
+
         <div class="py-0 lg:py-10">
             <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
@@ -55,13 +56,13 @@ const tabClass = (tab) => {
 
                         <!-- Unit Details -->
                         <div
-                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-500 bg-teal-700 text-white bg-opacity-10 rounded-lg">
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
+                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-800 bg-teal-500 text-white bg-opacity-10 rounded-lg">
+                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
                                 <p class="text-xl">Unit Type</p>
                                 <p class="text-2xl">{{ ucwords(unit.type) }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
                                 <p class="text-xl">Status</p>
                                 <p class="text-2xl">
                                     {{ unit.is_sold ? 'Sold' : 'Not Sold' }}
@@ -69,28 +70,28 @@ const tabClass = (tab) => {
                                 </p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-b border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800">
                                 <p class="text-xl">Selling Price</p>
                                 <p class="text-2xl">₹ {{ unit.total_amount }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
                                 <p class="text-xl">Customer Name</p>
                                 <p class="text-2xl">{{ ucwords(unit.customer.name) }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
                                 <p class="text-xl">Customer Contact Number</p>
                                 <p class="text-2xl">{{ unit.customer.mobile }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-b border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800">
                                 <p class="text-xl">Customer Email</p>
                                 <p class="text-2xl break-words whitespace-normal">{{ unit.customer.email || 'N/A' }}</p>
                             </div>
 
                             <!-- Base Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-r border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
                                 <div>
                                     <p class="text-xl">Base Amount</p>
                                     <p><span class="text-green-700">Received</span> / <span
@@ -104,7 +105,7 @@ const tabClass = (tab) => {
                             </div>
 
                             <!-- GST Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-r border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
                                 <div>
                                     <p class="text-xl">GST Amount</p>
                                     <p><span class="text-green-700">Received</span> / <span
@@ -118,7 +119,7 @@ const tabClass = (tab) => {
                             </div>
 
                             <!-- Total Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-teal-500">
+                            <div class="flex flex-col gap-4 p-8 border-teal-800">
                                 <div>
                                     <p class="text-xl">Total Amount</p>
                                     <p><span class="text-green-700">Received</span> / <span
@@ -134,7 +135,7 @@ const tabClass = (tab) => {
 
                         <!-- Transactions Table -->
                         <div class="mt-8 lg:mx-24">
-                            <details class="mt-4 rounded-lg bg-cyan-200 bg-opacity-10 border border-teal-500">
+                            <details class="mt-4 rounded-lg bg-cyan-200 bg-opacity-10 border border-teal-800">
                                 <summary class="cursor-pointer px-4 py-3 font-semibold text-cyan-800">
                                     View Transactions
                                 </summary>
@@ -169,17 +170,21 @@ const tabClass = (tab) => {
                                                 class="border-t">
                                                 <td class="px-4 py-2 border">{{ index + 1 }}</td>
                                                 <td class="px-4 py-2 border">{{ t.payment_date }}</td>
-                                                <td class="px-4 py-2 border">₹ {{ t.amount }}</td>
-                                                <td class="px-4 py-2 border">{{ t.instrument ?? '-' }}</td>
-                                                <td class="px-4 py-2 border">{{ t.bank ?? '-' }}</td>
-                                                <td class="px-4 py-2 border">{{ t.branch ?? '-' }}</td>
+                                                <td class="px-4 py-2 border">₹ {{ t.transaction_amount }}</td>
+                                                <td class="px-4 py-2 border">{{ t.payment_type ?? '-' }}</td>
+                                                <td class="px-4 py-2 border">{{ t.bank_name ?? '-' }}</td>
+                                                <td class="px-4 py-2 border">{{ t.bank_branch ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">{{ t.receipt_date ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">
-                                                    <a v-if="t.receipt" :href="t.receipt"
+                                                    <!-- <a v-if="t.receipt" :href="t.receipt"
                                                         class="text-blue-600 underline" target="_blank">
                                                         View
-                                                    </a>
-                                                    <span v-else>N/A</span>
+                                                    </a> -->
+
+                                                    <span class="py-2 font-black border-r  border-cyan-500 text-center" >
+                                                        <ReceiptModel :project="project" :transaction="t" size="sm" />
+                                                    </span>
+                                                    <!-- <span v-else>N/A</span> -->
                                                 </td>
                                                 <td class="px-4 py-2 border">{{ t.gst ? 'GST' : 'Base' }}</td>
                                             </tr>

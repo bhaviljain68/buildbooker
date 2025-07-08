@@ -116,7 +116,7 @@ class UnitController extends Controller
             ]);
         }
 
-        return redirect()->route('units.index', ['organisation'=>Auth::user()->organisation_id,'project'=> $project->id])
+        return redirect()->route('units.index', ['organisation' => Auth::user()->organisation_id, 'project' => $project->id])
             ->with('success', 'Booking updated successfully.');
     }
 
@@ -242,17 +242,20 @@ class UnitController extends Controller
      */
     public function show(Request $request, Unit $unit)
     {
+
         $unit->load("project");
         $unit->load([
             'project',
             'transactions.customer.units'
         ]);
+        // dd($unit->project);
         // $unit->transactions->load("customer.units");
         if ($request->expectsJson()) {
             return response()->json([$unit]);
         }
         return Inertia('units/Show', [
-            'unit' => $unit
+            'unit' => $unit,
+            'project' => $unit->project,
         ]);
     }
 
