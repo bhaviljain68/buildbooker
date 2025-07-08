@@ -27,18 +27,26 @@ function recalculateTotal() {
     form.customer.total = (base + gst).toFixed()
 }
 function submitForm() {
+    console.log(form.customer.name);
+    console.log(form.customer.email);
+    console.log(form.customer.phone);
+    console.log(form.customer.address);
+    console.log(form.customer.base);
+    console.log(form.customer.gst);
+    console.log(form.customer.total);
+    
     form.post(route('units.booking.update', {
         project: props.project.id,
         unit: props.unit.id,
-    }), {
-        onSuccess: () => {
-
-            console.log('Redirecting to Booking.vue...');
-        },
-        onError: () => {
-            alert('Failed to update booking.');
-        }
-    });
+    }),
+        {
+            onSuccess: () => {
+                console.log('Redirecting to Booking.vue...');
+            },
+            onError: () => {
+                alert('Failed to update booking.');
+            }
+        });
     console.log('Submitting:', form.data());
 }
 

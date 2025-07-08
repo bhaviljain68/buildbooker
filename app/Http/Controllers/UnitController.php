@@ -80,39 +80,33 @@ class UnitController extends Controller
 
     public function editBooking(Project $project, Unit $unit)
     {
-
         $unit->load('customer');
-        // dd($unit->customers);]
 
         return Inertia::render('EditBooking', [
             'project' => $project,
             'unit' => $unit,
-            'customers' => Customer::all(),
-            'customer' => $unit->customer,
+            'customer' => $unit->customer, // only pass the selected customer
         ]);
     }
 
     public function updateBooking(Request $request, Project $project, Unit $unit)
     {
-
+        // dd($request->all());
         $data = $request->validate([
             'customer.name' => 'required|string|max:255',
             'customer.email' => 'nullable|email',
             'customer.phone' => 'nullable|string|max:20',
             'customer.address' => 'nullable|string|max:255',
-            'base' => 'required|numeric',
-            'gst' => 'required|numeric',
-            'total' => 'required|numeric',
+            'customer.base' => 'required|numeric',
+            'customer.gst' => 'required|numeric',
+            'customer.total' => 'required|numeric',
         ]);
-
-        // Update unit pricing
         $unit->update([
-            'base_amount' => $data['base'],
-            'gst_amount' => $data['gst'],
-            'total_amount' => $data['total'],
+            'base_amount' => $data['customer']['base'],
+            'gst_amount' => $data['customer']['gst'],
+            'total_amount' => $data['customer']['total'],
         ]);
 
-        // Update associated customer
         if ($unit->customer) {
             $unit->customer->update([
                 'name' => $data['customer']['name'],
@@ -122,14 +116,14 @@ class UnitController extends Controller
             ]);
         }
 
-        // return redirect()->route('units.booking.edit', [$project, $unit])->with('success', 'Booking updated successfully.');
-        return redirect()->route('EditBooking', [$project, $unit])
+        return redirect()->route('units.index', ['organisation'=>Auth::user()->organisation_id,'project'=> $project->id])
             ->with('success', 'Booking updated successfully.');
     }
+
     public function showBooking(Request $request, Project $project, Unit $unit)
     {
-    //    dd($request->all());
-        $unit->load('customer'); 
+        //    dd($request->all());
+        $unit->load('customer');
 
         return Inertia::render('Booking', [
             'project' => $project,

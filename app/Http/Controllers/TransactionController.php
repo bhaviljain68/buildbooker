@@ -157,7 +157,7 @@ class TransactionController extends Controller
                 'project' => $unit->project_id,
             ])->with('success', 'Transaction updated successfully!');
         } catch (Exception $e) {
-            DB::rollBack();
+        DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update transaction: ' . $e->getMessage());
         }
     }
@@ -166,7 +166,7 @@ class TransactionController extends Controller
     {
         $totalTransactions = $transaction->unit->transactions->count();
         if ($totalTransactions === 1) {
-            $this->unBook($transaction->unit->id);
+            $this->unBook($transaction->unit);
             // $this->unBook($transaction->unit);
             return redirect()->back()->with('success', 'Transaction deleted successfully!');
         } else {
