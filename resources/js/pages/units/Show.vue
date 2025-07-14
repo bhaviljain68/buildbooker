@@ -93,12 +93,12 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
                                 <div>
                                     <p class="text-xl">Base Amount</p>
-                                    <p><span class="text-green-700">Received</span> / <span
+                                    <p><span class="text-green-950">Received</span> / <span
                                             class="text-red-700">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-700">₹ {{ unit.formatted_base_received_amount }}</span> /
+                                    <span class="text-green-950">₹ {{ unit.formatted_base_received_amount }}</span> /
                                     <span class="text-red-700">₹ {{ unit.base_amount }}</span>
                                 </p>
                             </div>
@@ -107,12 +107,12 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
                                 <div>
                                     <p class="text-xl">GST Amount</p>
-                                    <p><span class="text-green-700">Received</span> / <span
+                                    <p><span class="text-green-950">Received</span> / <span
                                             class="text-red-700">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-700">₹ {{ unit.base_amount }}</span> /
+                                    <span class="text-green-950">₹ {{ unit.base_amount }}</span> /
                                     <span class="text-red-700">₹ {{ unit.formatted_gst_due_amount }}</span>
                                 </p>
                             </div>
@@ -121,12 +121,12 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-teal-800">
                                 <div>
                                     <p class="text-xl">Total Amount</p>
-                                    <p><span class="text-green-700">Received</span> / <span
+                                    <p><span class="text-green-950">Received</span> / <span
                                             class="text-red-700">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-700">₹ {{ unit.base_amount }}</span> /
+                                    <span class="text-green-950">₹ {{ unit.base_amount }}</span> /
                                     <span class="text-red-700">₹ {{ unit.gst_amount }}</span>
                                 </p>
                             </div>

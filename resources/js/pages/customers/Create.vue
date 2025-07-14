@@ -4,7 +4,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import BackButton from '@/components/BackButton.vue'
-
+const toast = new ToastMagic();
 const props = defineProps(['project'])
 
 const form = useForm({
@@ -16,7 +16,15 @@ const form = useForm({
 })
 
 function submit() {
-  form.post(route('customers.store', props.project.id))
+  form.post(route('customers.index', props.project.id)),
+  {
+    onSuccess: () => {
+      toast.success('Customer Add submitted successfully!')
+    },
+    onError: () => {
+      toast.error('Failed to Customer')
+    }
+  }
 }
 </script>
 

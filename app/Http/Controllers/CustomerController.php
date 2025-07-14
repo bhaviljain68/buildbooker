@@ -58,6 +58,7 @@ class CustomerController extends Controller
         //$customer->project_id = $project->id;
         $customer->save();
         //dd($customer);
+        ToastMagic::success('Customer Add submitted successfully');
         return redirect()->route('customers.index', $project->id)->with('success', 'Customer created successfully.');
     }
 

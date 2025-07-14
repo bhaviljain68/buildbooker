@@ -3,7 +3,7 @@ import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { useForm } from '@inertiajs/vue3'
-
+const toast = new ToastMagic();
 const props = defineProps(['customers', 'project', 'unit'])
 
 const form = useForm({
@@ -45,7 +45,12 @@ function submitForm() {
     project: props.project.id,
     unit: props.unit.id
   }), {
-    onSuccess: () => alert('Booking submitted successfully!')
+    onSuccess: () => {
+      toast.success('Booking submitted successfully!')
+    },
+    onError: () => {
+      toast.error('Failed to Booking')
+    }
   })
 }
 </script>
@@ -64,7 +69,7 @@ function submitForm() {
           <label class="text-sm font-medium text-gray-700">Select Existing Customer</label>
           <select v-model="form.selectedCustomerId" @change="setCustomerDetails"
             class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-cyan-700 focus:border-cyan-700">
-            <option  value=""> Select</option>
+            <option value=""> Select</option>
             <option v-for="customer in props.customers" :key="customer.id" :value="customer.id">
               {{ customer.name }} ({{ customer.email }})
             </option>
@@ -84,7 +89,7 @@ function submitForm() {
           </div>
 
           <FormTextarea label="Address" id="customer_address" v-model="form.customer.address"
-            :error="form.errors.address" required="true"  :disabled="!!form.selectedCustomerId" />
+            :error="form.errors.address" required="true" :disabled="!!form.selectedCustomerId" />
         </div>
 
         <!-- Booking Section -->
@@ -101,14 +106,14 @@ function submitForm() {
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
- 
+
             <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
               @input="recalculateTotal" :error="form.errors.gst" required="true" class="pl-7">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
-            
+
             <!-- Total Amount -->
             <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total">
               <template #prefix>

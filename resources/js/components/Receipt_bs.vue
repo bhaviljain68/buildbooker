@@ -1,11 +1,11 @@
 <script setup>
 import { Download } from 'lucide-vue-next'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   project: Object,
   transaction: Object,
-  onClose: Function,
+  closeModal: Function,
   onDownload: Function
 })
 // console.log('Download url',props.onDownload);
@@ -16,6 +16,7 @@ const formattedReceiptDate = computed(() => {
 const formattedPaymentDate = computed(() => {
   return new Date(props.transaction.payment_date).toLocaleDateString('en-GB')
 })
+
 </script>
 
 <template>
@@ -126,12 +127,21 @@ const formattedPaymentDate = computed(() => {
 
   <!-- Action Buttons at Bottom -->
     <div class="flex justify-end gap-3 pb-5">
-      <button @click="props.onClose"
+      <button @click="props.closeModal"
         class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm">Close</button>
-      <button @click="props.onDownload"
-        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">Download Receipt</button>
+      <!-- <button @click="downloadReceipt"
+        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">Download Receipt</button> -->
+
+        <a :href="route('new-payment-receipts-download-pdf', {
+            project: props.project.id,
+            transaction: props.transaction.id
+          })" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm" target="_blank" rel="noopener">
+            Download Receipt
+          </a>
     </div>
+    
       </div>
+      
 </template>
 
 <!-- <style scoped>

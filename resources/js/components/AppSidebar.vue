@@ -6,14 +6,13 @@ import { computed } from "vue";
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 const organisation = computed(() => page.props.organisation);
-const projectId = computed(() => page.props.project?.id)
 
+const projectId = computed(() => page.props.project?.id)
 const visible = ref(false);
 </script>
 <template>
-    <!-- <pre> {{organisation.logo }}</pre> -->
+    <!-- <pre> {{organisation }}</pre> -->
     <!-- Toggle Button -->
-
     <div class="flex justify-between mt-3 lg:mx-10 mx-5">
         <div>
             <button v-if="!visible" @click="visible = true"
@@ -32,6 +31,7 @@ const visible = ref(false);
             <div class="flex items-center justify-between px-7 py-5 border-b">
 
                 <div class="flex items-center gap-2">
+
                     <img v-if="$page.props.organisation?.logo" :src="$page.props.organisation.logo"
                         alt="Organisation Logo" class="w-20 mx-auto" />
                     <img v-else src="/images/app_logo.png" alt="Default Logo" class="w-40 mx-auto" />

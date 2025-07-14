@@ -11,12 +11,6 @@ const totalOutStandingAmmount = computed(() => props.totalOutStandingAmmount || 
 const totalUnsoldUnits = computed(() => props.totalUnsoldUnits || 0)
 const projects = computed(() => props.projects || [])
 
-console.log('totalProjects:', totalProjects.value)
-console.log('totalOutStandingAmmount:', totalOutStandingAmmount.value)
-console.log('totalUnsoldUnits:', totalUnsoldUnits.value)
-console.log('projects:', projects.value)
-
-
 const formatCurrency = (amount) => {
     if (!amount) return '₹0'
     return Number(amount).toLocaleString('en-IN', {

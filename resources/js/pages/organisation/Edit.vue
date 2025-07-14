@@ -5,7 +5,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import FormInput from '@/components/FormInput.vue'
 
 const props = defineProps(['organisation'])
-
+console.log("organisation", props.organisation)
 const imagePreview = ref(props.organisation.logo || '')
 const toast = new ToastMagic();
 const form = useForm({

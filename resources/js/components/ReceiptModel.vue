@@ -15,18 +15,11 @@ function closeModal() {
   open.value = false
 }
 
-function downloadReceipt() {
-  const routeUrl = route('new-payment-receipts-download-pdf', {
-    project: props.project.id,
-    transaction: props.transaction.id
-  })
-  window.open(routeUrl, '_blank')
-}
 </script>
 
 <template>
   <div class="">
- 
+
     <!-- View Button -->
     <button @click="open = true"
       class="flex items-center justify-center gap-2 mx-auto bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2 px-4 rounded-lg transition duration-200">
@@ -40,9 +33,7 @@ function downloadReceipt() {
       <div class="rounded-lg shadow-lg relative">
         <!-- Receipt Content -->
         <div class="max-h-[90vh] ">
-          <!-- <Receipt_bs :project="project" :transaction="transaction" /> -->
-          <Receipt_bs :project="project" :transaction="transaction" :onClose="closeModal"
-            :onDownload="downloadReceipt" />
+          <Receipt_bs :project="project" :transaction="transaction" :closeModal="closeModal" />
         </div>
       </div>
     </div>

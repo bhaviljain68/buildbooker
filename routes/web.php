@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('auth/Register');
 })->name('home');
 
 Route::get('/dashboard', [DashBoardController::class, 'analytics'])->middleware(['auth', 'verified'])->name('dashboard');

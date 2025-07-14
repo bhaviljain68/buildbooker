@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Organisation;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
@@ -46,6 +48,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'organisation' => fn() => Auth::check()
+                ? Organisation::withTrashed()->find(Auth::user()->organisation_id)
+                : null,
             'ziggy' => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
