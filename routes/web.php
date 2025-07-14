@@ -40,7 +40,9 @@ Route::delete('units/{unit}', [UnitController::class, 'delete'])->name('units.de
 
 Route::post('units/store/{project}', [UnitController::class, 'store'])->name('units.store');
 Route::get('units/{project}/{unit}/edit', [UnitController::class, 'edit'])->name('units.edit');
-Route::get('units/{organisation?}/{project?}', [UnitController::class, 'index'])->name('units.index');
+Route::get('units/{organisation}/{project}', [UnitController::class, 'index'])->name('units.index');
+// Route::get('/organisations/{organisation}/projects/{project}/units', [UnitController::class, 'index'])->name('units.index');
+
 Route::post('units/{project}/{unit}/update', [UnitController::class, 'update'])->name('units.update');
 
 // customer 

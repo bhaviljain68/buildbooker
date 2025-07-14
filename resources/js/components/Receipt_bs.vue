@@ -135,7 +135,7 @@ const formattedPaymentDate = computed(() => {
         <a :href="route('new-payment-receipts-download-pdf', {
             project: props.project.id,
             transaction: props.transaction.id
-          })" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm" target="_blank" rel="noopener">
+          })" class="bg-green-600 hover:bg-gree n-700 text-white px-4 py-2 rounded text-sm" target="_blank" rel="noopener">
             Download Receipt
           </a>
     </div>

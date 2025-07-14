@@ -12,12 +12,11 @@ const totalUnsoldUnits = computed(() => props.totalUnsoldUnits || 0)
 const projects = computed(() => props.projects || [])
 
 const formatCurrency = (amount) => {
-    if (!amount) return '₹0'
-    return Number(amount).toLocaleString('en-IN', {
-        style: 'currency',
-        currency: 'INR',
-        minimumFractionDigits: 2
-    }).replace('₹', '₹ ')
+    if (!amount) return '₹ 0'
+    return '₹ ' + Number(amount).toLocaleString('en-IN', {
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+    })
 }
 </script>
 
@@ -37,7 +36,7 @@ const formatCurrency = (amount) => {
                     <h3 class="text-lg font-semibold text-gray-700">Total Outstanding Amount (All Projects)</h3>
                     <div class="mt-4 flex justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ formatCurrency(totalOutStandingAmmount)
-                        }}</span>
+                            }}</span>
                     </div>
                 </div>
 
@@ -59,7 +58,8 @@ const formatCurrency = (amount) => {
 
                 <!-- Project Cards -->
                 <div class="flex flex-col lg:flex-row gap-4 lg:p-4 justify-between">
-                    <div class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                    <div
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
                         <h3 class="text-lg font-semibold text-gray-700">Total Units Amounts</h3>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">
@@ -68,14 +68,16 @@ const formatCurrency = (amount) => {
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                    <div
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
                         <h3 class="text-lg font-semibold text-gray-700">Total Units</h3>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">{{ project.total_units }}</span>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                    <div
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
                         <h3 class="text-lg font-semibold text-gray-700">Total Pending Amount Of Project</h3>
                         <div class="mt-4 flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">
@@ -88,6 +90,9 @@ const formatCurrency = (amount) => {
                 <!-- Action Buttons -->
                 <div class="flex w-full justify-end mt-4 my-6">
                     <div class="flex gap-4">
+                        <ButtonLink icon="ic:baseline-add" :href="route('transactions.create', project.id)">
+                            Add Transaction
+                        </ButtonLink>
                         <ButtonLink icon="ic:twotone-add" :href="route('units.create', project.id)">Add Units
                         </ButtonLink>
                         <ButtonLink icon="material-symbols:add-home-rounded"
