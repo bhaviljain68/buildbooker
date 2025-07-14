@@ -5,7 +5,7 @@ import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import BackButton from '@/components/BackButton.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
-
+const toast = new ToastMagic();
 const { props } = usePage()
 const project = props.project || {}
 

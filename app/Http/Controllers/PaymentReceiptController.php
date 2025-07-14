@@ -24,10 +24,11 @@ class PaymentReceiptController extends Controller
 
         try {
             // Render the Blade view to HTML
-            $html = view('Receipt_bs', [
+             $html = view('receipt_BS', [
                 'project' => $project,
                 'transaction' => $transaction,
             ])->render();
+
 
             // Ensure directory exists
             if (Storage::disk('public')->missing('receipts')) {
