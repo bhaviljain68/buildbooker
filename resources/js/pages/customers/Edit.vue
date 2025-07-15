@@ -29,14 +29,14 @@ function submitForm() {
         </template>
 
         <div class="py-12">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
                 <!-- Back Button -->
                 <div class="flex justify-start w-full mb-4">
                     <BackButton :prevRoute="route('customers.index', projectId)" />
                 </div>
 
                 <!-- Form Card -->
-                <div class="bg-gray-100 shadow-sm sm:rounded-lg">
+                <div class="bg-gray-100 lg:shadow-sm rounded-lg">
                     <div class="p-6 bg-gray-100 border-t-4 border-primary rounded-lg">
                         <form @submit.prevent="submitForm">
                             <!-- Name -->

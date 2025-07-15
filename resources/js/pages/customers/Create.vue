@@ -30,8 +30,8 @@ function submit() {
 
 <template>
   <AppLayout>
-    <div class="py-0 lg:py-10">
-      <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
+    <div class="py-0 lg:py-10 mt-10 lg:mt-0">
+      <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-8">
 
         <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
           <BackButton :prevRoute="route('projects.index')" />

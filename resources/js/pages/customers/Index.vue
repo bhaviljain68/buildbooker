@@ -38,19 +38,20 @@ function confirmDelete(customer) {
 </script>
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
+        <div class="py-0 lg:py-10 mt-10 lg:mt-0">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-8">
 
                 <!-- Back Button -->
                 <div class="flex justify-between w-full mb-4">
                     <BackButton :prevRoute="route('projects.index')" />
                     <!-- <p>{{ route('customers.create', project.id) }}</p> -->
-                    <ButtonLink  v-if="project" icon="ic:twotone-add" :href="route('customers.create', project.id)">Add Customer
+                    <ButtonLink v-if="project" icon="ic:twotone-add" :href="route('customers.create', project.id)">Add
+                        Customer
                     </ButtonLink>
 
                 </div>
                 <div
-                    class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-4 text-gray-800 py-8 border-t-4 border-primary">
+                    class="bg-gray-100 mt-10 overflow-hidden shadow-md rounded-lg px-4 text-gray-800 py-8 border-t-4 border-primary">
                     <!-- Title -->
                     <div class="flex items-center justify-between py-4 mb-8 border-gray-200">
                         <h6 class="m-0 text-primary font-bold text-center lg:text-3xl w-full">
@@ -59,7 +60,8 @@ function confirmDelete(customer) {
                     </div>
 
                     <!-- Table Headers -->
-                    <div class="grid grid-cols-6 rounded-t-lg">
+                    <!-- dasktop  -->
+                    <div class="hidden lg:grid grid-cols-6 rounded-t-lg">
                         <div
                             class="col-span-2 font-black bg-secondary text-zinc-100 border-x py-4 px-2 flex justify-center items-center rounded-tl-lg">
                             Name</div>
@@ -113,6 +115,45 @@ function confirmDelete(customer) {
                             <h1 class="text-yellow-600 text-2xl">No Customer!</h1>
                         </div>
                     </div>
+
+                    <!-- mobile view  -->
+                    <!-- Mobile View -->
+                    <div class="block lg:hidden space-y-4 mt-6">
+                        <template v-if="project.customers && project.customers.length">
+                            <div v-for="customer in project.customers" :key="customer.id"
+                                class="bg-white rounded-lg shadow border">
+                                <div class="bg-secondary text-white rounded-t-lg px-4 py-2 font-bold">
+                                    {{ customer.name }}
+                                </div>
+                                <div class="p-4 text-sm space-y-2 text-gray-800">
+                                    <p><strong>Unit No.:</strong>
+                                        <span v-if="customer.units?.length === 1">{{ customer.units[0].unit_no }}</span>
+                                        <span v-else>{{customer.units?.map(u => u.unit_no).join(', ')}}</span>
+                                    </p>
+                                    <p><strong>Mobile:</strong> {{ customer.mobile }}</p>
+                                    <p><strong>Total Due:</strong> ₹{{ getDueAmount(customer).toLocaleString('en-IN') }}
+                                    </p>
+                                </div>
+                                <div class="px-4 pb-4 flex gap-3">
+                                    <Link :href="route('customers.edit', customer.id)"
+                                        class="bg-green-700 hover:bg-green-800 text-white rounded px-3 py-1 text-sm flex items-center gap-1">
+                                    <Icon icon="lucide:edit" width="18" height="18" />
+                                    Edit
+                                    </Link>
+                                    <button @click="confirmDelete(customer)"
+                                        class="bg-red-700 hover:bg-red-800 text-white rounded px-3 py-1 text-sm flex items-center gap-1">
+                                        <Icon icon="mingcute:delete-fill" width="18" height="18" />
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+
+                        <div v-else class="p-4 text-center text-yellow-600 text-lg font-medium">
+                            No Customer!
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
