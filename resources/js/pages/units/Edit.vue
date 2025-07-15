@@ -38,7 +38,7 @@ function submitForm() {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center justify-start my-4">
                     <!-- <Link :href="route('units.index', { organisation: project.organisation, project: project.id })"
                         class="bg-yellow-500 hover:bg-yellow-600 text-black cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
@@ -47,7 +47,7 @@ function submitForm() {
                     <BackButton :prevRoute="route('units.index', { organisation: project.organisation, project: project.id })"></BackButton>
                 </div>
 
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg border-t-4 border-primary mt-10">
+                <div class="bg-gray-100 overflow-hidden shadow-md rounded-lg border-t-4 border-primary mt-10">
                     <div class="text-gray-900">
                         <div class="flex items-center justify-center pt-8 pr-3">
                             <img :src="project.logo" :alt="`${project.name}_logo`" class="max-h-24" />

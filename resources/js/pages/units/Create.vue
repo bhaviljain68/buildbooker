@@ -42,7 +42,7 @@ function submitForm() {
     <AppLayout>
         <!-- <pre>{{ project }}</pre> -->
         <div class="py-0 lg:py-10">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center justify-start my-4">
                     <!-- <BackButton :prevRoute="route('units.index', { organisation: project.organisation, project: project.id })" /> -->
                     <BackButton :prevRoute="route('units.index', {
@@ -51,7 +51,7 @@ function submitForm() {
                     })" />
                 </div>
 
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg mt-10 border-t-4 border-primary">
+                <div class="bg-gray-100 overflow-hidden shadow-md rounded-lg mt-10 border-t-4 border-primary">
                     <div class="text-gray-900">
                         <div class="flex items-center justify-center pt-8 pr-3">
                             <img :src="project.logo" :alt="`${project.name}_logo`" class="max-h-24" />
@@ -63,7 +63,7 @@ function submitForm() {
                             </h6>
                         </div>
 
-                        <form @submit.prevent="submitForm" class="p-7 rounded">
+                        <form @submit.prevent="submitForm" class="lg:p-7 p-4 rounded">
                             <div
                                 class="grid grid-cols-[1fr_1fr_12px] gap-x-4 mb-4 text-secondary font-bold underline underline-offset-8">
                                 <p class="text-center text-xl">Unit Number</p>
@@ -72,11 +72,11 @@ function submitForm() {
 
                             <div v-for="(unit, index) in units" :key="index" class="unit-row mb-4 rounded-lg">
                                 <div class="grid grid-cols-[1fr_1fr_12px] gap-4">
-                                    <div class="pr-2">
+                                    <div class="lg:pr-2">
                                         <FormInput placeholder="Unit Number" id="unit_no" v-model="unit.unit_no"
                                             :error="unit.errors?.unit_no" />
                                     </div>
-                                    <div class="pl-2">
+                                    <div class="lg:pl-2">
                                         <select v-model="unit.unit_type"
                                             class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300"
                                             required>

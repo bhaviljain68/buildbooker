@@ -50,20 +50,16 @@ function cancelBooking(unitId) {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-0">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 py-5 lg:px-0">
                 <div class="mb-4 flex justify-between items-center">
-                    <!-- <Link :href="route('projects.index')"
-                        class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
-                    <Icon icon="pajamas:go-back" width="16" height="16" />
-                    Go Back</Link> -->
                     <BackButton :prevRoute="route('projects.index')" />
                     <ButtonLink icon="ic:twotone-add" class=" bg-primary" :href="route('units.create', project)">
                         Add Units
                     </ButtonLink>
-
                 </div>
 
-                <div class="bg-gray-100 mt-10 border-t-4 border-primary overflow-hidden shadow-md sm:rounded-lg px-8">
+                <div
+                    class="bg-gray-100 mt-10 border-t-4 border-primary overflow-hidden shadow-md rounded-lg px-4 lg:px-8">
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center py-4 border-b border-gray-200 mb-8">
                             <img :src="project.logo" :alt="`${project.name}_logo`" class="max-h-24" />
@@ -72,7 +68,8 @@ function cancelBooking(unitId) {
                             </h6>
                         </div>
 
-                        <div class="grid grid-cols-10 border-b rounded-lg">
+                        <!-- dashtop view -->
+                        <div class="hidden lg:grid grid-cols-10 border-b rounded-lg">
                             <template
                                 v-for="(header, index) in ['Unit No.', 'Unit Type', 'Status', 'Book', 'Customer Name', 'Selling Price', 'Amt. Received', 'Amt. Due', 'Ledger', 'Actions']"
                                 :key="index">
@@ -139,7 +136,6 @@ function cancelBooking(unitId) {
                                     </button>
                                 </div>
 
-
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
                                     {{ unit.is_sold ? (unit.customer?.name ?? 'N/A') : 'N/A' }}
                                 </p>
@@ -191,6 +187,80 @@ function cancelBooking(unitId) {
                                 </div>
                             </template>
                         </div>
+
+                        <!-- mobile view -->
+
+                        <div class="block lg:hidden space-y-4 mt-6">
+                            <div v-for="unit in units" :key="unit.id" class="bg-white rounded-lg shadow border">
+                                <div class="px-4 py-2 border-b flex justify-between items-center">
+                                    <div>
+                                        <h3 class="font-bold text-primary">Unit No: {{ unit.unit_no }}</h3>
+                                    </div>
+                                    <div class="flex">
+                                        <div>
+                                            <span class="text-sm text-white px-2 py-1 rounded"
+                                                :class="unit.is_sold ? 'bg-red-600' : 'bg-green-600'">
+                                                {{ unit.is_sold ? 'Sold' : 'Not Sold' }}
+                                            </span>
+                                        </div>
+                                        <div v-if="unit.is_sold" class="flex justify-center mt-2">
+                                            <Link
+                                                :href="route('units.booking.edit', { project: unit.project_id, unit: unit.id })"
+                                                class="bg-green-700 ml-2 -mt-2 text-white px-1 py-1 rounded hover:bg-teal-600">
+                                            <Icon icon="bxs:edit" width="15" height="15" />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="px-4 py-2 space-y-1 text-sm text-gray-800">
+                                    <p><strong>Unit Type:</strong> {{ unit.type }}</p>
+                                    <p><strong>Customer:</strong> {{ unit.is_sold ? (unit.customer?.name ?? 'N/A') :
+                                        'N/A' }}</p>
+                                    <p><strong>Selling Price:</strong> {{ unit.total_amount === 0 ? 'N/A' :
+                                        formatCurrency(unit.total_amount) }}
+                                    </p>
+                                    <p><strong>Amt. Received:</strong> {{ unit.base_amount === 0 ? 'N/A' :
+                                        formatCurrency(unit.base_amount) }}
+                                    </p>
+                                    <p><strong>GST:</strong> {{ unit.gst_amount === 0 ? 'N/A' :
+                                        formatCurrency(unit.gst_amount) }}</p>
+                                </div>
+                                <div class="px-4 py-3 flex gap-2 justify-between border-t">
+                                    <template v-if="!unit.is_sold">
+                                        <Link
+                                            :href="route('units.booking', { project: unit.project_id, unit: unit.id })"
+                                            class="text-white bg-green-700 hover:bg-green-800 px-3 py-1 rounded text-sm">
+                                        Book
+                                        </Link>
+                                    </template>
+                                    <template v-else>
+                                        <button @click="cancelBooking(unit.id)"
+                                            class="text-white bg-red-700 hover:bg-red-800 px-3 py-1 rounded text-sm">
+                                            Cancel
+                                        </button>
+                                    </template>
+
+                                    <Link :href="route('units.show', unit.id)"
+                                        :class="['px-3 py-1 rounded text-sm flex items-center gap-1', unit.is_sold ? 'bg-primary text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed']">
+                                    <Icon icon="lets-icons:view-alt-fill" width="16" height="16" />
+                                    View
+                                    </Link>
+
+                                    <Link :href="route('units.edit', { project, unit })"
+                                        class="bg-green-700 text-white px-2 py-1 rounded text-sm">
+                                    <Icon icon="bxs:edit" width="16" height="16" />
+
+                                    </Link>
+
+                                    <button @click="handleDelete(unit)"
+                                        class="bg-red-700 text-white px-2 py-1 rounded text-sm">
+                                        <Icon icon="mingcute:delete-fill" width="16" height="16" />
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

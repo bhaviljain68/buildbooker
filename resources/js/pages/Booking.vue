@@ -57,9 +57,9 @@ function submitForm() {
 
 <template>
   <AppLayout>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm" class="px-4 lg:px-10">
       <div
-        class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
+        class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-4 lg:px-6 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
         <h1 class="font-bold text-primary text-center lg:text-2xl pt-10">
           Customer & Booking Details
         </h1>
@@ -98,7 +98,7 @@ function submitForm() {
             Booking Details
           </h1>
 
-          <div class="grid grid-cols-3 gap-x-2">
+          <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-x-2">
             <!-- Base Amount -->
             <FormInput label="Base Amount" id="base_amount" type="number" v-model="form.customer.base"
               @input="recalculateTotal" :error="form.errors.base" required="true" class="text-left">
@@ -108,7 +108,7 @@ function submitForm() {
             </FormInput>
 
             <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
-              @input="recalculateTotal" :error="form.errors.gst" required="true" class="pl-7">
+              @input="recalculateTotal" :error="form.errors.gst" required="true" class="">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
