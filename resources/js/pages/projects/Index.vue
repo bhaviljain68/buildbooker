@@ -109,7 +109,7 @@ const props = defineProps(['projects']);
                             </div>
 
                             <!-- mobile view show the card  -->
-                            <div class="lg:hidden space-y-6 mt-4" v-for="project in projects" :key="project.id">
+                            <div class="lg:hidden space-y-6 mt-8" v-for="project in projects" :key="project.id">
                                 <div class="bg-white shadow-md rounded-lg p-4 border">
                                     <div class="flex flex-col items-center justify-center text-center gap-2 mb-4">
                                         <!-- Logo -->
@@ -121,9 +121,6 @@ const props = defineProps(['projects']);
                                             {{ project.name }}
                                         </h2>
                                     </div>
-
-
-
                                     <p class="text-sm font-semibold mb-1">
                                         Units (Sold / Unsold):
                                         <span class="text-green-700">{{ project.sold_units }}</span> /
