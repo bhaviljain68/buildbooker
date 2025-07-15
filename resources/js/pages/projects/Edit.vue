@@ -71,7 +71,7 @@ function submitForm() {
 <template>
   <AppLayout>
     <div class="py-0 lg:py-10">
-      <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto px-6 py-5 lg:px-8">
 
         <!-- Back Button -->
         <div class="flex items-start justify-start mb-4">
@@ -79,7 +79,7 @@ function submitForm() {
         </div>
 
 
-        <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg border-t-4 border-primary mt-10">
+        <div class="bg-gray-100 overflow-hidden shadow-md rounded-lg border-t-4 border-primary mt-10">
           <div class="text-gray-900">
             <!-- Title -->
             <div class="flex items-center justify-between pt-8 py-4 border-gray-200 px-4">
@@ -89,7 +89,7 @@ function submitForm() {
             </div>
 
             <!-- Form -->
-            <form @submit.prevent="submitForm"  class="p-7 bg-gary-100 rounded">
+            <form @submit.prevent="submitForm"  class="p-4 lg:p-7 bg-gary-100 rounded">
               <div class="grid grid-cols-1 gap-y-4">
                 <!-- Project Name -->
                 <FormInput v-model="form.name" label="Project Name" required :error="errors.name"

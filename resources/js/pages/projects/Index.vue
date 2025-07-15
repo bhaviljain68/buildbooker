@@ -9,18 +9,18 @@ const props = defineProps(['projects']);
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 py-5 lg:py-0 lg:px-8 mt-3 lg:mt-0">
                 <!-- Add Button -->
                 <div class="mb-4 flex justify-end items-center">
 
                     <ButtonLink icon="ic:twotone-add" class=" bg-primary" :route="route('projects.create')">
                         Add New Project
                     </ButtonLink>
-                    
+
                 </div>
 
                 <!-- Flash Messages -->
-                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-4 border-t-4 border-primary">
+                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md rounded-lg px-4 border-t-4 border-primary">
                     <div class="text-gray-900">
 
                         <!-- Header -->
@@ -33,7 +33,8 @@ const props = defineProps(['projects']);
                             </div>
 
                             <!-- Table Header -->
-                            <div class="grid grid-cols-8 font-black rounded-t-lg bg-secondary text-zinc-100">
+                            <!-- dashtop view -->
+                            <div class="hidden lg:grid grid-cols-8 font-black rounded-t-lg bg-secondary text-zinc-100">
                                 <p
                                     class="border-x py-4 border-l-gray-800 border-zinc-100 col-span-2 flex justify-center gap-x-4 px-2 items-center rounded-tl-lg">
                                     Project Name
@@ -47,7 +48,7 @@ const props = defineProps(['projects']);
                             </div>
 
                             <!-- Table Data -->
-                            <div class="grid grid-cols-8 rounded-b-lg border-b border-gray-300">
+                            <div class="hidden lg:grid grid-cols-8 rounded-b-lg border-b border-gray-300">
                                 <template v-for="project in projects" :key="project.id">
                                     <!-- Project Name & Logo -->
                                     <div
@@ -61,7 +62,7 @@ const props = defineProps(['projects']);
                                         <span class="font-bold">{{ project.total_units }}</span>&nbsp;
                                         (<span class="text-green-700 mx-1">{{ project.sold_units }}</span>/
                                         <span class="text-red-700 mx-1">{{ project.total_units - project.sold_units
-                                            }}</span>)
+                                        }}</span>)
                                     </p>
 
                                     <!-- Units -->
@@ -100,11 +101,59 @@ const props = defineProps(['projects']);
                                     <div
                                         class="border-r py-1 border-gray-300 flex justify-center items-center rounded-br-lg">
                                         <ButtonLink icon="material-symbols:settings"
-                                            :route="route('projects.edit',  project.id  )">
+                                            :route="route('projects.edit', project.id)">
                                             Manage
                                         </ButtonLink>
                                     </div>
                                 </template>
+                            </div>
+
+                            <!-- mobile view show the card  -->
+                            <div class="lg:hidden space-y-6 mt-4" v-for="project in projects" :key="project.id">
+                                <div class="bg-white shadow-md rounded-lg p-4 border">
+                                    <div class="flex flex-col items-center justify-center text-center gap-2 mb-4">
+                                        <!-- Logo -->
+                                        <img :src="project.logo" :alt="`${project.name}_logo`"
+                                            class="h-12 w-12 object-contain rounded-md" />
+
+                                        <!-- Project Name -->
+                                        <h2 class="font-semibold text-base sm:text-lg text-gray-800 truncate">
+                                            {{ project.name }}
+                                        </h2>
+                                    </div>
+
+
+
+                                    <p class="text-sm font-semibold mb-1">
+                                        Units (Sold / Unsold):
+                                        <span class="text-green-700">{{ project.sold_units }}</span> /
+                                        <span class="text-red-700">{{ project.total_units - project.sold_units }}</span>
+                                        (Total: {{ project.total_units }})
+                                    </p>
+
+                                    <div class="mt-4 grid grid-cols-2 gap-2">
+                                        <ButtonLink icon="lets-icons:view-alt-fill"
+                                            :route="route('units.index', [project.organisation_id, project.id])">
+                                            Units
+                                        </ButtonLink>
+                                        <ButtonLink icon="material-symbols:manage-accounts"
+                                            :route="route('customers.index', [project.id])">
+                                            Customers
+                                        </ButtonLink>
+                                        <ButtonLink icon="material-symbols:add-home-rounded"
+                                            :route="route('transactions.create', project.id)">
+                                            Sell
+                                        </ButtonLink>
+                                        <ButtonLink icon="lets-icons:view-alt-fill"
+                                            :route="route('transactions.index', [project.organisation_id, project.id])">
+                                            Transactions
+                                        </ButtonLink>
+                                        <ButtonLink icon="material-symbols:settings"
+                                            :route="route('projects.edit', project.id)">
+                                            Manage
+                                        </ButtonLink>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

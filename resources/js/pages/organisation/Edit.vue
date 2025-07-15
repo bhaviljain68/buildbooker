@@ -49,16 +49,16 @@ function submit() {
 
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-gray-100 shadow-md sm:rounded-lg overflow-hidden border-t-4 border-primary">
+        <div class="py-0 lg:py-10 mt-10 lg:mt-0">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                <div class="bg-gray-100 shadow-md rounded-lg overflow-hidden border-t-4 border-primary">
                     <div class="text-gray-900 px-4 pt-8">
                         <h6 class="m-0 font-bold text-primary text-center lg:text-3xl">
                             Organisation
                         </h6>
 
                         <!-- Form -->
-                        <form @submit.prevent="submit" class="p-7">
+                        <form @submit.prevent="submit" class="lg:p-7 pb-10 ">
                             <div class="grid grid-cols-1 gap-y-4">
 
                                 <!-- Name -->

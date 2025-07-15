@@ -62,13 +62,13 @@ const resetForm = () => {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto px-6 py-5 lg:px-8">
                 <div class="flex items-start justify-start mb-4">
                     <BackButton :prevRoute="route('projects.index')" />
                 </div>
                
 
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg border-t-4 border-primary">
+                <div class="bg-gray-100 overflow-hidden shadow-md rounded-lg border-t-4 border-primary">
                     <div class="text-gray-900">
                         <div class="flex items-center justify-between pt-8 py-4 border-gray-200 px-4">
                             <h6
@@ -77,7 +77,7 @@ const resetForm = () => {
                             </h6>
                         </div>
 
-                        <form @submit.prevent="submit" id="new_project_form" class="p-7 bg-gray-100 rounded">
+                        <form @submit.prevent="submit" id="new_project_form" class="p-4 lg:p-7 bg-gray-100 rounded">
                             <div class="grid grid-cols-1 gap-y-4">
                                 <!-- Project Name -->
                                 <FormInput label="Project Name" hint="(This will be displayed on your receipts)"
@@ -136,11 +136,11 @@ const resetForm = () => {
                             <!-- Submit & Reset Buttons -->
                             <div class="flex flex-wrap justify-between mt-6 gap-4">
                                 <button type="submit"
-                                    class="text-white bg-primary hover:bg-teal-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm md:text-base px-10 py-2.5 md:px-[10rem]">
+                                    class="text-white bg-primary hover:bg-teal-800 focus:ring-4 focus:ring-teal-700 font-medium rounded-lg text-sm md:text-base px-10 py-2.5 md:px-[10rem]">
                                     Submit
                                 </button>
                                 <button type="reset" @click="resetForm"
-                                    class="text-white bg-teal-500 hover:bg-teal-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm md:text-base px-10 py-2.5 md:px-[10rem]">
+                                    class="text-white bg-teal-500 hover:bg-teal-500 focus:ring-4 focus:ring-teal-400 font-medium rounded-lg text-sm md:text-base px-10 py-2.5 md:px-[10rem]">
                                     Reset
                                 </button>
                             </div>

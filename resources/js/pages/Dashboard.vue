@@ -24,25 +24,29 @@ const formatCurrency = (amount) => {
     <AppLayout>
         <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Summary Cards -->
-            <div class="flex flex-col lg:flex-row gap-4 p-4 justify-between">
-                <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+            <div class="flex flex-col lg:flex-row gap-4 p-4 justify-between mt-5">
+                <div
+                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                     <h3 class="text-lg font-semibold text-gray-700">Total Projects</h3>
-                    <div class="mt-4 flex justify-between items-center">
+                    <div class="mt-4 flex justify-center lg:justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ totalProjects }}</span>
                     </div>
                 </div>
 
-                <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+
+                <div
+                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                     <h3 class="text-lg font-semibold text-gray-700">Total Outstanding Amount (All Projects)</h3>
-                    <div class="mt-4 flex justify-between items-center">
+                    <div class="mt-4 flex justify-center lg:justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ formatCurrency(totalOutStandingAmmount)
-                            }}</span>
+                        }}</span>
                     </div>
                 </div>
 
-                <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                <div
+                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                     <h3 class="text-lg font-semibold text-gray-700">Total Unsold Units (All Projects)</h3>
-                    <div class="mt-4 flex justify-between items-center">
+                    <div class="mt-4 flex justify-center lg:justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ totalUnsoldUnits }}</span>
                     </div>
                 </div>
@@ -59,9 +63,9 @@ const formatCurrency = (amount) => {
                 <!-- Project Cards -->
                 <div class="flex flex-col lg:flex-row gap-4 lg:p-4 justify-between">
                     <div
-                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                         <h3 class="text-lg font-semibold text-gray-700">Total Units Amounts</h3>
-                        <div class="mt-4 flex justify-between items-center">
+                        <div class="mt-4 flex justify-center lg:justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">
                                 {{ formatCurrency(project.totalUnitAmount) }}
                             </span>
@@ -69,17 +73,17 @@ const formatCurrency = (amount) => {
                     </div>
 
                     <div
-                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                         <h3 class="text-lg font-semibold text-gray-700">Total Units</h3>
-                        <div class="mt-4 flex justify-between items-center">
+                        <div class="mt-4 flex justify-center lg:justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">{{ project.total_units }}</span>
                         </div>
                     </div>
 
                     <div
-                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%]">
+                        class="bg-white p-4 border rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
                         <h3 class="text-lg font-semibold text-gray-700">Total Pending Amount Of Project</h3>
-                        <div class="mt-4 flex justify-between items-center">
+                        <div class="mt-4 flex justify-center lg:justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">
                                 {{ formatCurrency(project.totalPendingAmountOfProject) }}
                             </span>
@@ -89,15 +93,19 @@ const formatCurrency = (amount) => {
 
                 <!-- Action Buttons -->
                 <div class="flex w-full justify-end mt-4 my-6">
-                    <div class="flex gap-4">
-                        <ButtonLink icon="ic:baseline-add" :href="route('transactions.create', project.id)">
-                            Add Transaction
-                        </ButtonLink>
-                        <ButtonLink icon="ic:twotone-add" :href="route('units.create', project.id)">Add Units
-                        </ButtonLink>
-                        <ButtonLink icon="material-symbols:add-home-rounded"
-                            :href="route('units.index', { organisation: project.organisation_id, project: project.id })"
-                            class="bg-green-600 hover:bg-green-700 text-white">Book</ButtonLink>
+                    <div class="flex flex-col sm:flex-row gap-4 sm:w-auto">
+                        <div>
+                            <ButtonLink icon="ic:baseline-add" :href="route('transactions.create', project.id)">
+                                Add Transaction
+                            </ButtonLink>
+                        </div>
+                        <div class="flex gap-5">
+                            <ButtonLink icon="ic:twotone-add" :href="route('units.create', project.id)">Add Units
+                            </ButtonLink>
+                            <ButtonLink icon="material-symbols:add-home-rounded"
+                                :href="route('units.index', { organisation: project.organisation_id, project: project.id })"
+                                class="bg-green-600 hover:bg-green-700 text-white">Book</ButtonLink>
+                        </div>
                     </div>
                 </div>
             </div>
