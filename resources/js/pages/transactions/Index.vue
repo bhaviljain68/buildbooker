@@ -39,7 +39,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10 mt-10 lg:mt-0">
+        <div class="py-5 lg:py-10 mt-3 lg:mt-0">
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton :prevRoute="route('projects.index')" />

@@ -115,8 +115,7 @@ function confirmDelete(customer) {
                             <h1 class="text-yellow-600 text-2xl">No Customer!</h1>
                         </div>
                     </div>
-
-                    <!-- mobile view  -->
+                    
                     <!-- Mobile View -->
                     <div class="block lg:hidden space-y-4 mt-6">
                         <template v-if="project.customers && project.customers.length">
