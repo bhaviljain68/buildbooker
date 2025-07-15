@@ -45,13 +45,13 @@ function submitTransaction() {
 
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10">
+        <div class="py-5 lg:py-10 mt-10 lg:mt-0">
+            <div class="max-w-4xl mx-auto px-6 lg:px-0">
+                <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
+                    <BackButton :prevRoute="route('projects.index')" />
+                </div>
 
-            <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
-                <BackButton :prevRoute="route('projects.index')" />
-            </div>
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-0">
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg p-6 border-t-4 border-primary mt-10">
+                <div class="bg-gray-100 overflow-hidden lg:shadow-md rounded-lg p-6 border-t-4 border-primary mt-10">
                     <h2 class="text-2xl font-bold text-center text-primary mt-5 mb-6">
                         Add Transaction for Sold Unit
                     </h2>
@@ -88,11 +88,11 @@ function submitTransaction() {
 
                     <!-- Transaction Form -->
                     <div v-if="state.unitDefined && state.selectedUnit" class="mt-8">
-                        <div class="px-6 py-10 bg-gray-100 border border-primary rounded-md shadow">
+                        <div class="lg:px-6 py-10 bg-gray-100 lg:border lg:border-primary rounded-md lg:shadow">
                             <h3 class="text-2xl font-bold text-primary text-center mb-6">
                                 Transaction Details
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:gap-10 gap-5">
                                 <!-- Payment Date -->
                                 <div>
                                     <FormInput label="Date of Payment" hint="(This will be displayed on your

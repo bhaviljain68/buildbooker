@@ -192,13 +192,13 @@ function cancelBooking(unitId) {
 
                         <div class="block lg:hidden space-y-4 mt-6">
                             <div v-for="unit in units" :key="unit.id" class="bg-white rounded-lg shadow border">
-                                <div class="px-4 py-2 border-b flex justify-between items-center">
+                                <div class="px-4 py-2 border-b flex bg-primary justify-between items-center rounded-t-lg">
                                     <div>
-                                        <h3 class="font-bold text-primary">Unit No: {{ unit.unit_no }}</h3>
+                                        <h3 class="font-bold text-white">Unit No: {{ unit.unit_no }}</h3>
                                     </div>
                                     <div class="flex">
                                         <div>
-                                            <span class="text-sm text-white px-2 py-1 rounded"
+                                            <span class="text-sm text-white px-2 py-1 rounded-lg"
                                                 :class="unit.is_sold ? 'bg-red-600' : 'bg-green-600'">
                                                 {{ unit.is_sold ? 'Sold' : 'Not Sold' }}
                                             </span>

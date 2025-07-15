@@ -30,37 +30,38 @@ const submitUpdate = () => {
     })
 }
 function convertToYyyyMmDd(dateString) {
-  const date = new Date(dateString)
-  if (isNaN(date)) return ''
+    const date = new Date(dateString)
+    if (isNaN(date)) return ''
 
-  const dd = String(date.getDate()).padStart(2, '0')
-  const mm = String(date.getMonth() + 1).padStart(2, '0')
-  const yyyy = date.getFullYear()
+    const dd = String(date.getDate()).padStart(2, '0')
+    const mm = String(date.getMonth() + 1).padStart(2, '0')
+    const yyyy = date.getFullYear()
 
-  return `${yyyy}-${mm}-${dd}`
+    return `${yyyy}-${mm}-${dd}`
 }
 onMounted(() => {
-  for (const key of ['payment_date', 'receipt_date']) {
-    if (form[key]) {
-      form[key] = convertToYyyyMmDd(form[key])
+    for (const key of ['payment_date', 'receipt_date']) {
+        if (form[key]) {
+            form[key] = convertToYyyyMmDd(form[key])
+        }
     }
-  }
 })
 </script>
 
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10">
-            <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
-                <BackButton :prevRoute="route('projects.index')" />
-            </div>
-            <div class="max-w-4xl mx-auto sm:px-6 lg:px-0 mt-10">
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg p-6 border-t-4 border-primary">
+        <div class="py-5 lg:py-10">
+            <div class="max-w-4xl mx-auto px-6 lg:px-0 mt-5 lg:mt-0">
+                <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
+                    <BackButton :prevRoute="route('projects.index')" />
+                </div>
+
+                <div class="bg-gray-100 overflow-hidden mt-10 lg:mt-5 shadow-md rounded-lg p-6 border-t-4 border-primary">
                     <h2 class="text-2xl font-bold text-center text-primary mb-6">
                         Edit Transaction for Unit {{ unit.unit_no }}
                     </h2>
 
-                    <div class="p-6 bg-gray-100">
+                    <div class=" mt-10 bg-gray-100">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Payment Date -->
                             <div>
@@ -72,13 +73,13 @@ onMounted(() => {
                             <!-- Receipt Date -->
                             <div>
                                 <FormInput label="Date of Receipt" hint="(This will be displayed on your
-                                            receipts)" v-model="form.receipt_date" type="date"  />
+                                            receipts)" v-model="form.receipt_date" type="date" />
                             </div>
 
                             <!-- Transaction Amount -->
                             <div>
-                                    <FormInput label="Transaction Amount" hint="(This will be displayed on your
-                                            receipts)" v-model="form.transaction_amount" type="text"/>
+                                <FormInput label="Transaction Amount" hint="(This will be displayed on your
+                                            receipts)" v-model="form.transaction_amount" type="text" />
                             </div>
 
                             <!-- GST -->
@@ -109,20 +110,21 @@ onMounted(() => {
 
                             <!-- Payment Reference -->
                             <div>
-                                    <FormInput label="Payment Reference No" hint="(Not required for cash)"
-                                        v-model="form.payment_reference" type="text" :disabled="form.payment_type === 'cash'" />
+                                <FormInput label="Payment Reference No" hint="(Not required for cash)"
+                                    v-model="form.payment_reference" type="text"
+                                    :disabled="form.payment_type === 'cash'" />
                             </div>
 
                             <!-- Bank Name -->
                             <div>
-                                    <FormInput label="Bank Name" hint="(This will be displayed on your
-                                            receipts)" v-model="form.bank_name" type="text"/>
+                                <FormInput label="Bank Name" hint="(This will be displayed on your
+                                            receipts)" v-model="form.bank_name" type="text" />
                             </div>
 
                             <!-- Bank Branch -->
                             <div>
-                                    <FormInput label="Bank Branch" hint="(This will be displayed on your
-                                            receipts)" v-model="form.bank_branch" type="text"/>
+                                <FormInput label="Bank Branch" hint="(This will be displayed on your
+                                            receipts)" v-model="form.bank_branch" type="text" />
                             </div>
                         </div>
 

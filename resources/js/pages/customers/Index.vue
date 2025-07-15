@@ -134,16 +134,16 @@ function confirmDelete(customer) {
                                     <p><strong>Total Due:</strong> ₹{{ getDueAmount(customer).toLocaleString('en-IN') }}
                                     </p>
                                 </div>
-                                <div class="px-4 pb-4 flex gap-3">
+                                <div class="px-4 pb-4 flex justify-end gap-3">
                                     <Link :href="route('customers.edit', customer.id)"
                                         class="bg-green-700 hover:bg-green-800 text-white rounded px-3 py-1 text-sm flex items-center gap-1">
                                     <Icon icon="lucide:edit" width="18" height="18" />
-                                    Edit
+                                  
                                     </Link>
                                     <button @click="confirmDelete(customer)"
                                         class="bg-red-700 hover:bg-red-800 text-white rounded px-3 py-1 text-sm flex items-center gap-1">
                                         <Icon icon="mingcute:delete-fill" width="18" height="18" />
-                                        Delete
+                                        
                                     </button>
                                 </div>
                             </div>

@@ -39,12 +39,12 @@ const tabClass = (tab) => {
     <AppLayout>
 
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto sm:px-6 lg:px-8">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton :prevRoute="route('units.index', [unit.project.organisation_id, unit.project.id])" />
                 </div>
 
-                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md sm:rounded-lg px-8">
+                <div class="bg-gray-100 mt-10 overflow-hidden shadow-md rounded-lg px-4 lg:px-8">
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center py-4 border-gray-200 mb-8">
                             <img :src="unit.project.logo" :alt="`${unit.project.name}_logo`" class="max-h-24" />
@@ -56,12 +56,14 @@ const tabClass = (tab) => {
                         <!-- Unit Details -->
                         <div
                             class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-800 bg-teal-500 text-white bg-opacity-10 rounded-lg">
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
+                            <div
+                                class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Unit Type</p>
                                 <p class="text-2xl">{{ ucwords(unit.type) }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
+                            <div
+                                class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Status</p>
                                 <p class="text-2xl">
                                     {{ unit.is_sold ? 'Sold' : 'Not Sold' }}
@@ -69,28 +71,30 @@ const tabClass = (tab) => {
                                 </p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800">
+                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Selling Price</p>
                                 <p class="text-2xl">₹ {{ unit.total_amount }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
+                            <div
+                                class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Customer Name</p>
                                 <p class="text-2xl">{{ ucwords(unit.customer.name) }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-r border-b border-teal-800">
+                            <div
+                                class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Customer Contact Number</p>
                                 <p class="text-2xl">{{ unit.customer.mobile }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800">
+                            <div class="flex flex-col gap-4 p-8 border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Customer Email</p>
                                 <p class="text-2xl break-words whitespace-normal">{{ unit.customer.email || 'N/A' }}</p>
                             </div>
 
                             <!-- Base Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
+                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">Base Amount</p>
                                     <p><span class="text-green-950">Received</span> / <span
@@ -104,7 +108,7 @@ const tabClass = (tab) => {
                             </div>
 
                             <!-- GST Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800">
+                            <div class="flex flex-col gap-4 p-8 border-r border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">GST Amount</p>
                                     <p><span class="text-green-950">Received</span> / <span
@@ -118,7 +122,7 @@ const tabClass = (tab) => {
                             </div>
 
                             <!-- Total Amount -->
-                            <div class="flex flex-col gap-4 p-8 border-teal-800">
+                            <div class="flex flex-col gap-4 p-8 border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">Total Amount</p>
                                     <p><span class="text-green-950">Received</span> / <span
@@ -138,7 +142,9 @@ const tabClass = (tab) => {
                                 <summary class="cursor-pointer px-4 py-3 font-semibold text-cyan-800">
                                     View Transactions
                                 </summary>
-                                <div class="px-4 py-6">
+
+                                <!-- dasktop -->
+                                <div class="lg:block hidden px-4 py-6">
                                     <!-- Tabs -->
                                     <div class="mb-4 flex gap-4">
                                         <button @click="activeTab = 'all'" :class="tabClass('all')">All
@@ -180,7 +186,7 @@ const tabClass = (tab) => {
                                                         View
                                                     </a> -->
 
-                                                    <span class="py-2 font-black border-r  border-cyan-500 text-center" >
+                                                    <span class="py-2 font-black border-r  border-cyan-500 text-center">
                                                         <ReceiptModel :project="project" :transaction="t" size="sm" />
                                                     </span>
                                                     <!-- <span v-else>N/A</span> -->
@@ -194,6 +200,47 @@ const tabClass = (tab) => {
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+
+                                <!-- mobile view -->
+                                <div class="block lg:hidden px-4 py-6 space-y-4">
+                                    <div class="mb-4 flex flex-wrap gap-2">
+                                        <button @click="activeTab = 'all'" :class="tabClass('all')">All
+                                            Transactions</button>
+                                        <button @click="activeTab = 'base'" :class="tabClass('base')">Base
+                                            Transactions</button>
+                                        <button @click="activeTab = 'gst'" :class="tabClass('gst')">GST
+                                            Transactions</button>
+                                    </div>
+
+                                    <div v-for="(t, index) in filteredTransactions" :key="index"
+                                        class="bg-white shadow rounded border p-4 space-y-2">
+                                        <div class="text-sm"><span class="font-semibold">#{{ index + 1 }}</span></div>
+                                        <div class="text-sm"><span class="font-semibold">Payment Date:</span> {{
+                                            t.payment_date }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Amount:</span> ₹ {{
+                                            t.transaction_amount }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Instrument:</span> {{
+                                            t.payment_type ?? '-' }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Bank:</span> {{ t.bank_name ??
+                                            '-' }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Branch:</span> {{ t.bank_branch
+                                            ?? '-' }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Receipt Date:</span> {{
+                                            t.receipt_date ?? '-' }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Type:</span> {{ t.gst ? 'GST' :
+                                            'Base' }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Receipt:</span>
+                                            <span>
+                                                <ReceiptModel :project="project" :transaction="t" size="sm" />
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div v-if="filteredTransactions.length === 0"
+                                        class="text-center text-gray-500 py-4">
+                                        No transactions found.
+                                    </div>
                                 </div>
                             </details>
                         </div>

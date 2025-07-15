@@ -39,8 +39,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
 <template>
     <AppLayout>
-        <div class="py-0 lg:py-10">
-            <div class="w-full lg:w-[80%] mx-auto sm:px-6 lg:px-8">
+        <div class="py-0 lg:py-10 mt-10 lg:mt-0">
+            <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton :prevRoute="route('projects.index')" />
                     <ButtonLink v-if="project?.id" icon="ic:twotone-add"
@@ -49,7 +49,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                     </ButtonLink>
                 </div>
 
-                <div class="bg-gray-100 overflow-hidden shadow-md sm:rounded-lg px-8 border-t-4 border-primary mt-10">
+                <div
+                    class="bg-gray-100 overflow-hidden lg:shadow-md rounded-lg px-4 lg:px-8 border-t-4 border-primary mt-10">
 
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center border-gray-200 mb-8">
@@ -59,7 +60,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                             </h6>
                         </div>
 
-                        <div class="grid grid-cols-8 rounded-t-lg border-b rounded-b-lg">
+                        <!-- dasktop  -->
+                        <div class="hidden lg:grid grid-cols-8 rounded-t-lg border-b rounded-b-lg">
                             <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tl-lg">
                                 Unit
                                 No.
@@ -114,6 +116,72 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </template>
                             </template>
                         </div>
+
+                        <!-- mobile  -->
+
+                        <div class="block lg:hidden space-y-4 mt-6">
+                            <div v-for="unit in project?.units" :key="unit.id">
+                                <div v-for="transaction in unit.transactions" :key="transaction.id">
+                                    <div class="bg-white rounded-lg shadow border overflow-hidden">
+                                        <!-- Header -->
+                                        <div class="bg-secondary text-white px-4 py-2 font-bold">
+                                            Unit: {{ unit.unit_no }}
+                                        </div>
+
+                                        <!-- Transaction Details -->
+                                        <div class="px-4 py-2 text-sm space-y-2 text-gray-800">
+                                            <p>
+                                                <strong>Date:</strong>
+                                                {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
+                                                    day: '2-digit',
+                                                    month: 'short',
+                                                    year: 'numeric'
+                                                }) }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Instrument:</strong>
+                                                {{ transaction.payment_type.replace('_', ' ').toUpperCase() }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Amount:</strong>
+                                                {{ formatCurrency(transaction.transaction_amount) }}
+                                            </p>
+
+                                            <p>
+                                                <strong>GST:</strong>
+                                                {{ transaction.gst }}
+                                            </p>
+
+                                            <p>
+                                                <strong>Receipt No.:</strong>
+                                                {{ transaction.receipt_number }}
+                                            </p>
+
+
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div class="px-4 py-3 flex justify-between gap-3 border-t">
+                                            <div>
+                                                <!-- <strong>Receipt:</strong> -->
+                                                <ReceiptModel :project="project" :transaction="transaction" size="sm" />
+                                            </div>
+                                            <div class="flex gap-4">
+                                                <ButtonLink
+                                                    :route="route('transactions.edit', [transaction.id, unit.id, project.id])"
+                                                    icon="mage:edit" status="info" />
+                                                <ButtonLink icon="mingcute:delete-fill" status="error"
+                                                    @click="deleteTransaction(transaction.id, organisation.id, project.id)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
