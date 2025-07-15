@@ -35,10 +35,10 @@ const submit = () => {
         <div v-if="status" class="mb-4  text-sm font-medium text-green-600">
             {{ status }}
         </div>
-        <div class="flex flex-col justify-center items-center text-center min-h-screen">
+        <div class="flex flex-col justify-center items-center text-center min-h-screen px-6 lg:px-0">
             <img src="/images/app_logo.png" alt="Logo" class="w-90 mx-auto" />
             <form @submit.prevent="submit"
-                class="lg:mx-auto w-full bg-gray-100 sm:max-w-4xl mt-10 px-3 lg:px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">
+                class="lg:mx-auto w-full bg-gray-100 sm:max-w-4xl lg:mt-10 px-3 lg:px-6 py-4 shadow-md overflow-hidden sm:rounded-lg">
                 <div class="grid gap-6">
                     <div class="grid gap-2">
                         <Label for="email">Email</Label>

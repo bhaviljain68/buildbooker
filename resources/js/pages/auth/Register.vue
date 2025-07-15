@@ -28,7 +28,7 @@ const submit = () => {
 
         <Head title="Register" /> -->
 
-    <div class="flex flex-col justify-center items-center text-center min-h-screen">
+    <div class="flex flex-col justify-center items-center text-center min-h-screen px-6 lg:px-0">
         <img src="/images/app_logo.png" alt="Logo" class="w-90 mx-auto" />
         <form @submit.prevent="submit"
             class="lg:mx-auto w-full sm:max-w-4xl px-6 py-4 bg-gray-100 shadow-md overflow-hidden sm:rounded-lg">
