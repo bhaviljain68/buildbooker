@@ -321,20 +321,44 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function delete(Unit $unit)
+    // {
+    //     try {
+    //         if (auth()->user()->organisation_id !== $unit->project->organisation_id) {
+    //             abort(403);
+    //         }
+    //         if ($unit->is_sold) {
+    //             return redirect()->back()->with('error', "Please Unbook before Deleting this $unit->no Unit No.");
+    //         }
+    //         $unit->transactions()->delete();
+    //         $unit->customer()->dissociate();
+    //         $unit->customer()->delete();
+    //         $unit->delete();
+    //         ToastMagic::success('project created successfully!');
+    //         return redirect()->route('units.index', [
+    //             'organisation' => auth()->user()->organisation_id,
+    //             'project' => $unit->project_id
+    //         ])->with('success', 'Unit deleted successfully!');
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', $e->getMessage());
+    //     }
+    // }
     public function delete(Unit $unit)
     {
         try {
             if (auth()->user()->organisation_id !== $unit->project->organisation_id) {
                 abort(403);
             }
+
             if ($unit->is_sold) {
-                return redirect()->back()->with('error', "Please Unbook before Deleting this $unit->no Unit No.");
+                // Soft delete for sold units
+                $unit->delete();
+            } else {
+                // Force delete for unsold units
+                $unit->forceDelete();
             }
-            $unit->transactions()->delete();
-            $unit->customer()->dissociate();
-            $unit->customer()->delete();
-            $unit->delete();
-            ToastMagic::success('project created successfully!');
+
+            ToastMagic::success('Unit deleted successfully!');
             return redirect()->route('units.index', [
                 'organisation' => auth()->user()->organisation_id,
                 'project' => $unit->project_id
