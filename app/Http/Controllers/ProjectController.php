@@ -53,9 +53,9 @@ class ProjectController extends Controller
 
             Project::create($request->except('logo_file'));
 
-            return redirect()->back()->with('success', 'Project Created successfully');
+            return redirect()->route('projects.index')->with('success', 'Project Created successfully');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while Creating the project. ');
+            return redirect()->route('projects.index')->with('error', 'An error occurred while Creating the project. ');
         }
     }
 

@@ -42,7 +42,7 @@ const handleFileSelect = (e) => {
 const submit = () => {
     form.post(route('projects.store'), {
         onSuccess: () => {
-            router.visit(route('projects.create'))
+            router.visit(route('projects.index'))
             toast.success("Project created successfully!");
         },
         onError: () => {

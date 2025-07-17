@@ -33,6 +33,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItemType } from '@/types';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
+import { Icon } from "@iconify/vue";
 
 withDefaults(
   defineProps<{
@@ -49,11 +50,14 @@ const user = computed(() => page.props.auth.user);
 
 <template>
   <header
-    class="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/70 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4"
-  >
+    class="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/70 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
     <div class="flex items-center gap-2">
-      <h1>{{ user?.name }}</h1>
-      <!-- <h1>{{ user? }}</h1> -->
+      <!-- <h1>{{ user?.name }}</h1> -->
+      <a :href="route('profile.edit')"
+        class="flex items-center p-2 rounded text-gray-700 hover:text-black cursor-pointer">
+        <Icon icon="ix:user-profile-filled" width="36" height="36" />
+        <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]"></span>
+      </a>
       <template v-if="breadcrumbs && breadcrumbs.length > 0">
         <Breadcrumbs :breadcrumbs="breadcrumbs" />
       </template>
