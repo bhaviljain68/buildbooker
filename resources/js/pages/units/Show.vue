@@ -28,8 +28,8 @@ const tabClass = (tab) => {
     return [
         'px-4 py-2 rounded border font-semibold',
         tab === activeTab.value
-            ? 'bg-cyan-600 text-white'
-            : 'bg-cyan-100 hover:bg-cyan-200 text-cyan-800'
+            ? 'bg-zinc-600 text-white'
+            : 'bg-zinc-100 hover:bg-cyan-200 text-cyan-800'
     ]
 }
 
@@ -48,14 +48,14 @@ const tabClass = (tab) => {
                     <div class="text-gray-800 py-8">
                         <div class="flex flex-col items-center justify-center py-4 border-gray-200 mb-8">
                             <img :src="unit.project.logo" :alt="`${unit.project.name}_logo`" class="max-h-24" />
-                            <h6 class="m-0 text-primary font-bold text-center lg:text-3xl w-full mt-4">
+                            <h6 class="m-0 text-primary font-bold text-center lg:text-4xl w-full mt-8">
                                 Unit : {{ unit.unit_no }}
                             </h6>
                         </div>
 
                         <!-- Unit Details -->
                         <div
-                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-800 bg-teal-500 text-white bg-opacity-10 rounded-lg">
+                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-800 bg-zinc-200 text-black rounded-lg">
                             <div
                                 class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Unit Type</p>
@@ -97,13 +97,13 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-r border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">Base Amount</p>
-                                    <p><span class="text-green-950">Received</span> / <span
-                                            class="text-red-700">Due</span>
+                                    <p><span class="text-green-600">Received</span> / <span
+                                            class="text-red-500">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-950">₹ {{ unit.formatted_base_received_amount }}</span> /
-                                    <span class="text-red-700">₹ {{ unit.base_amount }}</span>
+                                    <span class="text-green-600">₹ {{ unit.formatted_base_received_amount }}</span> /
+                                    <span class="text-red-500">₹ {{ unit.base_amount }}</span>
                                 </p>
                             </div>
 
@@ -111,13 +111,13 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-r border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">GST Amount</p>
-                                    <p><span class="text-green-950">Received</span> / <span
-                                            class="text-red-700">Due</span>
+                                    <p><span class="text-green-600">Received</span> / <span
+                                            class="text-red-500">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-950">₹ {{ unit.base_amount }}</span> /
-                                    <span class="text-red-700">₹ {{ unit.formatted_gst_due_amount }}</span>
+                                    <span class="text-green-600">₹ {{ unit.formatted_gst_received_amount }}</span> /
+                                    <span class="text-red-500">₹ {{ unit.formatted_gst_due_amount }}</span>
                                 </p>
                             </div>
 
@@ -125,20 +125,20 @@ const tabClass = (tab) => {
                             <div class="flex flex-col gap-4 p-8 border-teal-800 text-center lg:text-left">
                                 <div>
                                     <p class="text-xl">Total Amount</p>
-                                    <p><span class="text-green-950">Received</span> / <span
-                                            class="text-red-700">Due</span>
+                                    <p><span class="text-green-600">Received</span> / <span
+                                            class="text-red-500">Due</span>
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-950">₹ {{ unit.base_amount }}</span> /
-                                    <span class="text-red-700">₹ {{ unit.gst_amount }}</span>
+                                    <span class="text-green-600">₹ {{ unit.formatted_total_received_amount }}</span> /
+                                    <span class="text-red-500">₹ {{ unit.formatted_total_due_amount }}</span>
                                 </p>
                             </div>
                         </div>
 
                         <!-- Transactions Table -->
                         <div class="mt-8 lg:mx-24">
-                            <details class="mt-4 rounded-lg bg-cyan-200 bg-opacity-10 border border-teal-800">
+                            <details class="mt-4 rounded-lg bg-zinc-200 bg-opacity-10 border border-teal-800">
                                 <summary class="cursor-pointer px-4 py-3 font-semibold text-cyan-800">
                                     View Transactions
                                 </summary>
@@ -157,7 +157,7 @@ const tabClass = (tab) => {
 
                                     <!-- Table -->
                                     <table class="w-full text-left border border-gray-200">
-                                        <thead class="bg-cyan-100">
+                                        <thead class="bg-zinc-100">
                                             <tr>
                                                 <th class="px-4 py-2 border">#</th>
                                                 <th class="px-4 py-2 border">Payment Date</th>
