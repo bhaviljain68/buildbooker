@@ -15,6 +15,9 @@ function formatCurrency(amount) {
         maximumFractionDigits: 0 // Removes `.00`
     }).format(amount);
 }
+function capitalizeFirst(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
 function handleDelete(unit) {
     const confirmText = unit.is_sold
         ? 'This unit is already booked. Please unbook it before deleting.'
@@ -83,8 +86,7 @@ function cancelBooking(unitId) {
                                 <p
                                     :class="['border-b py-2 border-x border-gray-300 flex justify-center items-center', index === units.length - 1 ? 'rounded-bl-lg' : '']">
                                     {{ unit.unit_no }}</p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{
-                                    unit.type }}</p>
+                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{capitalizeFirst(unit.type) }}</p>
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{
                                     unit.is_sold ? 'Sold' : 'Not Sold' }}
                                     <!-- Show Edit button only if sold -->
@@ -192,7 +194,8 @@ function cancelBooking(unitId) {
 
                         <div class="block lg:hidden space-y-4 mt-6">
                             <div v-for="unit in units" :key="unit.id" class="bg-white rounded-lg shadow border">
-                                <div class="px-4 py-2 border-b flex bg-primary justify-between items-center rounded-t-lg">
+                                <div
+                                    class="px-4 py-2 border-b flex bg-primary justify-between items-center rounded-t-lg">
                                     <div>
                                         <h3 class="font-bold text-white">Unit No: {{ unit.unit_no }}</h3>
                                     </div>
