@@ -14,7 +14,9 @@ const units = ref([
         unit_type: props.unit?.type ?? '',
     },
 ])
-
+function capitalizeFirst(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+}
 function submitForm() {
     router.post(
         route('units.update', {
@@ -73,7 +75,7 @@ function submitForm() {
                                 <select v-model="unit.unit_type" class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300" required>
                                     <option disabled value="">Select Unit Type</option>
                                     <option v-for="type in unitTypes" :key="type" :value="type">
-                                        {{ type }}
+                                        {{ capitalizeFirst(type) }}
                                     </option>
                                 </select>
                             </div>
