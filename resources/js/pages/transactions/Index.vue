@@ -78,7 +78,12 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
                             <template v-for="unit in project?.units" :key="unit.id">
                                 <template v-for="transaction in unit.transactions" :key="transaction.id">
-                                    <p class="border-b py-2 border-x border-gray-300 text-center">{{ unit.unit_no }}</p>
+                                    <!-- <p class="border-b py-2 border-x border-gray-300 text-center">{{ unit.unit_no }}</p> -->
+                                    <Link :href="route('units.show', unit.id)"
+                                        class="border-b py-2 border-x border-gray-300 text-center block">
+                                    {{ unit.unit_no }}
+                                    </Link>
+
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
                                         {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
                                             day: '2-digit',
@@ -92,9 +97,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                         {{ formatCurrency(transaction.transaction_amount) }}
                                     </div>
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
-                                        {{ transaction.gst }}
+                                        {{ transaction.gst ? 'Yes' : 'No' }}
                                     </p>
-
                                     <!-- {{  }} -->
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
                                         {{ transaction.receipt_number }}

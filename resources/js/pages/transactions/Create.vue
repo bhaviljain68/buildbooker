@@ -45,6 +45,7 @@ function submitTransaction() {
 
 <template>
     <AppLayout>
+        <!-- <pre>{{units}}</pre> -->
         <div class="py-5 lg:py-10 mt-10 lg:mt-0">
             <div class="max-w-4xl mx-auto px-6 lg:px-0">
                 <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
@@ -68,6 +69,7 @@ function submitTransaction() {
                                 <option v-for="unit in props.units.filter(u => u.is_sold)" :key="'sold-' + unit.id"
                                     :value="unit">
                                     Unit No: {{ unit.unit_no }}
+                                    ({{ unit.customer?.name || 'No Customer' }})
                                 </option>
                             </optgroup>
 
