@@ -27,16 +27,6 @@ class CustomerController extends Controller
     public function getOrgCustomers(Organisation $organisation)
     {
 
-        // $organisation->load('projects.customers.units'); // Eager load nested
-        // $project = $organisation->projects[0] ?? null;
-
-        // $customers = $project ? $project->customers : collect();
-        // return Inertia::render('customers/Index', [
-        //     'project' => $project,
-        //     'customers' => $customers,
-
-        // ]);
-        // Eager load all projects with their customers and units
         $organisation->load('projects.customers.units.transactions');
 
         $customers = $organisation->projects

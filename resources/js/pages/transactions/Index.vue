@@ -279,7 +279,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
                                     <!-- Instrument -->
                                     <p class="border-b py-2 border-r border-gray-300 text-center">
-                                        {{ transaction.payment_type.replace('_', ' ').toUpperCase() }}
+                                        {{ transaction.payment_type.charAt(0).toUpperCase() +
+                                            transaction.payment_type.slice(1) }}
                                     </p>
 
                                     <!-- Amount -->
@@ -340,8 +341,10 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
                                 <!-- Instrument -->
                                 <p class="border-b py-2 border-r border-gray-300 text-center">
-                                    {{ transaction.payment_type.replace('_', ' ').toUpperCase() }}
+                                    {{ transaction.payment_type.charAt(0).toUpperCase() +
+                                    transaction.payment_type.slice(1) }}
                                 </p>
+
 
                                 <!-- Amount -->
                                 <div class="border-b py-2 border-r border-gray-300 text-center">
