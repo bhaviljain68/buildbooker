@@ -326,12 +326,12 @@ function deleteTransaction(transactionId, organisationId, projectId) {
 
                                 <!-- Unit No. -->
                                 <Link :href="route('units.show', transaction.unit_id)"
-                                    class="border-b py-2 border-x border-gray-300 text-center block">
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                 {{ transaction.unit?.unit_no ?? 'N/A' }}
                                 </Link>
 
                                 <!-- Date -->
-                                <p class="border-b py-2 border-r border-gray-300 text-center">
+                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
                                         day: '2-digit',
                                         month: 'short',
@@ -340,29 +340,29 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </p>
 
                                 <!-- Instrument -->
-                                <p class="border-b py-2 border-r border-gray-300 text-center">
+                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.payment_type.charAt(0).toUpperCase() +
                                     transaction.payment_type.slice(1) }}
                                 </p>
 
 
                                 <!-- Amount -->
-                                <div class="border-b py-2 border-r border-gray-300 text-center">
+                                <div class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ formatCurrency(transaction.transaction_amount) }}
                                 </div>
 
                                 <!-- GST -->
-                                <p class="border-b py-2 border-r border-gray-300 text-center">
+                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.gst ? 'Yes' : 'No' }}
                                 </p>
 
                                 <!-- Receipt No. -->
-                                <p class="border-b py-2 border-r border-gray-300 text-center">
+                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.receipt_number }}
                                 </p>
 
                                 <!-- Receipt -->
-                                <div class="border-b py-2 border-r pt-6 border-gray-300 text-center">
+                                <div class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     <ReceiptModel :project="project" :transaction="transaction" size="sm" />
                                 </div>
 

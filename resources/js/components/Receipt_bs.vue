@@ -1,7 +1,7 @@
 <script setup>
 import { Download } from 'lucide-vue-next'
 import { computed, ref } from 'vue'
-
+import { Icon } from '@iconify/vue';
 const props = defineProps({
   project: Object,
   transaction: Object,
@@ -20,9 +20,11 @@ const formattedPaymentDate = computed(() => {
 </script>
 
 <template>
-  <div class="bg-white px-10 text-gray-900 rounded-lg my-10 pt-10">
+
+  <div class="bg-white px-10 text-gray-900 rounded-lg my-10 pt-5">
+    <div class="flex justify-end"><Icon icon="material-symbols:close" @click="props.closeModal" width="24" height="24" /></div>
     <div v-for="i in 2" :key="i">
-      <div class="flex justify-between pt-5">
+      <div class="flex justify-between pt-10">
         <div>
           <img :src="project?.logo" alt="Logo" height="100" width="100" />
         </div>

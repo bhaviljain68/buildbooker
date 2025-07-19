@@ -101,7 +101,7 @@ class CustomerController extends Controller
 
         $customer->update($validated);
 
-        return redirect()->route('customers.index', $customer->project_id)->with('success', 'Customer updated.');
+        return redirect()->back('customers.index', $customer->project_id)->with('success', 'Customer updated.');
     }
 
     public function destroy(Customer $customer)
