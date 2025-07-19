@@ -14,21 +14,41 @@ class CustomerController extends Controller
 {
     public function index(Project $project)
     {
-        $project->load(['customers.units']);
-        return Inertia::render('customers/Index', compact('project'));
+        // $project->load(['customers.units']);
+        // return Inertia::render('customers/Index', compact('project'));
+        $project->load('customers.units.transactions');
+
+        return Inertia::render('customers/Index', [
+            'project' => $project,
+            'customers' => $project->customers,
+        ]);
     }
 
     public function getOrgCustomers(Organisation $organisation)
     {
-        $organisation->load('projects.customers.units'); // Eager load nested
 
-        $project = $organisation->projects[0] ?? null;
+        // $organisation->load('projects.customers.units'); // Eager load nested
+        // $project = $organisation->projects[0] ?? null;
 
-        // If there's at least one project, grab its customers
-        $customers = $project ? $project->customers : collect();
+        // $customers = $project ? $project->customers : collect();
+        // return Inertia::render('customers/Index', [
+        //     'project' => $project,
+        //     'customers' => $customers,
 
+        // ]);
+        // Eager load all projects with their customers and units
+        $organisation->load('projects.customers.units.transactions');
+
+        $customers = $organisation->projects
+            ->pluck('customers')
+            ->flatten()
+
+            ->unique('id')
+            ->values();
+        // dd($customers);
         return Inertia::render('customers/Index', [
-            'project' => $project,
+            'project' => null,
+            'organisation' => $organisation,
             'customers' => $customers
         ]);
     }
