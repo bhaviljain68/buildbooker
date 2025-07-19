@@ -58,7 +58,7 @@ Route::resource('customers', CustomerController::class)->only(['show', 'edit', '
 Route::get('unit-transactions/{unit}', [TransactionController::class, 'create'])->name('unit-transactions.create');
 // Route::delete('unit-transactions/{unit}', [TransactionController::class, 'unBook'])->name('unit-transactions.unBook');
 Route::get('unit-unbook/{unit}', [TransactionController::class, 'unBook'])->name('unit-unbook');
-Route::get('transactions/{organisation}/{project}', [TransactionController::class, 'index'])->name('transactions.index');
+Route::get('index-transactions/{organisation}/{project?}', [TransactionController::class, 'index'])->name('transactions.index');
 Route::get('delete-transaction/{transaction}', [TransactionController::class, 'deleteTransaction'])->name('delete-transaction');
 Route::get('transactions/{project}', [TransactionController::class, 'create'])->name('transactions.create');
 Route::get('transactions/{transaction}/{unit}/{project}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');

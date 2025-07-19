@@ -26,16 +26,16 @@ const formatCurrency = (amount) => {
             <!-- Summary Cards -->
             <div class="flex flex-col lg:flex-row gap-4 p-4 justify-between mt-5">
                 <div
-                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
+                    class="bg-teal-50 border-t-4 border-primary p-4 h-[130px] rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center flex flex-col items-center justify-center">
                     <h3 class="text-lg font-semibold text-gray-700">Total Projects</h3>
-                    <div class="mt-4 flex justify-center lg:justify-between items-center">
+                    <div class="mt-4">
                         <span class="text-xl font-bold text-gray-800">{{ totalProjects }}</span>
                     </div>
                 </div>
 
 
                 <div
-                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
+                    class="bg-teal-50 border-t-4 border-primary p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center flex flex-col items-center justify-center">
                     <h3 class="text-lg font-semibold text-gray-700">Total Outstanding Amount (All Projects)</h3>
                     <div class="mt-4 flex justify-center lg:justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ formatCurrency(totalOutStandingAmmount)
@@ -44,7 +44,7 @@ const formatCurrency = (amount) => {
                 </div>
 
                 <div
-                    class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center lg:text-left">
+                    class="bg-teal-50 border-t-4 border-primary p-4 rounded-lg shadow-md hover:shadow-lg transition w-full lg:max-w-[33%] text-center flex flex-col items-center justify-center">
                     <h3 class="text-lg font-semibold text-gray-700">Total Unsold Units (All Projects)</h3>
                     <div class="mt-4 flex justify-center lg:justify-between items-center">
                         <span class="text-xl font-bold text-gray-800">{{ totalUnsoldUnits }}</span>
@@ -57,7 +57,7 @@ const formatCurrency = (amount) => {
                 class="p-4 m-4 bg-teal-100 rounded-lg">
                 <!-- Logo -->
                 <div class="flex flex-col lg:flex-row gap-4 items-center mb-6 justify-center pt-6">
-                    <img :src="project.project_logo" alt="Project Logo" class="h-18 w-18" />
+                    <img :src="project.project_logo" alt="Project Logo" class="h-18" />
                 </div>
 
                 <!-- Project Cards -->

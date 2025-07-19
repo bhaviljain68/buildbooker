@@ -11,7 +11,7 @@ class Organisation extends Model
     use SoftDeletes;
 
     protected $guarded = [];
-
+    // protected $with = ['customers'];
     protected function logo(): Attribute
     {
         return Attribute::make(
@@ -32,6 +32,18 @@ class Organisation extends Model
     public function customers()
     {
         return $this->hasManyThrough(Customer::class, Project::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasManyThrough(
+            Transaction::class, // Final model
+            Project::class,     // Intermediate model
+            'organisation_id',  // Foreign key on Project table
+            'project_id',       // Foreign key on Transaction table
+            'id',               // Local key on Organisation table
+            'id'                // Local key on Project table
+        );
     }
 
     // Managing Soft Deletes

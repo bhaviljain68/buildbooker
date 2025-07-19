@@ -29,7 +29,7 @@ const tabClass = (tab) => {
         'px-4 py-2 rounded border font-semibold',
         tab === activeTab.value
             ? 'bg-zinc-600 text-white'
-            : 'bg-zinc-100 hover:bg-cyan-200 text-cyan-800'
+            : 'bg-zinc-100 hover:bg-zinc-200 text-cyan-800'
     ]
 }
 

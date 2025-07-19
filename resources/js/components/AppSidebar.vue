@@ -9,7 +9,7 @@ const organisation = computed(() => page.props.organisation);
 const fallbackLogo = '/images/app_logo.png'
 const logoSrc = ref(page.props.organisation?.logo || fallbackLogo)
 function onLogoError(e) {
-  e.target.src = fallbackLogo
+    e.target.src = fallbackLogo
 }
 const projectId = computed(() => page.props.project?.id)
 const visible = ref(false);
@@ -80,12 +80,16 @@ const visible = ref(false);
                         </Link>
                     </li>
                     <li>
-                        <a href="/dashboard" @click="visible = false"
+                        <a :href="route('transactions.index', $page.props.auth.user.organisation_id)"
+                            @click="visible = false"
                             class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
                             <Icon icon="tabler:transaction-dollar" width="24" height="24" />
                             <span
-                                class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">Transaction</span>
+                                class="ml-3 font-inter font-medium text-gray-700 hover:text-black leading-[16px] tracking-[0]">
+                                Transaction
+                            </span>
                         </a>
+
                     </li>
                 </ul>
                 <!-- Bottom "Preference" Link -->

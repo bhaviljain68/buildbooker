@@ -18,9 +18,22 @@ use Exception;
 class TransactionController extends Controller
 {
     // 🔍 List all transactions
-    public function index(Organisation $organisation, $id)
+    public function index(Organisation $organisation, $id = null)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::find($id);
+
+        if ($project == null) {
+            // Get all transactions for the organisation with customer and unit
+            $transactions = $organisation->transactions()->with(['customer', 'unit','project'])->get();
+
+            return Inertia::render('transactions/Index', [
+                'transactions' => $transactions,
+                'project' => [],
+                'organisation' => $organisation,
+                'isProject' => false
+            ]);
+        }
+
         $transactions = Transaction::with(['customer', 'unit'])->whereHas('unit', function ($q) use ($id) {
             $q->where('project_id', $id);
         })->get();
@@ -29,6 +42,7 @@ class TransactionController extends Controller
             'transactions' => $transactions,
             'project' => $project,
             'organisation' => $organisation,
+            'isProject' => true
         ]);
     }
 
@@ -157,7 +171,7 @@ class TransactionController extends Controller
                 'project' => $unit->project_id,
             ])->with('success', 'Transaction updated successfully!');
         } catch (Exception $e) {
-        DB::rollBack();
+            DB::rollBack();
             return redirect()->back()->with('error', 'Failed to update transaction: ' . $e->getMessage());
         }
     }
