@@ -55,7 +55,7 @@ const tabClass = (tab) => {
 
                         <!-- Unit Details -->
                         <div
-                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-24 mt-8 border border-cyan-800 bg-zinc-200 text-black rounded-lg">
+                            class="grid grid-cols-1 lg:grid-cols-3 lg:mx-10 mt-8 border border-cyan-800 bg-zinc-200 text-black rounded-lg">
                             <div
                                 class="flex flex-col gap-4 p-8 border-r border-b border-teal-800 text-center lg:text-left">
                                 <p class="text-xl">Unit Type</p>
@@ -137,7 +137,7 @@ const tabClass = (tab) => {
                         </div>
 
                         <!-- Transactions Table -->
-                        <div class="mt-8 lg:mx-24">
+                        <div class="mt-8 lg:mx-10">
                             <details class="mt-4 rounded-lg bg-zinc-200 bg-opacity-10 border border-teal-800">
                                 <summary class="cursor-pointer px-4 py-3 font-semibold text-cyan-800">
                                     View Transactions
@@ -186,7 +186,7 @@ const tabClass = (tab) => {
                                                         View
                                                     </a> -->
 
-                                                    <span class="py-2 font-black border-r  border-cyan-500 text-center">
+                                                    <span class="py-2 font-black">
                                                         <ReceiptModel :project="project" :transaction="t" size="sm" />
                                                     </span>
                                                     <!-- <span v-else>N/A</span> -->

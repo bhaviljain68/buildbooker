@@ -59,7 +59,7 @@ function submitForm() {
   })).post(route('projects.update', project.id), {
     onSuccess: () => {
       toast.success("Project updated successfully!");
-      router.visit(route('organisation.edit'));
+      // router.visit(route('organisation.edit'));
     },
     onError: (errors) => {
       console.error('Update failed:', errors);
