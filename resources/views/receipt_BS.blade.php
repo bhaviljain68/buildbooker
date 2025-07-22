@@ -223,7 +223,7 @@
 			</div>
 
 			<div class="flex mt-2 items-center">
-				<label class="text-sm" style="width: 55%;">
+				<label class="text-sm" style="width: 47%;">
 					<span class="{{ $transaction->payment_type === 'cheque' ? '' : 'my-label' }}">Cheque No.</span>
 					<span class="{{ $transaction->payment_type === 'bank_draft' ? '' : 'my-label' }}">/Draft
                             No.</span>
@@ -235,7 +235,7 @@
 				<input value="{{ $transaction->payment_reference }}" class="my-input w-24 text-center" disabled>
 				<label class="text-sm ml-4">Date:</label>
 				<input value="{{ Carbon::parse($transaction->payment_date)->format('d-m-Y') }}"
-							 class="my-input w-24 text-center" disabled>
+							 class="my-input w-[35%] text-center" disabled>
 			</div>
 
 			<div class="flex mt-2">

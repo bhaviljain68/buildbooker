@@ -84,7 +84,7 @@ const formattedPaymentDate = computed(() => {
         </div>
 
         <div class="flex items-center mt-2">
-          <label class="text-sm w-[55%] text-left">
+          <label class="text-sm w-[43%] text-left">
             <span :class="transaction.payment_type === 'cheque' ? '' : 'my-label'">Cheque No.</span>
             <span :class="transaction.payment_type === 'bank_draft' ? '' : 'my-label'">/Draft No.</span>
             <span :class="transaction.payment_type === 'rtgs' ? '' : 'my-label'">/RTGS No.</span>
@@ -93,8 +93,8 @@ const formattedPaymentDate = computed(() => {
             <span :class="transaction.payment_type === 'cash' ? '' : 'my-label'">/Cash</span>:
           </label>
           <input :value="transaction.payment_reference" class="my-input w-[20%] text-center" disabled />
-          <label class="text-sm ml-4 w-[10%] text-center">Date:</label>
-          <input :value="formattedPaymentDate" class="my-input w-[15%] text-center" disabled />
+          <label class="text-sm ml-4 text-center">Date:</label>
+          <input :value="formattedPaymentDate" class="my-input w-[31%] text-center" disabled />
         </div>
 
         <div class="flex mt-2">

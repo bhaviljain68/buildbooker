@@ -30,7 +30,7 @@ function closeModal() {
     <!-- Modal Overlay -->
     <div v-if="open" class="fixed inset-0 z-50 flex items-center overflow-y-auto justify-center bg-gray-100">
       <!-- Modal Box -->
-      <div class="rounded-lg shadow-lg relative">
+      <div class="rounded-lg relative">
         <!-- Receipt Content -->
         <div class="max-h-[90vh] ">
           <Receipt_bs :project="project" :transaction="transaction" :closeModal="closeModal" />
