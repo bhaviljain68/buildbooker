@@ -126,14 +126,10 @@ const formattedPaymentDate = computed(() => {
       <hr v-if="i === 1" class="" />
     </div>
     
-
   <!-- Action Buttons at Bottom -->
     <div class="flex justify-end gap-3 pb-5">
       <button @click="props.closeModal"
         class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm">Close</button>
-      <!-- <button @click="downloadReceipt"
-        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">Download Receipt</button> -->
-
         <a :href="route('new-payment-receipts-download-pdf', {
             project: props.project.id,
             transaction: props.transaction.id
@@ -145,12 +141,3 @@ const formattedPaymentDate = computed(() => {
       </div>
       
 </template>
-
-<!-- <style scoped>
-.my-input {
-  @apply border border-gray-300 rounded-sm px-2 py-1 text-sm;
-}
-.my-label {
-  @apply text-gray-400;
-}
-</style> -->

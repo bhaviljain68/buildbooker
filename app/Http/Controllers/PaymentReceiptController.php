@@ -29,7 +29,6 @@ class PaymentReceiptController extends Controller
                 'transaction' => $transaction,
             ])->render();
 
-
             // Ensure directory exists
             if (Storage::disk('public')->missing('receipts')) {
                 Storage::disk('public')->makeDirectory('receipts');

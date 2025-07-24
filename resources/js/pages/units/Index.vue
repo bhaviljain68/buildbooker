@@ -149,19 +149,10 @@ function cancelBooking(unitId) {
                                     {{ unit.base_amount === 0 ? 'N/A' :
                                         formatCurrency(unit.base_amount) }}
                                 </p>
-                                <!-- <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
-                                    {{ unit.gst_amount === 0 ? 'N/A' : formatCurrency(unit.total_amount -
-                                        unit.gst_amount) }}
-                                </p> -->
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
                                     {{ unit.gst_amount === 0 ? 'N/A' :
                                         formatCurrency(unit.gst_amount) }}
                                 </p>
-                                <!-- <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
-                                    <Link :href="route('units.show', unit.id)"
-                                        :class="['px-2 py-1 rounded text-white', !unit.is_sold ? 'bg-primary rounded-lg gap-x-2 flex items-center px-3 py-1' : 'rounded-lg flex items-center gap-x-2 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 px-3 py-1 text-base bg-teal-700 hover:bg-teal-700 text-zinc-100 opacity-80 cursor-not-allowed']">
-                                    <Icon icon="lets-icons:view-alt-fill" width="20" height="20" /> View</Link>
-                                </div> -->
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
                                     <Link v-if="unit.is_sold" :href="route('units.show', unit.id)"
                                         class="bg-primary text-white hover:bg-primary-dark rounded-lg flex items-center gap-x-2 px-3 py-1 text-base transition-colors">

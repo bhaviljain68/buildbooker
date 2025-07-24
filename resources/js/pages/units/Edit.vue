@@ -42,10 +42,6 @@ function submitForm() {
         <div class="py-0 lg:py-10">
             <div class="max-w-4xl mx-auto px-6 lg:px-8">
                 <div class="flex items-center justify-start my-4">
-                    <!-- <Link :href="route('units.index', { organisation: project.organisation, project: project.id })"
-                        class="bg-yellow-500 hover:bg-yellow-600 text-black cursor-pointer px-4 py-1 rounded-lg text-base flex justify-between items-center gap-x-2">
-                    ← Go Back
-                    </Link> -->
                     <BackButton :prevRoute="route('units.index', { organisation: project.organisation, project: project.id })"></BackButton>
                 </div>
 

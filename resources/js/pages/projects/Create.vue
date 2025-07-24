@@ -67,7 +67,6 @@ const resetForm = () => {
                     <BackButton :prevRoute="route('projects.index')" />
                 </div>
                
-
                 <div class="bg-gray-100 overflow-hidden shadow-md rounded-lg border-t-4 border-primary">
                     <div class="text-gray-900">
                         <div class="flex items-center justify-between pt-8 py-4 border-gray-200 px-4">

@@ -181,11 +181,6 @@ const tabClass = (tab) => {
                                                 <td class="px-4 py-2 border">{{ t.bank_branch ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">{{ t.receipt_date ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">
-                                                    <!-- <a v-if="t.receipt" :href="t.receipt"
-                                                        class="text-blue-600 underline" target="_blank">
-                                                        View
-                                                    </a> -->
-
                                                     <span class="py-2 font-black">
                                                         <ReceiptModel :project="project" :transaction="t" size="sm" />
                                                     </span>

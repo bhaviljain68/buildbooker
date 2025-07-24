@@ -43,7 +43,6 @@ class UnitController extends Controller
                 'customer.gst' => 'required|numeric|min:0',
                 'customer.total' => 'required|numeric|min:0',
             ]);
-            // dd($validated);
             // Create or find the customer by phone number
             $customer = Customer::firstOrCreate(
                 ['mobile' => $validated['customer']['mobile']],
@@ -70,8 +69,6 @@ class UnitController extends Controller
                 'project' => $project->id,
             ])->with('success', 'Unit booked successfully!');
         } catch (Exception $e) {
-            // Log error and redirect back with error message
-            // dd($e->getMessage());
             return redirect()->back()->withErrors([
                 'error' => 'Booking failed: ' . $e->getMessage(),
             ])->withInput();
@@ -91,7 +88,6 @@ class UnitController extends Controller
 
     public function updateBooking(Request $request, Project $project, Unit $unit)
     {
-        // dd($request->all());
         $data = $request->validate([
             'customer.name' => 'required|string|max:255',
             'customer.email' => 'nullable|email',
@@ -122,7 +118,6 @@ class UnitController extends Controller
 
     public function showBooking(Request $request, Project $project, Unit $unit)
     {
-        //    dd($request->all());
         $unit->load('customer');
 
         return Inertia::render('Booking', [
@@ -248,8 +243,6 @@ class UnitController extends Controller
             'project',
             'transactions.customer.units'
         ]);
-        // dd($unit->project);
-        // $unit->transactions->load("customer.units");
         if ($request->expectsJson()) {
             return response()->json([$unit]);
         }
@@ -321,28 +314,7 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    // public function delete(Unit $unit)
-    // {
-    //     try {
-    //         if (auth()->user()->organisation_id !== $unit->project->organisation_id) {
-    //             abort(403);
-    //         }
-    //         if ($unit->is_sold) {
-    //             return redirect()->back()->with('error', "Please Unbook before Deleting this $unit->no Unit No.");
-    //         }
-    //         $unit->transactions()->delete();
-    //         $unit->customer()->dissociate();
-    //         $unit->customer()->delete();
-    //         $unit->delete();
-    //         ToastMagic::success('project created successfully!');
-    //         return redirect()->route('units.index', [
-    //             'organisation' => auth()->user()->organisation_id,
-    //             'project' => $unit->project_id
-    //         ])->with('success', 'Unit deleted successfully!');
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', $e->getMessage());
-    //     }
-    // }
+
     public function delete(Unit $unit)
     {
         try {

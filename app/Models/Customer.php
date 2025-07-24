@@ -10,13 +10,6 @@ class Customer extends Model
     use SoftDeletes;
 
     protected $guarded = [];
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'mobile',
-    //     'address',
-    //     'project_id'
-    // ];
 
     public function project()
     {

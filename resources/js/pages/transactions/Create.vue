@@ -82,7 +82,6 @@ function submitTransaction() {
                         </select>
                     </div>
 
-
                     <!-- Message if no sold units -->
                     <div v-if="soldUnits.length === 0" class="text-center text-red-500 mt-10">
                         No sold units found to add a transaction.

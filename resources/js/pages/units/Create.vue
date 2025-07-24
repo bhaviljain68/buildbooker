@@ -80,9 +80,6 @@ function submitForm() {
                                         <select v-model="unit.unit_type"
                                             class="mt-1 block w-full px-3 py-3 bg-white rounded-md shadow-sm border border-gray-300"
                                             required>
-                                            <!-- <option value="" disabled>Select Unit Type</option>
-                                            <option v-for="type in unitTypes" :key="type" :value="type">{{ type }}
-                                            </option> -->
                                             <option value="" disabled>Select Unit Type</option>
                                             <option v-for="type in unitTypes" :key="type" :value="type">
                                                 {{ type.charAt(0).toUpperCase() + type.slice(1) }}

@@ -14,8 +14,6 @@ class CustomerController extends Controller
 {
     public function index(Project $project)
     {
-        // $project->load(['customers.units']);
-        // return Inertia::render('customers/Index', compact('project'));
         $project->load('customers.units.transactions');
 
         return Inertia::render('customers/Index', [
@@ -45,8 +43,6 @@ class CustomerController extends Controller
 
     public function create(Project $project)
     {
-        // dd($project);
-        // $project::Projects()->findOrFail($project->id);
         return Inertia::render('customers/Create', [
             'project' => $project,
         ]);

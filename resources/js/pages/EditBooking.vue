@@ -1,4 +1,5 @@
 <script setup>
+import BackButton from '@/components/BackButton.vue';
 import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
@@ -43,6 +44,14 @@ function submitForm() {
 
 <template>
     <AppLayout>
+        <div class="max-w-4xl mx-auto w-full px-6 lg:px-0 mt-5">
+            <div class="flex items-center justify-start my-4">
+                <BackButton :prevRoute="route('units.index', {
+                    organisation: project.organisation_id,
+                    project: project.id
+                })" />
+            </div>
+        </div>
         <form @submit.prevent="submitForm" class="px-4 lg:px-10">
             <div
                 class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
