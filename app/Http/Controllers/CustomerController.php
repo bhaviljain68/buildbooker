@@ -88,16 +88,16 @@ class CustomerController extends Controller
                 'mobile' => 'required|digits_between:7,15|regex:/^[0-9]+$/|unique:customers,mobile',
             ]);
         }
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:customers,email,' . $customer->id,
             'address' => 'nullable|string|max:500',
         ]);
-
+        
+        // dd('test');;/s
         $customer->update($validated);
 
-        return redirect()->back('customers.index', $customer->project_id)->with('success', 'Customer updated.');
+        return redirect()->route('customers.index', $customer->project_id)->with('success', 'Customer updated.');
     }
 
     public function destroy(Customer $customer)
