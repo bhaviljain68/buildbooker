@@ -140,7 +140,7 @@ const props = defineProps(['projects']);
                                             Customers
                                         </ButtonLink>
                                         <ButtonLink icon="material-symbols:add-home-rounded"
-                                            :route="route('transactions.create', project.id)">
+                                            :route="route('transactions.create', project.id) + '?back=' + route('projects.index')">
                                             Sell
                                         </ButtonLink>
                                         <ButtonLink icon="lets-icons:view-alt-fill"

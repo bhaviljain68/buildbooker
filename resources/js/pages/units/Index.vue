@@ -248,7 +248,12 @@ function cancelBooking(unitId) {
                                     <Icon icon="lets-icons:view-alt-fill" width="16" height="16" />
                                     View
                                     </Link>
-
+                                    <Link v-if="project?.id" :href="route('transactions.create', project.id) + '?back=' + route('units.index', {
+                                        organisation: project.organisation_id,
+                                        project: project.id
+                                    })" class="bg-primary text-white px-1 py-1 rounded" title="Add Transaction">
+                                    <Icon icon="ic:twotone-add" width="20" height="20" />
+                                    </Link>
                                     <Link :href="route('units.edit', { project, unit })"
                                         class="bg-green-700 text-white px-2 py-1 rounded text-sm">
                                     <Icon icon="bxs:edit" width="16" height="16" />

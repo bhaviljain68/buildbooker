@@ -49,12 +49,11 @@ function deleteTransaction(transactionId, organisationId, projectId) {
         <div class="py-5 lg:py-10 mt-3 lg:mt-0">
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
-                    <BackButton :prevRoute="route('projects.index') " />
-                    <ButtonLink v-if="project?.id" icon="ic:twotone-add"
-                        :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
-                            organisation: project.organisation_id,
-                            project: project.id
-                        })">
+                    <BackButton :prevRoute="route('projects.index')" />
+                    <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
+                        organisation: project.organisation_id,
+                        project: project.id
+                    })">
                         Add Transaction
                     </ButtonLink>
                 </div>
@@ -165,7 +164,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </Link>
 
                                 <!-- Date -->
-                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <p
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
                                         day: '2-digit',
                                         month: 'short',
@@ -174,29 +174,34 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </p>
 
                                 <!-- Instrument -->
-                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <p
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.payment_type.charAt(0).toUpperCase() +
-                                    transaction.payment_type.slice(1) }}
+                                        transaction.payment_type.slice(1) }}
                                 </p>
 
 
                                 <!-- Amount -->
-                                <div class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <div
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ formatCurrency(transaction.transaction_amount) }}
                                 </div>
 
                                 <!-- GST -->
-                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <p
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.gst ? 'Yes' : 'No' }}
                                 </p>
 
                                 <!-- Receipt No. -->
-                                <p class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <p
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     {{ transaction.receipt_number }}
                                 </p>
 
                                 <!-- Receipt -->
-                                <div class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                <div
+                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     <ReceiptModel :project="project" :transaction="transaction" size="sm" />
                                 </div>
 
@@ -214,6 +219,126 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                         @click="deleteTransaction(transaction.id, organisation.id)" />
                                 </div>
 
+                            </template>
+                        </div>
+
+                        <!-- mobile view -->
+
+                        <div class="lg:hidden space-y-4 mt-6">
+                            <!-- Project Transactions -->
+                            <template v-if="isProject">
+                                <template v-for="unit in project?.units" :key="unit.id">
+                                    <template v-for="transaction in unit.transactions" :key="transaction.id">
+                                        <div class="bg-white shadow-md rounded-lg border">
+                                            <p class="font-semibold text-lg text-white bg-primary p-2 rounded-t-lg">Unit
+                                                No.
+                                                <Link :href="route('units.show', unit.id)"
+                                                    class="text-lg font-bold text-white">
+                                                {{ unit.unit_no }}
+                                                </Link>
+                                            </p>
+                                            <div class="p-4">
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">Date :
+                                                    <p class="ml-3">{{ new
+                                                        Date(transaction.payment_date).toLocaleDateString('en-GB',
+                                                            {
+                                                                day: '2-digit', month: 'short', year: 'numeric'
+                                                            }) }}</p>
+                                                </div>
+
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">Instrument :
+                                                    <p class="ml-3">{{ transaction.payment_type.charAt(0).toUpperCase()
+                                                        +
+                                                        transaction.payment_type.slice(1) }}</p>
+                                                </div>
+
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">Amount :
+                                                    <p class="ml-3">{{ formatCurrency(transaction.transaction_amount) }}
+                                                    </p>
+                                                </div>
+
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">GST :
+                                                    <p class="ml-3">{{ transaction.gst ? 'Yes' : 'No' }}</p>
+                                                </div>
+
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">Receipt No :
+                                                    <p class="ml-3">{{ transaction.receipt_number }}</p>
+                                                </div>
+
+                                                <div class="font-semibold text-lg text-gray-600 mt-2 flex">Receipt :
+                                                    <ReceiptModel :project="project" :transaction="transaction"
+                                                        size="sm" class="ml-3" />
+                                                </div>
+
+                                                <div class="mt-4 flex justify-end space-x-3">
+                                                    <ButtonLink
+                                                        :route="route('transactions.edit', [transaction.id, unit.id, project.id])"
+                                                        icon="mage:edit" status="info" />
+                                                    <ButtonLink icon="mingcute:delete-fill" status="error"
+                                                        @click="deleteTransaction(transaction.id, organisation.id, project.id)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </template>
+
+                            <!-- Organisation-wide Transactions -->
+                            <template v-else>
+                                <template v-for="transaction in props.transactions" :key="transaction.id">
+                                    <div class="bg-white shadow-md rounded-lg border p-4">
+                                        <div class="flex justify-center mb-4">
+                                            <img :src="transaction.project?.logo"
+                                                :alt="`${transaction.project?.name} logo`"
+                                                class="max-h-16 max-w-[100px] object-contain" />
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600">Unit No :
+                                            <Link :href="route('units.show', transaction.unit_id)"
+                                                class="text-lg font-bold text-primary ml-3">
+                                            {{ transaction.unit?.unit_no ?? 'N/A' }}
+                                            </Link>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">Date :
+                                            <p class="ml-3">{{ new
+                                                Date(transaction.payment_date).toLocaleDateString('en-GB', {
+                                                    day: '2-digit', month: 'short', year: 'numeric'
+                                                }) }}</p>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">Instrument :
+                                            <p class="ml-3">{{ transaction.payment_type.charAt(0).toUpperCase() +
+                                                transaction.payment_type.slice(1) }}</p>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">Amount :
+                                            <p class="ml-3">{{ formatCurrency(transaction.transaction_amount) }}</p>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">GST :
+                                            <p class="ml-3">{{ transaction.gst ? 'Yes' : 'No' }}</p>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">Receipt No :
+                                            <p class="ml-3">{{ transaction.receipt_number }}</p>
+                                        </div>
+
+                                        <div class="font-semibold text-lg text-gray-600 mt-2 flex">Receipt :
+                                            <ReceiptModel :project="project" :transaction="transaction" size="sm" class="ml-3" />
+                                        </div>
+
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <ButtonLink :route="route('transactions.edit', [
+                                                transaction.id,
+                                                transaction.unit_id,
+                                                transaction.project_id || project?.id
+                                            ])" icon="mage:edit" status="info" />
+                                            <ButtonLink icon="mingcute:delete-fill" status="error"
+                                                @click="deleteTransaction(transaction.id, organisation.id)" />
+                                        </div>
+                                    </div>
+                                </template>
                             </template>
                         </div>
                     </div>

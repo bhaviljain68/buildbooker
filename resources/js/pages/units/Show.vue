@@ -39,7 +39,7 @@ const tabClass = (tab) => {
 <template>
     <AppLayout>
 
-        <div class="py-0 lg:py-10">
+        <div class="py-5 lg:py-10">
             <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-0">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton :prevRoute="route('units.index', [unit.project.organisation_id, unit.project.id])" />
@@ -53,9 +53,13 @@ const tabClass = (tab) => {
                                 Unit : {{ unit.unit_no }}
                             </h6>
                         </div>
-                         <div class="flex justify-end gap-4 mx-10">
+                         <div class="flex justify-end gap-4 lg:mx-10">
                         <ButtonLink v-if="project?.id" icon="ic:twotone-add"
-                            :route="route('transactions.create', project.id)">
+                            :route="route('transactions.create', project.id) + '?back=' + route('units.show', {
+                                organisation: project.organisation_id,
+                                project: project.id,
+                                unit: unit.id
+                            })">
                             Add Transaction
                         </ButtonLink>
                     </div>

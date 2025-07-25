@@ -120,9 +120,9 @@ function confirmDelete(customer) {
                                 class="bg-white rounded-lg shadow border">
                                 <div class="bg-secondary text-white rounded-t-lg px-4 py-2 font-bold">
                                     {{ customer.name }}
-                                    <div v-if="!project" class="text-xs text-gray-200 italic">
-                                        Project: {{ customer.units[0]?.project?.name ?? '-' }}
-                                    </div>
+                                    <!-- <div v-if="!project" class="text-xs text-gray-200 italic">
+                                         {{ customer.units[0]?.project?.name ?? '-' }}
+                                    </div> -->
                                 </div>
                                 <div class="p-4 text-sm space-y-2 text-gray-800">
                                     <p><strong>Unit No.:</strong> {{customer.units?.map(u => u.unit_no).join(', ')}}
