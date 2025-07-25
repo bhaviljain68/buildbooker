@@ -163,7 +163,7 @@ const tabClass = (tab) => {
 
                                     <!-- Table -->
                                     <table class="w-full text-left border border-gray-200">
-                                        <thead class="bg-zinc-100">
+                                        <thead class="bg-zinc-100 text-center">
                                             <tr>
                                                 <th class="px-4 py-2 border">#</th>
                                                 <th class="px-4 py-2 border">Payment Date</th>
@@ -178,7 +178,7 @@ const tabClass = (tab) => {
                                         </thead>
                                         <tbody>
                                             <tr v-for="(t, index) in filteredTransactions" :key="index"
-                                                class="border-t">
+                                                class="border-t text-center">
                                                 <td class="px-4 py-2 border">{{ index + 1 }}</td>
                                                 <td class="px-4 py-2 border">{{ t.payment_date }}</td>
                                                 <td class="px-4 py-2 border">₹ {{ t.transaction_amount }}</td>

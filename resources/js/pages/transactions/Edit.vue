@@ -56,10 +56,16 @@ onMounted(() => {
                     <BackButton :prevRoute="route('projects.index')" />
                 </div>
 
-                <div class="bg-gray-100 overflow-hidden mt-10 lg:mt-5 shadow-md rounded-lg p-6 border-t-4 border-primary">
-                    <h2 class="text-2xl font-bold text-center text-primary mb-6">
-                        Edit Transaction for Unit {{ unit.unit_no }}
-                    </h2>
+                <div
+                    class="bg-gray-100 overflow-hidden mt-10 lg:mt-5 shadow-md rounded-lg p-6 border-t-4 border-primary">
+                    <div class=" mx-auto">
+                        <h2 class="text-2xl font-bold text-center text-primary mb-4">
+                            Edit Transaction for Unit {{ unit.unit_no }}
+                        </h2>
+                        <p class="text-center text-gray-700 border-b border-gray-300 pb-2">
+                            Receipt: <span class="font-medium">{{ transaction.receipt_number }}</span>
+                        </p>
+                    </div>
 
                     <div class=" mt-10 bg-gray-100">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

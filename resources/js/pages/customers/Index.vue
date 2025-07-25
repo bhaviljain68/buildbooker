@@ -41,7 +41,7 @@ function confirmDelete(customer) {
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10 mt-10 lg:mt-0">
-            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-8">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-0">
 
                 <!-- Header -->
                 <div class="flex justify-between w-full mb-4">

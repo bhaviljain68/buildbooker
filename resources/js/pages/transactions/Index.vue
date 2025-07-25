@@ -49,9 +49,12 @@ function deleteTransaction(transactionId, organisationId, projectId) {
         <div class="py-5 lg:py-10 mt-3 lg:mt-0">
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
-                    <BackButton :prevRoute="route('projects.index')" />
+                    <BackButton :prevRoute="route('projects.index') " />
                     <ButtonLink v-if="project?.id" icon="ic:twotone-add"
-                        :route="route('transactions.create', project.id)">
+                        :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
+                            organisation: project.organisation_id,
+                            project: project.id
+                        })">
                         Add Transaction
                     </ButtonLink>
                 </div>
@@ -69,7 +72,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                             <template v-else>
                                 <!-- <img :src="organisation?.logo" :alt="`${organisation?.name}_logo`" class="max-h-24" /> -->
                                 <h6 class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
-                                    All Project Organisation Transactions
+                                    All Organisation Transactions
                                 </h6>
                             </template>
                         </div>

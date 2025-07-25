@@ -4,9 +4,11 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import BackButton from '@/components/BackButton.vue'
 import { useForm } from '@inertiajs/vue3'
 import FormInput from '@/components/FormInput.vue'
+import { useQueryParam } from '@/composables/useQueryParam'
 const toast = new ToastMagic()
 const props = defineProps(['units', 'project'])
 
+const back = useQueryParam('back', '/')
 // Reactive state
 const state = reactive({
     selectedUnit: null,
@@ -47,9 +49,9 @@ function submitTransaction() {
     <AppLayout>
         <!-- <pre>{{units}}</pre> -->
         <div class="py-5 lg:py-10 mt-10 lg:mt-0">
-            <div class="max-w-4xl mx-auto px-6 lg:px-0">
-                <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
-                    <BackButton :prevRoute="route('projects.index')" />
+            <div class="lg:w-[80%] mx-auto px-6 lg:px-0">
+                <div class="flex justify-between  w-full mx-auto mb-4">
+                    <BackButton :prevRoute="back" />
                 </div>
 
                 <div class="bg-gray-100 overflow-hidden lg:shadow-md rounded-lg p-6 border-t-4 border-primary mt-10">

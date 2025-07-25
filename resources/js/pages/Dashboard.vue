@@ -95,7 +95,7 @@ const formatCurrency = (amount) => {
                 <div class="flex w-full justify-end mt-4 my-6">
                     <div class="flex flex-col sm:flex-row gap-4 sm:w-auto">
                         <div>
-                            <ButtonLink icon="ic:baseline-add" :href="route('transactions.create', project.id)">
+                            <ButtonLink icon="ic:baseline-add" :href="route('transactions.create', project.id)+ '?back=' + route('dashboard')">
                                 Add Transaction
                             </ButtonLink>
                         </div>

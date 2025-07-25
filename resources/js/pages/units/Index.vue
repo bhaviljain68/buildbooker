@@ -155,7 +155,10 @@ function cancelBooking(unitId) {
                                         formatCurrency(unit.gst_amount) }}
                                 </p>
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
-                                    <Link v-if="unit.is_sold" :href="route('units.show', unit.id)"
+                                    <Link v-if="unit.is_sold" :href="route('units.show', unit.id) + '?back=' + route('units.index', {
+                                        organisation: project.organisation_id,
+                                        project: project.id
+                                    })"
                                         class="bg-primary text-white hover:bg-primary-dark rounded-lg flex items-center gap-x-2 px-3 py-1 text-base transition-colors">
                                     <Icon icon="lets-icons:view-alt-fill" width="20" height="20" />
                                     View
@@ -169,15 +172,18 @@ function cancelBooking(unitId) {
                                 </div>
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center gap-x-2"
                                     :class="{ 'rounded-br-lg': index === units.length - 1 }">
-                                    <Link v-if="project?.id" :href="route('transactions.create', project.id)"
-                                        class="bg-primary text-white px-1 py-1 rounded"   title="Add Transaction">
+                                    <Link v-if="project?.id" :href="route('transactions.create', project.id) + '?back=' + route('units.index', {
+                                        organisation: project.organisation_id,
+                                        project: project.id
+                                    })" class="bg-primary text-white px-1 py-1 rounded" title="Add Transaction">
                                     <Icon icon="ic:twotone-add" width="20" height="20" />
                                     </Link>
                                     <Link :href="route('units.edit', { project, unit })"
                                         class="bg-green-700 text-white px-1 py-1 rounded" title="Edit">
                                     <Icon icon="bxs:edit" width="20" height="20" />
                                     </Link>
-                                    <button @click="handleDelete(unit)" class="bg-red-700 text-white px-1 py-1 rounded" title="Delete">
+                                    <button @click="handleDelete(unit)" class="bg-red-700 text-white px-1 py-1 rounded"
+                                        title="Delete">
                                         <Icon icon="mingcute:delete-fill" width="20" height="20" />
                                     </button>
                                 </div>

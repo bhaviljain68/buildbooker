@@ -9,20 +9,12 @@ const props = defineProps(['projects']);
 <template>
     <AppLayout>
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto px-6 py-5 lg:py-0 lg:px-8 mt-3 lg:mt-0">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 py-5 lg:py-0 lg:px-0 mt-3 lg:mt-0">
                 <!-- Add Button -->
                 <div class="mb-4 flex justify-end items-center">
-
-                    <!-- <div class="flex justify-end gap-4">
-                        <ButtonLink v-if="project?.id" icon="ic:twotone-add"
-                            :route="route('transactions.create', project.id)">
-                            Add Transaction
-                        </ButtonLink>
-                    </div> -->
                     <ButtonLink icon="ic:twotone-add" class=" bg-primary" :route="route('projects.create')">
                         Add New Project
                     </ButtonLink>
-
                 </div>
 
                 <!-- Flash Messages -->
@@ -40,7 +32,7 @@ const props = defineProps(['projects']);
 
                             <!-- Table Header -->
                             <!-- dashtop view -->
-                            <div class="hidden lg:grid grid-cols-8 font-black rounded-t-lg bg-secondary text-zinc-100">
+                            <div class="hidden lg:grid grid-cols-9 font-black rounded-t-lg bg-secondary text-zinc-100">
                                 <p
                                     class="border-x py-4 border-l-gray-800 border-zinc-100 col-span-2 flex justify-center gap-x-4 px-2 items-center rounded-tl-lg">
                                     Project Name
@@ -49,12 +41,12 @@ const props = defineProps(['projects']);
                                 <p class="border-r py-4 border-zinc-100 text-center">Units</p>
                                 <p class="border-r py-4 border-zinc-100 text-center">Customers</p>
                                 <p class="border-r py-4 border-zinc-100 text-center">Sell</p>
-                                <p class="border-r py-4 border-zinc-100 text-center">Transactions</p>
+                                <p class="border-r py-4 border-zinc-100 text-center lg:col-span-2">Transactions</p>
                                 <p class="border-r py-4 border-gray-800 text-center rounded-tr-lg">Project</p>
                             </div>
 
                             <!-- Table Data -->
-                            <div class="hidden lg:grid grid-cols-8 rounded-b-lg border-b border-gray-300">
+                            <div class="hidden lg:grid grid-cols-9 rounded-b-lg border-b border-gray-300">
                                 <template v-for="project in projects" :key="project.id">
                                     <!-- Project Name & Logo -->
                                     <div
@@ -68,7 +60,7 @@ const props = defineProps(['projects']);
                                         <span class="font-bold">{{ project.total_units }}</span>&nbsp;
                                         (<span class="text-green-700 mx-1">{{ project.sold_units }}</span>/
                                         <span class="text-red-700 mx-1">{{ project.total_units - project.sold_units
-                                            }}</span>)
+                                        }}</span>)
                                     </p>
 
                                     <!-- Units -->
@@ -90,17 +82,21 @@ const props = defineProps(['projects']);
                                     <!-- Sell -->
                                     <div class="border-r py-1 border-gray-300 flex justify-center items-center">
                                         <ButtonLink icon="material-symbols:add-home-rounded"
-                                            :route="route('transactions.create', project.id)">
+                                            :route="route('transactions.create', project.id) + '?back=' + route('projects.index')">
                                             Add
                                         </ButtonLink>
                                     </div>
 
                                     <!-- Transactions -->
-                                    <div class="border-r py-1 border-gray-300 flex justify-center items-center">
+                                    <div class="border-r py-1 gap-2 border-gray-300 flex justify-center items-center lg:col-span-2">
                                         <ButtonLink icon="lets-icons:view-alt-fill"
                                             :route="route('transactions.index', [project.organisation_id, project.id])">
                                             View
                                         </ButtonLink>
+                                            <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                                                :route="route('transactions.create', project.id) + '?back=' + route('projects.index')">
+                                                Add
+                                            </ButtonLink>
                                     </div>
 
                                     <!-- Manage -->
