@@ -13,6 +13,12 @@ const props = defineProps(['projects']);
                 <!-- Add Button -->
                 <div class="mb-4 flex justify-end items-center">
 
+                    <!-- <div class="flex justify-end gap-4">
+                        <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                            :route="route('transactions.create', project.id)">
+                            Add Transaction
+                        </ButtonLink>
+                    </div> -->
                     <ButtonLink icon="ic:twotone-add" class=" bg-primary" :route="route('projects.create')">
                         Add New Project
                     </ButtonLink>
@@ -62,7 +68,7 @@ const props = defineProps(['projects']);
                                         <span class="font-bold">{{ project.total_units }}</span>&nbsp;
                                         (<span class="text-green-700 mx-1">{{ project.sold_units }}</span>/
                                         <span class="text-red-700 mx-1">{{ project.total_units - project.sold_units
-                                        }}</span>)
+                                            }}</span>)
                                     </p>
 
                                     <!-- Units -->

@@ -53,7 +53,7 @@ class CustomerController extends Controller
         $validated = $request->validate([
             'name' => 'required|string',
             'email' => 'nullable|email',
-            'mobile' => 'nullable|numeric',
+            'mobile' => 'nullable|digits:10',
             'address' => 'nullable|string',
             'project_id' => 'required|exists:projects,id'
         ]);

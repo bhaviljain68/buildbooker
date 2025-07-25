@@ -86,7 +86,8 @@ function cancelBooking(unitId) {
                                 <p
                                     :class="['border-b py-2 border-x border-gray-300 flex justify-center items-center', index === units.length - 1 ? 'rounded-bl-lg' : '']">
                                     {{ unit.unit_no }}</p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{capitalizeFirst(unit.type) }}</p>
+                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">
+                                    {{ capitalizeFirst(unit.type) }}</p>
                                 <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center">{{
                                     unit.is_sold ? 'Sold' : 'Not Sold' }}
                                     <!-- Show Edit button only if sold -->
@@ -166,15 +167,17 @@ function cancelBooking(unitId) {
                                         View
                                     </div>
                                 </div>
-
-
                                 <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center gap-x-2"
                                     :class="{ 'rounded-br-lg': index === units.length - 1 }">
+                                    <Link v-if="project?.id" :href="route('transactions.create', project.id)"
+                                        class="bg-primary text-white px-1 py-1 rounded"   title="Add Transaction">
+                                    <Icon icon="ic:twotone-add" width="20" height="20" />
+                                    </Link>
                                     <Link :href="route('units.edit', { project, unit })"
-                                        class="bg-green-700 text-white px-2 py-1 rounded">
+                                        class="bg-green-700 text-white px-1 py-1 rounded" title="Edit">
                                     <Icon icon="bxs:edit" width="20" height="20" />
                                     </Link>
-                                    <button @click="handleDelete(unit)" class="bg-red-700 text-white px-2 py-1 rounded">
+                                    <button @click="handleDelete(unit)" class="bg-red-700 text-white px-1 py-1 rounded" title="Delete">
                                         <Icon icon="mingcute:delete-fill" width="20" height="20" />
                                     </button>
                                 </div>
@@ -246,10 +249,13 @@ function cancelBooking(unitId) {
 
                                     </Link>
 
+                                    <!-- <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                                        :route="route('transactions.create', project.id)">
+                                        Add Transaction
+                                    </ButtonLink> -->
                                     <button @click="handleDelete(unit)"
                                         class="bg-red-700 text-white px-2 py-1 rounded text-sm">
                                         <Icon icon="mingcute:delete-fill" width="16" height="16" />
-
                                     </button>
                                 </div>
                             </div>

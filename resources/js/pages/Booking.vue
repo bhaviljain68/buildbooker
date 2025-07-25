@@ -109,18 +109,19 @@ function submitForm() {
         <!-- Customer Info Form (conditionally shown) -->
         <div v-if="isNewCustomer !== null && (isNewCustomer || form.selectedCustomerId)"
           class="flex flex-col gap-4 mt-4">
-          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name" :error="form.errors.name"
+         
+          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name" :error="form.errors['customer.name']"
             required :disabled="!isNewCustomer" />
 
           <div class="flex gap-2">
             <FormInput label="Mobile No." id="customer_phone" type="number" v-model="form.customer.mobile"
-              :error="form.errors.mobile" required class="w-full" :disabled="!isNewCustomer" />
+              :error="form.errors['customer.mobile']" required class="w-full" :disabled="!isNewCustomer" />
             <FormInput label="Email" id="customer_email" type="email" v-model="form.customer.email"
-              :error="form.errors.email" required class="w-full" :disabled="!isNewCustomer" />
+              :error="form.errors['customer.email']" required class="w-full" :disabled="!isNewCustomer" />
           </div>
 
           <FormTextarea label="Address" id="customer_address" v-model="form.customer.address"
-            :error="form.errors.address" required :disabled="!isNewCustomer" />
+            :error="form.errors['customer.address']" required :disabled="!isNewCustomer" />
         </div>
 
         <!-- Booking Details Section -->

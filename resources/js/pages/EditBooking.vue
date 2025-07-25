@@ -54,7 +54,7 @@ function submitForm() {
         </div>
         <form @submit.prevent="submitForm" class="px-4 lg:px-10">
             <div
-                class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-10 rounded-lg border-t-4 border-primary shadow-md">
+                class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-5 bg-gray-100 my-5 rounded-lg border-t-4 border-primary shadow-md">
                 <h1 class="font-bold text-primary text-center lg:text-2xl pt-10">
                     Edit Booking Details
                 </h1>

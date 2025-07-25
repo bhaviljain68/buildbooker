@@ -32,16 +32,20 @@ const visible = ref(false);
         <aside v-if="visible" id="sbar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-40 flex flex-col"
             role="region">
             <!-- Header -->
-            <div class="flex items-center justify-between px-7 py-5 border-b">
-
+            <div class="flex items-center justify-between px-7 py-2 border-b">
+                <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <img :src="logoSrc" @error="onLogoError" alt="Organisation Logo" class="w-40 mx-auto" />
+                    <img :src="logoSrc" @error="onLogoError" alt="Organisation Logo"
+                        class=" h-[50px] object-contain mx-auto" />
                 </div>
 
-                <button @click="visible = false" class="p-1 rounded-md hover:bg-gray-200">
-                    <Icon icon="material-symbols:close" width="24" height="24" />
+                <!-- Close Button -->
+                <button @click="visible = false"
+                    class="p-2 rounded-md hover:bg-gray-200 flex items-center justify-center">
+                    <Icon icon="material-symbols:close" class="w-6 h-6" />
                 </button>
             </div>
+
 
             <!-- Navigation Links -->
             <nav class="flex-1 overflow-y-auto">

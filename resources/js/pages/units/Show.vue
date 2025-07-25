@@ -5,6 +5,7 @@ import { router } from '@inertiajs/vue3'
 import BackButton from '@/components/BackButton.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import ReceiptModel from '@/components/ReceiptModel.vue'
+import ButtonLink from '@/components/ButtonLink.vue'
 
 const props = defineProps(['unit', 'project', 'organisation', 'transaction'])
 
@@ -39,7 +40,7 @@ const tabClass = (tab) => {
     <AppLayout>
 
         <div class="py-0 lg:py-10">
-            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-8">
+            <div class="w-full lg:!w-[80%] mx-auto px-6 lg:px-0">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton :prevRoute="route('units.index', [unit.project.organisation_id, unit.project.id])" />
                 </div>
@@ -52,7 +53,12 @@ const tabClass = (tab) => {
                                 Unit : {{ unit.unit_no }}
                             </h6>
                         </div>
-
+                         <div class="flex justify-end gap-4 mx-10">
+                        <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                            :route="route('transactions.create', project.id)">
+                            Add Transaction
+                        </ButtonLink>
+                    </div>
                         <!-- Unit Details -->
                         <div
                             class="grid grid-cols-1 lg:grid-cols-3 lg:mx-10 mt-8 border border-cyan-800 bg-zinc-200 text-black rounded-lg">

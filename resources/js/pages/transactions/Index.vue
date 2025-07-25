@@ -69,7 +69,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                             <template v-else>
                                 <!-- <img :src="organisation?.logo" :alt="`${organisation?.name}_logo`" class="max-h-24" /> -->
                                 <h6 class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
-                                    All Organisation Transactions
+                                    All Project Organisation Transactions
                                 </h6>
                             </template>
                         </div>

@@ -31,13 +31,12 @@ class UnitController extends Controller
     }
     public function saveBooking(Request $request, Project $project, Unit $unit)
     {
-        // dd($request->all());
-        try {
+        // try {
             // Validate flat structure (no nested "customer" array in the request)
             $validated = $request->validate([
                 'customer.name' => 'required|string|max:255',
                 'customer.email' => 'nullable|email|max:255',
-                'customer.mobile' => 'nullable|numeric',
+                'customer.mobile' => 'nullable|digits:10',
                 'customer.address' => 'nullable|string|max:500',
                 'customer.base' => 'required|numeric|min:0',
                 'customer.gst' => 'required|numeric|min:0',
@@ -68,11 +67,11 @@ class UnitController extends Controller
                 'organisation' => auth()->user()->organisation_id,
                 'project' => $project->id,
             ])->with('success', 'Unit booked successfully!');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors([
-                'error' => 'Booking failed: ' . $e->getMessage(),
-            ])->withInput();
-        }
+        // } catch (Exception $e) {
+        //     return redirect()->back()->withErrors([
+        //         'error' => 'Booking failed: ' . $e->getMessage(),
+        //     ])->withInput();
+        // }
     }
 
     public function editBooking(Project $project, Unit $unit)
