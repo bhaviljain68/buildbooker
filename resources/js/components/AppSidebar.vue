@@ -102,7 +102,7 @@ const visible = ref(false);
                     <a :href="route('profile.edit')"
                         class="flex items-center p-2 rounded hover:bg-gray-200 text-gray-700 hover:text-black cursor-pointer">
                         <Icon icon="ix:user-profile-filled" width="24" height="24" />
-                        <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]">profile</span>
+                        <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]">Profile</span>
                     </a>
                     <a :href="route('logout')" class="flex items-center p-2 rounded hover:bg-gray-100 text-[#FF0000]">
                         <Icon icon="lucide:log-out" width="18" height="18" />

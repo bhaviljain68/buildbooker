@@ -49,7 +49,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
         <div class="py-5 lg:py-10 mt-3 lg:mt-0">
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
-                    <BackButton :prevRoute="route('projects.index')" />
+                    <BackButton v-if="project?.id" :prevRoute="route('projects.index')" />
                     <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
                         organisation: project.organisation_id,
                         project: project.id

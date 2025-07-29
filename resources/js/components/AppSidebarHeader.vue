@@ -59,7 +59,7 @@ const user = computed(() => page.props.auth.user);
         <span class="ml-2 font-inter font-medium text-[16px] leading-[16px] tracking-[0]"></span>
       </a>
       <template v-if="breadcrumbs && breadcrumbs.length > 0">
-        <Breadcrumbs :breadcrumbs="breadcrumbs" />
+        <!-- <Breadcrumbs :breadcrumbs="breadcrumbs" /> -->
       </template>
     </div>
   </header>

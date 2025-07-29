@@ -46,7 +46,7 @@ function confirmDelete(customer) {
                 <!-- Header -->
                 <div class="flex justify-between w-full mb-4">
                     <!-- <BackButton :prevRoute="route(project ? 'projects.index' : 'dashboard')" /> -->
-                    <BackButton :prevRoute="route('projects.index')" />
+                    <BackButton v-if="project" :prevRoute="route('projects.index')" />
                     <ButtonLink v-if="project" icon="ic:twotone-add" :href="route('customers.create', project.id)">
                         Add Customer
                     </ButtonLink>
