@@ -36,18 +36,44 @@ const form = useForm({
     bank_branch: ''
 })
 
-// Submit handler
+
 function submitTransaction() {
-    if (!state.selectedUnit?.id) return
+    if (!state.selectedUnit?.id) return;
+
+    const baseDueAmount = state.selectedUnit.base_amount ?? 0;
+    const gstDueAmount = parseFloat(state.selectedUnit.formatted_gst_due_amount ?? 0);
+    const enteredAmount = parseFloat(form.transaction_amount ?? 0);
+
+    if (!form.transaction_amount || enteredAmount <= 0) {
+        toast.error("Transaction amount is required and must be greater than zero.");
+        return;
+    }
+
+    if (form.gst === true) {
+        if (enteredAmount < baseDueAmount) {
+            toast.error("Transaction amount is less than the base amount.");
+            return;
+        }
+
+        if (enteredAmount < gstDueAmount) {
+            toast.error("Transaction amount is less than the GST due amount.");
+            return;
+        }
+    } else if (form.gst === false) {
+        if (enteredAmount > baseDueAmount) {
+            toast.error("Transaction amount exceeds the base amount due.");
+            return;
+        }
+    }
 
     form.post(route('transactions.store', { unit: state.selectedUnit.id }), {
         onSuccess: () => {
             toast.success("Transaction submitted successfully!");
         },
         onError: () => {
-            toast.error("Failed to Transaction deleted.");
+            toast.error("Failed to submit transaction.");
         }
-    })
+    });
 }
 
 onMounted(() => {
@@ -61,9 +87,9 @@ onMounted(() => {
 })
 
 watch(() => form.payment_type, (newVal) => {
-  if (newVal === 'cash') {
-    form.payment_reference = null
-  }
+    if (newVal === 'cash') {
+        form.payment_reference = null
+    }
 })
 </script>
 
@@ -84,7 +110,6 @@ watch(() => form.payment_type, (newVal) => {
                     <h2 class="text-2xl font-bold text-center text-primary mt-5 mb-6">
                         Add Transaction for Sold Unit
                     </h2>
-
                     <!-- Sold Unit Dropdown (Grouped) -->
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-700">Select Sold Unit:</label>
@@ -123,13 +148,50 @@ watch(() => form.payment_type, (newVal) => {
                     <div v-if="state.unitDefined && state.selectedUnit" class="mt-8">
                         <!-- <pre>{{ units }}</pre> -->
                         <div v-if="state.selectedUnit"
-                            class="mb-6 flex justify-between px-8 p-4 border rounded-md shadow-sm">
-                            <h1> <span class="font-bold"> Base Amount:</span> {{
-                                state.selectedUnit.formatted_base_amount || '—' }}</h1>
-                            <h1> <span class="font-bold">GST Amount:</span> {{ state.selectedUnit.formatted_gst_amount
-                                || '—' }}</h1>
-                            <h1><span class="font-bold"> Total Amount:</span> {{
-                                state.selectedUnit.formatted_total_amount || '—' }}</h1>
+                            class="mb-6 flex flex-col lg:flex-row justify-between px-8 p-4 border rounded-md shadow-sm">
+                            <!-- Base Amount -->
+                            <div class="flex flex-col gap-4 p-4 text-center lg:text-left">
+                                <p class="font-bold">Base Amount:</p>
+                                <p class="text-xl"><span class="text-green-600">Received</span> /<span
+                                        class="text-red-500"> Due </span></p>
+                                <p class="text-2xl">
+                                    <span class="text-green-600">₹ {{ state.selectedUnit.formatted_base_received_amount
+                                        }}</span>
+                                    /
+                                    <span class="text-red-500">₹ {{ state.selectedUnit.base_amount }}</span>
+                                </p>
+                            </div>
+                            <div class="border-r border-teal-800"></div>
+
+                            <!-- GST Amount -->
+                            <div class="flex flex-col gap-4 p-4 text-center lg:text-left">
+                                <p class="font-bold">GST Amount:</p>
+                                <p class="text-xl"><span class="text-green-600">Received</span> /<span
+                                        class="text-red-500"> Due </span></p>
+                                <p class="text-2xl">
+                                    <span class="text-green-600">₹ {{ state.selectedUnit.formatted_gst_received_amount
+                                        }}</span>
+                                    /
+                                    <span class="text-red-500">₹ {{ state.selectedUnit.formatted_gst_due_amount
+                                        }}</span>
+                                </p>
+                            </div>
+                            <div class="border-r border-teal-800"></div>
+                            <!-- Total -->
+                            <div class="flex flex-col gap-4 p-4 text-center lg:text-left">
+                                <p class="font-bold">Total Amount:</p>
+                                <!-- <p class="text-2xl">
+                                    ₹ {{ state.selectedUnit.formatted_total_amount || '—' }}
+                                </p> -->
+                                <p class="text-xl"><span class="text-green-600">Received</span> /<span
+                                        class="text-red-500"> Due </span></p>
+                                <p class="text-2xl">
+                                    <span class="text-green-600">₹ {{ state.selectedUnit.formatted_total_received_amount
+                                    }}</span> /
+                                    <span class="text-red-500">₹ {{ state.selectedUnit.formatted_total_due_amount
+                                    }}</span>
+                                </p>
+                            </div>
                         </div>
                         <div class="lg:px-6 py-10 bg-gray-100 lg:border lg:border-primary rounded-md lg:shadow">
                             <h3 class="text-2xl font-bold text-primary text-center mb-6">
@@ -197,7 +259,7 @@ watch(() => form.payment_type, (newVal) => {
                                     <FormInput label="Payment Reference No" hint="(Not required for cash)"
                                         v-model="form.payment_reference" type="text"
                                         :error="form.errors.payment_reference"
-                                        :required="form.payment_type !== 'cash'"  />
+                                        :required="form.payment_type !== 'cash'" />
                                 </div>
 
                                 <!-- Bank Name -->
