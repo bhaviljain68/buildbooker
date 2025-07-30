@@ -82,7 +82,7 @@ const props = defineProps(['projects']);
                                     <!-- Sell -->
                                     <div class="border-r py-1 border-gray-300 flex justify-center items-center">
                                         <ButtonLink icon="material-symbols:add-home-rounded"
-                                            :route="route('transactions.create', project.id) + '?back=' + route('projects.index')">
+                                            :route="route('transactions.create', project.id) + '?back=ProjectsIndex'">
                                             Add
                                         </ButtonLink>
                                     </div>
@@ -94,7 +94,7 @@ const props = defineProps(['projects']);
                                             View
                                         </ButtonLink>
                                             <ButtonLink v-if="project?.id" icon="ic:twotone-add"
-                                                :route="route('transactions.create', project.id) + '?back=' + route('projects.index')">
+                                                :route="route('transactions.create', project.id) + '?back=ProjectsIndex'">
                                                 Add
                                             </ButtonLink>
                                     </div>

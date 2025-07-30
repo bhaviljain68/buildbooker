@@ -8,7 +8,13 @@ import { useQueryParam } from '@/composables/useQueryParam'
 const toast = new ToastMagic()
 const props = defineProps(['units', 'project'])
 
-const back = useQueryParam('back', '/')
+const back = useQueryParam('back', '/', true)
+// const back = useQueryParam('back', '/')
+const organisationId = useQueryParam('organisation')
+const projectId = useQueryParam('project')
+const unitId = useQueryParam('unit');
+console.log('back Query:', back.value);
+
 // Reactive state
 const state = reactive({
     selectedUnit: null,
@@ -51,7 +57,11 @@ function submitTransaction() {
         <div class="py-5 lg:py-10 mt-10 lg:mt-0">
             <div class="lg:w-[80%] mx-auto px-6 lg:px-0">
                 <div class="flex justify-between  w-full mx-auto mb-4">
-                    <BackButton :prevRoute="back" />
+                    <BackButton :prevRoute="route(back, {
+                        organisation: organisationId,
+                        project: projectId,
+                        unit: unitId
+                    })" />
                 </div>
 
                 <div class="bg-gray-100 overflow-hidden lg:shadow-md rounded-lg p-6 border-t-4 border-primary mt-10">
@@ -91,6 +101,16 @@ function submitTransaction() {
 
                     <!-- Transaction Form -->
                     <div v-if="state.unitDefined && state.selectedUnit" class="mt-8">
+                        <!-- <pre>{{ units }}</pre> -->
+                        <div v-if="state.selectedUnit"
+                            class="mb-6 flex justify-between px-8 p-4 border rounded-md shadow-sm">
+                            <h1> <span class="font-bold"> Base Amount:</span> {{
+                                state.selectedUnit.formatted_base_amount || '—' }}</h1>
+                            <h1> <span class="font-bold">GST Amount:</span> {{ state.selectedUnit.formatted_gst_amount
+                                || '—' }}</h1>
+                            <h1><span class="font-bold"> Total Amount:</span> {{
+                                state.selectedUnit.formatted_total_amount || '—' }}</h1>
+                        </div>
                         <div class="lg:px-6 py-10 bg-gray-100 lg:border lg:border-primary rounded-md lg:shadow">
                             <h3 class="text-2xl font-bold text-primary text-center mb-6">
                                 Transaction Details

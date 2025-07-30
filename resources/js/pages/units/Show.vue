@@ -53,16 +53,20 @@ const tabClass = (tab) => {
                                 Unit : {{ unit.unit_no }}
                             </h6>
                         </div>
-                         <div class="flex justify-end gap-4 lg:mx-10">
-                        <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                        <div class="flex justify-end gap-4 lg:mx-10">
+                            <!-- <ButtonLink v-if="project?.id" icon="ic:twotone-add"
                             :route="route('transactions.create', project.id) + '?back=' + route('units.show', {
                                 organisation: project.organisation_id,
                                 project: project.id,
                                 unit: unit.id
                             })">
                             Add Transaction
-                        </ButtonLink>
-                    </div>
+                        </ButtonLink> -->
+                            <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=UnitsShow&organisation=' + project.organisation_id + '&project=' + project.id + '&unit=' + unit.id">
+                                Add Transaction
+                            </ButtonLink>
+
+                        </div>
                         <!-- Unit Details -->
                         <div
                             class="grid grid-cols-1 lg:grid-cols-3 lg:mx-10 mt-8 border border-cyan-800 bg-zinc-200 text-black rounded-lg">
