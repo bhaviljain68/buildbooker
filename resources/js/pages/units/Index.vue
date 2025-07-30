@@ -179,7 +179,7 @@ function cancelBooking(unitId) {
                                     <Icon icon="ic:twotone-add" width="20" height="20" />
                                     </Link> -->
                                     <Link v-if="project?.id"
-                                        :href="route('transactions.create', project.id) + `?back=UnitsIndex&organisation=${project.organisation_id}&project=${project.id}`"
+                                        :href="route('transactions.create', project.id) + `?back=UnitsIndex&organisation=${project.organisation_id}&project=${project.id}&unit=${unit.id}`"
                                         class="bg-primary text-white px-1 py-1 rounded" title="Add Transaction">
                                     <Icon icon="ic:twotone-add" width="20" height="20" />
                                     </Link>

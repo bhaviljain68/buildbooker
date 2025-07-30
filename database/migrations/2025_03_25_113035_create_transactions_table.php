@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('bank_name'); // Bank Name
             $table->string('bank_branch'); // Bank Branch
             $table->enum('payment_type', ['bank_draft', 'cheque', 'rtgs', 'neft', 'imps', 'cash']); // Payment Type
-            $table->string('payment_reference'); // Bank Draft No., Cheque No., RTGS No., NEFT No., or Cash reference
+            $table->string('payment_reference')->nullable(); // Bank Draft No., Cheque No., RTGS No., NEFT No., or Cash reference
             $table->decimal('transaction_amount', 15); // Amount in Rs.
             $table->boolean('gst')->default(false);
             $table->timestamps();

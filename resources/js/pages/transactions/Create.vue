@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, onMounted, watch } from 'vue'
 import AppLayout from '@/layouts/AppLayout.vue'
 import BackButton from '@/components/BackButton.vue'
 import { useForm } from '@inertiajs/vue3'
@@ -49,6 +49,22 @@ function submitTransaction() {
         }
     })
 }
+
+onMounted(() => {
+    if (unitId.value) {
+        const foundUnit = props.units.find(u => u.id === Number(unitId.value))
+        if (foundUnit) {
+            state.selectedUnit = foundUnit
+            state.unitDefined = true
+        }
+    }
+})
+
+watch(() => form.payment_type, (newVal) => {
+  if (newVal === 'cash') {
+    form.payment_reference = null
+  }
+})
 </script>
 
 <template>
@@ -78,10 +94,14 @@ function submitTransaction() {
 
                             <!-- Optional grouping -->
                             <optgroup label="Available (Sold)">
-                                <option v-for="unit in props.units.filter(u => u.is_sold)" :key="'sold-' + unit.id"
+                                <!-- <option v-for="unit in props.units.filter(u => u.is_sold)" :key="'sold-' + unit.id"
                                     :value="unit">
                                     Unit No: {{ unit.unit_no }}
                                     ({{ unit.customer?.name || 'No Customer' }})
+                                </option> -->
+                                <option v-for="unit in props.units.filter(u => u.is_sold)" :key="'sold-' + unit.id"
+                                    :value="unit" :selected="unit.id === Number(unitId)">
+                                    Unit No: {{ unit.unit_no }} ({{ unit.customer?.name || 'No Customer' }})
                                 </option>
                             </optgroup>
 
@@ -177,7 +197,7 @@ function submitTransaction() {
                                     <FormInput label="Payment Reference No" hint="(Not required for cash)"
                                         v-model="form.payment_reference" type="text"
                                         :error="form.errors.payment_reference"
-                                        :required="form.payment_type !== 'cash'" />
+                                        :required="form.payment_type !== 'cash'"  />
                                 </div>
 
                                 <!-- Bank Name -->

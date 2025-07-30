@@ -64,6 +64,7 @@ class TransactionController extends Controller
 
     public function store(TransactionStoreRequest $request, Unit $unit = null)
     {
+        // dd($request->payment_reference);
         try {
             DB::beginTransaction();
             if (!$unit || !$unit->customer_id) {

@@ -50,10 +50,15 @@ function deleteTransaction(transactionId, organisationId, projectId) {
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton v-if="project?.id" :prevRoute="route('projects.index')" />
-                    <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
+                    <!-- <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
                         organisation: project.organisation_id,
                         project: project.id
                     })">
+                        Add Transaction
+                    </ButtonLink> -->
+                    <ButtonLink v-if="project?.id"
+                        :href="route('transactions.create', project.id) + `?back=TransactionsIndex&organisation=${project.organisation_id}&project=${project.id}`"
+                        icon="ic:twotone-add" status="primary">
                         Add Transaction
                     </ButtonLink>
                 </div>
