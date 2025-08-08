@@ -62,7 +62,8 @@ const tabClass = (tab) => {
                             })">
                             Add Transaction
                         </ButtonLink> -->
-                            <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=UnitsShow&organisation=' + project.organisation_id + '&project=' + project.id + '&unit=' + unit.id">
+                            <ButtonLink v-if="project?.id" icon="ic:twotone-add"
+                                :route="route('transactions.create', project.id) + '?back=UnitsShow&organisation=' + project.organisation_id + '&project=' + project.id + '&unit=' + unit.id">
                                 Add Transaction
                             </ButtonLink>
 
@@ -186,7 +187,9 @@ const tabClass = (tab) => {
                                         </thead>
                                         <tbody>
                                             <tr v-for="(t, index) in filteredTransactions" :key="index"
-                                                class="border-t text-center">
+                                                class="border-t text-center"
+                                                :class="t.deleted_at ? ' line-through' : ''">
+                                                
                                                 <td class="px-4 py-2 border">{{ index + 1 }}</td>
                                                 <td class="px-4 py-2 border">{{ t.payment_date }}</td>
                                                 <td class="px-4 py-2 border">₹ {{ t.transaction_amount }}</td>

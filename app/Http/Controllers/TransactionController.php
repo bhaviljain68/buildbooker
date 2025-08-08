@@ -25,7 +25,6 @@ class TransactionController extends Controller
         if ($project == null) {
             // Get all transactions for the organisation with customer and unit
             $transactions = $organisation->transactions()->with(['customer', 'unit', 'project'])->withTrashed()->get();
-            // dd($transactions->toArray());
             return Inertia::render('transactions/Index', [
                 'transactions' => $transactions,
                 'project' => [],
@@ -37,7 +36,6 @@ class TransactionController extends Controller
         $transactions = Transaction::with(['customer', 'unit'])->whereHas('unit', function ($q) use ($id) {
             $q->where('project_id', $id);
         })->withTrashed()->get();
-        // dd($transactions->toArray());
         return Inertia::render('transactions/Index', [
             'transactions' => $transactions,
             'project' => $project,
@@ -179,7 +177,7 @@ class TransactionController extends Controller
 
     public function deleteTransaction(Transaction $transaction)
     {
-        $totalTransactions = $transaction->unit->transactions->count();
+        $totalTransactions = $transaction->unit->transactions->whereNull('deleted_at')->count();
         if ($totalTransactions === 1) {
             $this->unBook($transaction->unit);
             // $this->unBook($transaction->unit);

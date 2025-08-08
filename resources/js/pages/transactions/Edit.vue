@@ -53,7 +53,8 @@ onMounted(() => {
         <div class="py-5 lg:py-10">
             <div class="max-w-4xl mx-auto px-6 lg:px-0 mt-5 lg:mt-0">
                 <div class="flex justify-between max-w-4xl w-full mx-auto mb-4">
-                    <BackButton :prevRoute="route('transactions.index',)" />
+                    <!-- <BackButton :prevRoute="route('transactions.index',)" /> -->
+                     <BackButton :prevRoute="route('transactions.index', { organisation: project.id })" />
                 </div>
 
                 <div

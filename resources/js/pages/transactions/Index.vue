@@ -50,12 +50,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
             <div class="w-full lg:w-[80%] mx-auto px-6 lg:px-8">
                 <div class="mb-4 flex justify-between items-center">
                     <BackButton v-if="project?.id" :prevRoute="route('projects.index')" />
-                    <!-- <ButtonLink v-if="project?.id" icon="ic:twotone-add" :route="route('transactions.create', project.id) + '?back=' + route('transactions.index', {
-                        organisation: project.organisation_id,
-                        project: project.id
-                    })">
-                        Add Transaction
-                    </ButtonLink> -->
+
                     <ButtonLink v-if="project?.id"
                         :href="route('transactions.create', project.id) + `?back=TransactionsIndex&organisation=${project.organisation_id}&project=${project.id}`"
                         icon="ic:twotone-add" status="primary">
@@ -65,7 +60,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                 <div
                     class="bg-gray-100 overflow-hidden lg:shadow-md rounded-lg px-4 lg:px-8 border-t-4 border-primary mt-10">
                     <div class="text-gray-800 py-8">
-                        <!-- Logo & Heading -->
+
                         <div class="flex flex-col items-center justify-center border-gray-200 mb-8">
                             <template v-if="isProject">
                                 <img :src="project?.logo" :alt="`${project?.name}_logo`" class="max-h-24" />
@@ -74,14 +69,13 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </h6>
                             </template>
                             <template v-else>
-                                <!-- <img :src="organisation?.logo" :alt="`${organisation?.name}_logo`" class="max-h-24" /> -->
+
                                 <h6 class="text-primary font-bold text-center lg:text-3xl w-full mt-4">
                                     All Organisation Transactions
                                 </h6>
                             </template>
                         </div>
 
-                        <!-- Desktop Table -->
                         <div
                             :class="['hidden lg:grid', isProject ? 'grid-cols-8' : 'grid-cols-9', 'rounded-tl-lg border-b rounded-b-lg']">
                             <p v-if="!isProject"
@@ -97,17 +91,18 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                             <p class="bg-secondary font-black text-zinc-100 border-r py-4 text-center rounded-tr-lg">
                                 Actions</p>
 
-                            <!-- Project Transactions -->
+
                             <template v-if="isProject" v-for="unit in project?.units" :key="unit.id">
                                 <template v-for="transaction in unit.transactions" :key="transaction.id">
-                                    <!-- Unit No. -->
-                                    <Link :href="route('units.show', unit.id)"
-                                        class="border-b py-2 border-x border-gray-300 text-center block">
+                                    <Link :href="route('units.show', unit.id)" :class="[
+                                        'border-b py-2 border-x border-gray-300 text-center block',
+                                        transaction.deleted_at ? ' line-through' : ''
+                                    ]">
                                     {{ unit.unit_no }}
                                     </Link>
 
-                                    <!-- Date -->
-                                    <p class="border-b py-2 border-r border-gray-300 text-center">
+                                    <p :class="['border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                         {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
                                             day: '2-digit',
                                             month: 'short',
@@ -115,62 +110,83 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                         }) }}
                                     </p>
 
-                                    <!-- Instrument -->
-                                    <p class="border-b py-2 border-r border-gray-300 text-center">
+                                    <p :class="['border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                         {{ transaction.payment_type.charAt(0).toUpperCase() +
                                             transaction.payment_type.slice(1) }}
                                     </p>
 
-                                    <!-- Amount -->
-                                    <div class="border-b py-2 border-r border-gray-300 text-center">
+                                    <div :class="['border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                         {{ formatCurrency(transaction.transaction_amount) }}
                                     </div>
 
-                                    <!-- GST -->
-                                    <p class="border-b py-2 border-r border-gray-300 text-center">
+                                    <p :class="['border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                         {{ transaction.gst ? 'Yes' : 'No' }}
                                     </p>
 
-                                    <!-- Receipt No. -->
-                                    <p class="border-b py-2 border-r border-gray-300 text-center">
+                                    <p :class="['border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                         {{ transaction.receipt_number }}
                                     </p>
 
-                                    <!-- Receipt -->
-                                    <div class="border-b py-2 border-r border-gray-300 text-center">
-                                        <ReceiptModel :project="project" :transaction="transaction" size="sm" />
+                                    <div :class="[
+                                        'border-b py-2 border-r border-gray-300 text-center',
+                                        transaction.deleted_at ? ' pointer-events-none' : ''
+                                    ]">
+                                        <ReceiptModel :project="project" :transaction="transaction" size="sm"
+                                            :disabled="transaction.deleted_at" />
                                     </div>
 
-                                    <!-- Actions -->
-                                    <div
-                                        class="border-b py-2 px-5 border-r border-gray-300 flex justify-center items-center gap-x-2 last:rounded-br-lg">
-                                        <ButtonLink
+                                    <div :class="['border-b py-2 px-5 border-r border-gray-300 flex justify-center items-center gap-x-2 last:rounded-br-lg',
+                                        transaction.deleted_at ? 'line-through' : '']">
+                                        <!-- <ButtonLink
                                             :route="route('transactions.edit', [transaction.id, unit.id, project.id])"
-                                            icon="mage:edit" status="info" />
-                                        <ButtonLink icon="mingcute:delete-fill" status="error"
-                                            @click="deleteTransaction(transaction.id, organisation.id, project.id)" />
+                                            icon="mage:edit" status="info" /> -->
+                                        <Link :href="route('transactions.edit', [transaction.id, unit.id, project.id])">
+                                        <button :class="[
+                                            'flex items-center justify-center gap-2 text-sm font-semibold py-2 px-4 rounded-lg transition duration-200',
+                                            transaction.deleted_at
+                                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                : 'bg-primary text-white hover:bg-primary/90'
+                                        ]" :disabled="transaction.deleted_at">
+                                            <Icon icon="mage:edit" width="18" height="18" />
+                                            
+                                        </button>
+                                        </Link>
+                                        <!-- <ButtonLink icon="mingcute:delete-fill" status="error"
+                                            @click="deleteTransaction(transaction.id, organisation.id, project.id)" /> -->
+                                            <button @click="deleteTransaction(transaction.id, organisation.id, project.id)"
+                                            :disabled="transaction.deleted_at"
+                                            :class="[
+                                                'flex items-center justify-center gap-2 text-sm font-semibold py-2 px-4 rounded-lg transition duration-200',
+                                                transaction.deleted_at
+                                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                    : 'bg-red-600 text-white hover:bg-red-700'
+                                            ]">
+                                            <Icon icon="mingcute:delete-fill" width="18" height="18" />
+                                        </button>
                                     </div>
                                 </template>
                             </template>
 
-                            <!-- Organisation-wide Transactions -->
+
                             <template v-else v-for="transaction in props.transactions" :key="transaction.id">
-                                <!-- Logo -->
                                 <div class="border-b border border-gray-300 flex items-center justify-center py-2">
                                     <img :src="transaction.project?.logo" :alt="`${transaction.project?.name} logo`"
                                         class="max-h-16 max-w-[80px] object-contain" />
                                 </div>
 
-
-                                <!-- Unit No. -->
                                 <Link :href="route('units.show', transaction.unit_id)"
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                 {{ transaction.unit?.unit_no ?? 'N/A' }}
                                 </Link>
 
-                                <!-- Date -->
                                 <p
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                     {{ new Date(transaction.payment_date).toLocaleDateString('en-GB', {
                                         day: '2-digit',
                                         month: 'short',
@@ -178,33 +194,30 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                     }) }}
                                 </p>
 
-                                <!-- Instrument -->
                                 <p
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                     {{ transaction.payment_type.charAt(0).toUpperCase() +
                                         transaction.payment_type.slice(1) }}
                                 </p>
-
-
-                                <!-- Amount -->
                                 <div
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                     {{ formatCurrency(transaction.transaction_amount) }}
                                 </div>
 
-                                <!-- GST -->
                                 <p
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                     {{ transaction.gst ? 'Yes' : 'No' }}
                                 </p>
 
-                                <!-- Receipt No. -->
                                 <p
-                                    class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
+                                    :class="['border-b py-2 border-x border-gray-300 flex items-center justify-center text-center',
+                                        transaction.deleted_at ? 'line-through' : '']">
                                     {{ transaction.receipt_number }}
                                 </p>
 
-                                <!-- Receipt -->
                                 <div
                                     class="border-b py-2 border-x border-gray-300 flex items-center justify-center text-center">
                                     <ReceiptModel :project="project" :transaction="transaction" size="sm" />
@@ -214,23 +227,47 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 <div
                                     class="border-b py-2 px-3 border-r border-gray-300 flex justify-center items-center gap-x-2 last:rounded-br-lg">
 
-                                    <ButtonLink :route="route('transactions.edit', [
+                                    <!-- <ButtonLink :route="route('transactions.edit', [
                                         transaction.id,
                                         transaction.unit_id,
                                         transaction.project_id || project?.id
-                                    ])" icon="mage:edit" status="info" />
+                                    ])" icon="mage:edit" status="info" /> -->
 
-                                    <ButtonLink icon="mingcute:delete-fill" status="error"
-                                        @click="deleteTransaction(transaction.id, organisation.id)" />
+                                    <Link :href="route('transactions.edit', [
+                                        transaction.id,
+                                        transaction.unit_id,
+                                        transaction.project_id || project?.id
+                                    ])">
+                                        <button :class="[
+                                            'flex items-center justify-center gap-2 text-sm font-semibold py-2 px-4 rounded-lg transition duration-200',
+                                            transaction.deleted_at
+                                                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                : 'bg-primary text-white hover:bg-primary/90'
+                                        ]" :disabled="transaction.deleted_at">
+                                            <Icon icon="mage:edit" width="18" height="18" />
+                                        </button>
+                                    </Link>
+                                    <!-- <ButtonLink icon="mingcute:delete-fill" status="error"
+                                        @click="deleteTransaction(transaction.id, organisation.id)" /> -->
+                                        <button @click="deleteTransaction(transaction.id, organisation.id)"
+                                            :disabled="transaction.deleted_at"
+                                            :class="[
+                                                'flex items-center justify-center gap-2 text-sm font-semibold py-2 px-4 rounded-lg transition duration-200',
+                                                transaction.deleted_at
+                                                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                                                    : 'bg-red-600 text-white hover:bg-red-700'
+                                            ]">
+                                            <Icon icon="mingcute:delete-fill" width="18" height="18" />
+                                        </button>
                                 </div>
 
                             </template>
                         </div>
 
-                        <!-- mobile view -->
 
+                        <!-- mobile view -->
                         <div class="lg:hidden space-y-4 mt-6">
-                            <!-- Project Transactions -->
+
                             <template v-if="isProject">
                                 <template v-for="unit in project?.units" :key="unit.id">
                                     <template v-for="transaction in unit.transactions" :key="transaction.id">
@@ -288,7 +325,7 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                 </template>
                             </template>
 
-                            <!-- Organisation-wide Transactions -->
+
                             <template v-else>
                                 <template v-for="transaction in props.transactions" :key="transaction.id">
                                     <div class="bg-white shadow-md rounded-lg border p-4">
@@ -330,7 +367,8 @@ function deleteTransaction(transactionId, organisationId, projectId) {
                                         </div>
 
                                         <div class="font-semibold text-lg text-gray-600 mt-2 flex">Receipt :
-                                            <ReceiptModel :project="project" :transaction="transaction" size="sm" class="ml-3" />
+                                            <ReceiptModel :project="project" :transaction="transaction" size="sm"
+                                                class="ml-3" />
                                         </div>
 
                                         <div class="mt-4 flex justify-end space-x-3">

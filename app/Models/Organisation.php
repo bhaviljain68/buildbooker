@@ -43,7 +43,7 @@ class Organisation extends Model
             'project_id',       // Foreign key on Transaction table
             'id',               // Local key on Organisation table
             'id'                // Local key on Project table
-        );
+        )->withTrashed();
     }
 
     // Managing Soft Deletes

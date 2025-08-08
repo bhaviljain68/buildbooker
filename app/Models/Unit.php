@@ -24,7 +24,7 @@ class Unit extends Model
 
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Transaction::class)->withTrashed();
     }
 
     public function project(): BelongsTo

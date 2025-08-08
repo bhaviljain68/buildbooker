@@ -21,11 +21,21 @@ function closeModal() {
   <div class="">
 
     <!-- View Button -->
-    <button @click="open = true"
+    <!-- <button @click="open = true"
       class="flex items-center justify-center gap-2 mx-auto bg-primary hover:bg-primary/90 text-white text-sm font-semibold py-2 px-4 rounded-lg transition duration-200">
       <Icon icon="fluent-mdl2:view" width="18" height="18" />
       View
+    </button> -->
+    <button @click="open = true" :disabled="transaction.deleted_at" :class="[
+      'flex items-center justify-center gap-2 mx-auto text-sm font-semibold py-2 px-4 rounded-lg transition duration-200',
+      transaction.deleted_at
+        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        : 'bg-primary hover:bg-primary/90 text-white'
+    ]">
+      <Icon icon="fluent-mdl2:view" width="18" height="18" />
+      View
     </button>
+
 
     <!-- Modal Overlay -->
     <div v-if="open" class="fixed inset-0 z-50 flex items-center overflow-y-auto justify-center bg-gray-100">
