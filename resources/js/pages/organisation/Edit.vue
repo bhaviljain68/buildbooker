@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { router, useForm, usePage } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/AppLayout.vue'
 import FormInput from '@/components/FormInput.vue'
+import { Icon } from "@iconify/vue";
 
 const props = defineProps(['organisation'])
 const imagePreview = ref(props.organisation.logo || '')
@@ -11,7 +12,9 @@ const form = useForm({
     name: props.organisation.name || '',
     mobile: props.organisation.mobile || '',
     email: props.organisation.email || '',
-    logo: null
+    logo: null,
+    seperate_sequence_for_gst: props.organisation.seperate_sequence_for_gst || false, // GST column,
+    isChangeToggleGst: false, // to track if toggle is changed
 })
 
 function handleFileSelect(event) {
@@ -36,13 +39,24 @@ function submit() {
     })).post(route('organisation.update', { organisation: props.organisation.id }), {
         preserveState: true,
         onSuccess: () => {
+            router.visit(route('organisation.edit', { organisation: props.organisation.id }), {
+                preserveState: true,
+            });
             toast.success("Organization updated successfully!");
-            router.visit(route('organisation.edit'));
         },
         onError: (errors) => {
+            const firstError = Object.keys(errors)[0];
+            toast.error(firstError || "An error occurred while updating the organisation.");
             console.error('Update failed:', errors);
         }
     });
+}
+
+// toggle button functionality
+
+function toggleActive() {
+    form.isChangeToggleGst = !form.isChangeToggleGst; // update the form value
+    form.seperate_sequence_for_gst = !form.seperate_sequence_for_gst; // toggle the form value
 }
 
 </script>
@@ -58,18 +72,18 @@ function submit() {
                         </h6>
 
                         <!-- Form -->
-                        <form @submit.prevent="submit" class="lg:p-7 pb-10 ">
+                        <div class="lg:p-7 pb-10 ">
                             <div class="grid grid-cols-1 gap-y-4">
 
                                 <!-- Name -->
                                 <div>
-                                    <FormInput label="Organisation Name" v-model="form.name"
-                                        :error="form.errors.name" required />
+                                    <FormInput label="Organisation Name" v-model="form.name" :error="form.errors.name"
+                                        required />
                                 </div>
 
                                 <!-- Mobile -->
                                 <div>
-                                        <FormInput label="Organisation Mobile No." v-model="form.mobile"
+                                    <FormInput label="Organisation Mobile No." v-model="form.mobile"
                                         :error="form.errors.mobile" required />
                                 </div>
 
@@ -102,9 +116,31 @@ function submit() {
                                 </div>
                             </div>
 
+                            <div class="flex mt-6 justify-between items-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="mr-1 text-gray-700">
+                                        Separate Sequence For GST Receipt?
+                                    </span>
+                                    <Icon icon="material-symbols-light:info-outline" width="24" height="24" />
+                                </div>
+                                <div>
+                                    <button @click="toggleActive" :class="[
+                                        'relative inline-flex items-center h-6 rounded-full w-12 transition-colors focus:outline-none',
+                                        form.seperate_sequence_for_gst ? 'bg-primary' : 'bg-gray-300'
+                                    ]">
+                                        <span :class="[
+                                            'inline-block w-6 h-6 transform bg-white rounded-full shadow-md transition-transform',
+                                            form.seperate_sequence_for_gst ? 'translate-x-6' : 'translate-x-0'
+                                        ]"></span>
+                                    </button>
+                                    <span class="ml-3 text-gray-700">{{ form.seperate_sequence_for_gst ? 'Yes' : 'No'
+                                    }}</span>
+                                </div>
+                            </div>
+
                             <!-- Buttons -->
                             <div class="flex  justify-center mt-6 gap-7">
-                                <button type="submit"
+                                <button type="submit" @click="submit"
                                     class="text-white bg-primary hover:bg-teal-800 font-medium rounded-lg text-sm md:text-base px-10 py-2.5 md:px-[10rem]">
                                     Submit
                                 </button>
@@ -113,7 +149,7 @@ function submit() {
                                     Reset
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

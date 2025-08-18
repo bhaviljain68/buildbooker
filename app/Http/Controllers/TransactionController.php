@@ -62,19 +62,31 @@ class TransactionController extends Controller
 
     public function store(TransactionStoreRequest $request, Unit $unit = null)
     {
-        // dd($request->payment_reference);
         try {
             DB::beginTransaction();
             if (!$unit || !$unit->customer_id) {
                 throw new Exception("Invalid unit or missing customer.");
             }
 
-            $transactionCount = Transaction::where('project_id', $unit->project_id)->count();
+            $organisation = Organisation::find(Auth::user()->organisation_id);
 
+            $transaction = Transaction::where('project_id', $unit->project_id);
+            $transactionCount = $transaction->count();
+            $isGstEnabled = $organisation->seperate_sequence_for_gst ?? false;
             $increment = $transactionCount + 1;
-            $receiptNumber = $request->gst
-                ? '#G' . str_pad($increment, 5, '0', STR_PAD_LEFT)
-                : '#' . str_pad($increment, 5, '0', STR_PAD_LEFT);
+            if ($isGstEnabled) {
+                $incrementWithGst = Transaction::where('project_id', $unit->project_id)
+                    ->where('receipt_number', 'LIKE', '#G%')
+                    ->count() + 1;
+
+                $receiptNumber = $request->gst
+                    ? '#G' . str_pad($incrementWithGst, 5, '0', STR_PAD_LEFT)
+                    : '#' . str_pad($increment, 5, '0', STR_PAD_LEFT);
+            } else {
+                $receiptNumber = $request->gst
+                    ? '#G' . str_pad($increment, 5, '0', STR_PAD_LEFT)
+                    : '#' . str_pad($increment, 5, '0', STR_PAD_LEFT);
+            }
 
 
             Transaction::create([
