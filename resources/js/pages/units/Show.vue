@@ -33,7 +33,13 @@ const tabClass = (tab) => {
             : 'bg-zinc-100 hover:bg-zinc-200 text-cyan-800'
     ]
 }
-
+function formatCurrency(amount) {
+    if (amount == null || amount === "") return "₹ 0.00";
+    return "₹ " + Number(amount).toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+}
 </script>
 
 <template>
@@ -176,6 +182,8 @@ const tabClass = (tab) => {
                                             <tr>
                                                 <th class="px-4 py-2 border">#</th>
                                                 <th class="px-4 py-2 border">Payment Date</th>
+                                                <th class="px-4 py-2 border">
+                                                    Receipt No</th>
                                                 <th class="px-4 py-2 border">Amount</th>
                                                 <th class="px-4 py-2 border">Instrument</th>
                                                 <th class="px-4 py-2 border">Bank</th>
@@ -189,10 +197,12 @@ const tabClass = (tab) => {
                                             <tr v-for="(t, index) in filteredTransactions" :key="index"
                                                 class="border-t text-center"
                                                 :class="t.deleted_at ? ' line-through' : ''">
-                                                
+
                                                 <td class="px-4 py-2 border">{{ index + 1 }}</td>
                                                 <td class="px-4 py-2 border">{{ t.payment_date }}</td>
-                                                <td class="px-4 py-2 border">₹ {{ t.transaction_amount }}</td>
+                                                <td class="px-4 py-2 border">{{ t.receipt_number }}</td>
+                                                <td class="px-4 py-2 border">{{ formatCurrency(t.transaction_amount) }}
+                                                </td>
                                                 <td class="px-4 py-2 border">{{ t.payment_type ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">{{ t.bank_name ?? '-' }}</td>
                                                 <td class="px-4 py-2 border">{{ t.bank_branch ?? '-' }}</td>
@@ -230,8 +240,8 @@ const tabClass = (tab) => {
                                         <div class="text-sm"><span class="font-semibold">#{{ index + 1 }}</span></div>
                                         <div class="text-sm"><span class="font-semibold">Payment Date:</span> {{
                                             t.payment_date }}</div>
-                                        <div class="text-sm"><span class="font-semibold">Amount:</span> ₹ {{
-                                            t.transaction_amount }}</div>
+                                        <div class="text-sm"><span class="font-semibold">Amount:</span> {{
+                                            formatCurrency(t.transaction_amount) }}</div>
                                         <div class="text-sm"><span class="font-semibold">Instrument:</span> {{
                                             t.payment_type ?? '-' }}</div>
                                         <div class="text-sm"><span class="font-semibold">Bank:</span> {{ t.bank_name ??
