@@ -8,9 +8,8 @@ use App\Models\Project;
 use App\Models\Unit;
 use Carbon\Carbon;
 use Devrabiul\ToastMagic\Facades\ToastMagic;
-use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -29,44 +28,45 @@ class UnitController extends Controller
             'customers' => Customer::all(),
         ]);
     }
+
     public function saveBooking(Request $request, Project $project, Unit $unit)
     {
         // try {
-            // Validate flat structure (no nested "customer" array in the request)
-            $validated = $request->validate([
-                'customer.name' => 'required|string|max:255',
-                'customer.email' => 'nullable|email|max:255',
-                'customer.mobile' => 'nullable|digits:10',
-                'customer.address' => 'nullable|string|max:500',
-                'customer.base' => 'required|numeric|min:0',
-                'customer.gst' => 'required|numeric|min:0',
-                'customer.total' => 'required|numeric|min:0',
-            ]);
-            // Create or find the customer by phone number
-            $customer = Customer::firstOrCreate(
-                ['mobile' => $validated['customer']['mobile']],
-                [
-                    'name' => $validated['customer']['name'],
-                    'email' => $validated['customer']['email'],
-                    'address' => $validated['customer']['address'],
-                    'project_id' => $project->id, // Optional if customer belongs to project
-                ]
-            );
+        // Validate flat structure (no nested "customer" array in the request)
+        $validated = $request->validate([
+            'customer.name' => 'required|string|max:255',
+            'customer.email' => 'nullable|email|max:255',
+            'customer.mobile' => 'nullable|digits:10',
+            'customer.address' => 'nullable|string|max:500',
+            'customer.base' => 'required|numeric|min:1',
+            'customer.gst' => 'required|numeric|min:1',
+            'customer.total' => 'required|numeric|min:1',
+        ]);
+        // Create or find the customer by phone number
+        $customer = Customer::firstOrCreate(
+            ['mobile' => $validated['customer']['mobile']],
+            [
+                'name' => $validated['customer']['name'],
+                'email' => $validated['customer']['email'],
+                'address' => $validated['customer']['address'],
+                'project_id' => $project->id, // Optional if customer belongs to project
+            ]
+        );
 
-            // Associate customer with the unit
-            $unit->customer()->associate($customer);
-            $unit->is_sold = true;
-            $unit->project_id = $project->id;
-            $unit->customer_id = $customer->id;
-            $unit->base_amount = $validated['customer']['base'];
-            $unit->gst_amount =  $validated['customer']['gst'];
-            $unit->total_amount = $validated['customer']['total'];
-            $unit->save();
+        // Associate customer with the unit
+        $unit->customer()->associate($customer);
+        $unit->is_sold = true;
+        $unit->project_id = $project->id;
+        $unit->customer_id = $customer->id;
+        $unit->base_amount = $validated['customer']['base'];
+        $unit->gst_amount = $validated['customer']['gst'];
+        $unit->total_amount = $validated['customer']['total'];
+        $unit->save();
 
-            return redirect()->route('units.index', [
-                'organisation' => auth()->user()->organisation_id,
-                'project' => $project->id,
-            ])->with('success', 'Unit booked successfully!');
+        return redirect()->route('units.index', [
+            'organisation' => auth()->user()->organisation_id,
+            'project' => $project->id,
+        ])->with('success', 'Unit booked successfully!');
         // } catch (Exception $e) {
         //     return redirect()->back()->withErrors([
         //         'error' => 'Booking failed: ' . $e->getMessage(),
