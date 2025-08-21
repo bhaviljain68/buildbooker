@@ -172,7 +172,7 @@ class UnitController extends Controller
                     'max:10',
                     Rule::unique('units', 'unit_no')->where('project_id', $project->id)
                 ],
-                'units.*.unit_type' => 'required|in:apartment,shop,showroom,plot',
+                'units.*.unit_type' => 'required|in:apartment,shop,showroom,plot,bungalow',
             ], [
                 'units.required' => 'You must provide at least one unit.',
                 'units.array' => 'Units must be in array format.',
@@ -184,7 +184,7 @@ class UnitController extends Controller
                 'units.*.unit_no.unique' => "This unit (:input) .. already exists in the project : " . $project->name . '',
 
                 'units.*.unit_type.required' => 'Unit type is required.',
-                'units.*.unit_type.in' => 'Unit type must be one of: apartment, shop, showroom, or plot.',
+                'units.*.unit_type.in' => 'Unit type must be one of: apartment, shop, showroom, plot or bungalow.',
             ]);
 
             try {
@@ -273,7 +273,7 @@ class UnitController extends Controller
 
             $validated = $request->validate([
                 'units' => 'required|array|min:1',
-                'units.*.unit_type' => 'required|in:apartment,shop,showroom,plot',
+                'units.*.unit_type' => 'required|in:apartment,shop,showroom,plot,bungalow',
                 'units.*.unit_no' => ['required', 'string', 'max:10', Rule::unique('units', 'unit_no')
                     ->where('project_id', $project->id)
                     ->ignore($unit->id)],
@@ -288,7 +288,7 @@ class UnitController extends Controller
                 'units.*.unit_no.unique' => "This unit (:input) .. already exists in the project : " . $project->name . '',
 
                 'units.*.unit_type.required' => 'Unit type is required.',
-                'units.*.unit_type.in' => 'Unit type must be one of: apartment, shop, showroom, or plot.',
+                'units.*.unit_type.in' => 'Unit type must be one of: apartment, shop, showroom, bungalow or plot.',
             ]);
             try {
                 $unit = Unit::findOrFail($unit->id);

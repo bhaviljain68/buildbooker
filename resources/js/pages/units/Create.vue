@@ -7,7 +7,7 @@ import FormInput from '@/components/FormInput.vue';
 const props = defineProps(['project']);
 const project = props.project;
 
-const unitTypes = ['apartment', 'shop', 'showroom', 'plot'];
+const unitTypes = ['apartment', 'shop', 'showroom', 'plot', 'bungalow'];
 const units = ref([{ unit_no: '', unit_type: '' }]);
 const isSubmitting = ref(false);
 const toast = new ToastMagic();

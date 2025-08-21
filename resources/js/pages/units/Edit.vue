@@ -6,7 +6,7 @@ import FormInput from '@/components/FormInput.vue';
 import BackButton from '@/components/BackButton.vue';
 const toast = new ToastMagic();
 const props = defineProps(['project', 'unit']);
-const unitTypes = ['apartment', 'shop', 'showroom', 'plot']
+const unitTypes = ['apartment', 'shop', 'showroom', 'plot', 'bungalow']
 
 const units = ref([
     {
