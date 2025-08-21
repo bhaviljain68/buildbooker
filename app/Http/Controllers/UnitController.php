@@ -8,6 +8,7 @@ use App\Models\Project;
 use App\Models\Unit;
 use Carbon\Carbon;
 use Devrabiul\ToastMagic\Facades\ToastMagic;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -31,7 +32,7 @@ class UnitController extends Controller
 
     public function saveBooking(Request $request, Project $project, Unit $unit)
     {
-        // try {
+        try {
         // Validate flat structure (no nested "customer" array in the request)
         $validated = $request->validate([
             'customer.name' => 'required|string|max:255',
@@ -67,11 +68,11 @@ class UnitController extends Controller
             'organisation' => auth()->user()->organisation_id,
             'project' => $project->id,
         ])->with('success', 'Unit booked successfully!');
-        // } catch (Exception $e) {
-        //     return redirect()->back()->withErrors([
-        //         'error' => 'Booking failed: ' . $e->getMessage(),
-        //     ])->withInput();
-        // }
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors([
+                'error' => 'Booking failed: ' . $e->getMessage(),
+            ])->withInput();
+        }
     }
 
     public function editBooking(Project $project, Unit $unit)
