@@ -36,7 +36,7 @@ class TransactionStoreRequest extends FormRequest
             'receipt_date' => 'required|date_format:Y-m-d',
             'transaction_amount' => 'required|numeric|gt:1',
             'gst' => 'required|boolean',
-            'payment_type' => 'required|string|in:bank_draft,rtgs,neft,cheque,cash',
+            'payment_type' => 'required|string|in:bank_draft,rtgs,neft,cheque,cash,imps',
             'payment_reference' => 'required_unless:payment_type,cash|nullable|string',
             'bank_name' => 'required|string',
             'bank_branch' => 'required|string',

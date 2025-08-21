@@ -24,7 +24,7 @@ class TransactionController extends Controller
 
         if ($project == null) {
             // Get all transactions for the organisation with customer and unit
-            $transactions = $organisation->transactions()->with(['customer', 'unit', 'project'])->withTrashed()->get();
+            $transactions = $organisation->transactions()->with(['customer', 'unit', 'project'])->withTrashed()->orderBy("payment_date",'desc')->get();
             return Inertia::render('transactions/Index', [
                 'transactions' => $transactions,
                 'project' => [],
