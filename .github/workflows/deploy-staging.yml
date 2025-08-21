@@ -44,7 +44,7 @@ jobs:
       - name: Export deployment matrix
         id: export-deployment-matrix
         run: |
-          JSON="$(cat ./production-server-config.json)"
+          JSON="$(cat ./development-server-config.json)"
           JSON="${JSON//'%'/'%25'}"
           JSON="${JSON//$'\n'/'%0A'}"
           JSON="${JSON//$'\r'/'%0D'}"
