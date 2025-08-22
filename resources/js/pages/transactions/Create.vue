@@ -29,7 +29,7 @@ const form = useForm({
     payment_date: '',
     receipt_date: '',
     transaction_amount: '',
-    gst: '',
+    gst: false,
     payment_type: '',
     payment_reference: '',
     bank_name: '',
@@ -50,13 +50,8 @@ function submitTransaction() {
     }
 
     if (form.gst === true) {
-        if (enteredAmount < baseDueAmount) {
-            toast.error("Transaction amount is less than the base amount.");
-            return;
-        }
-
-        if (enteredAmount < gstDueAmount) {
-            toast.error("Transaction amount is less than the GST due amount.");
+        if (enteredAmount > gstDueAmount) {
+            toast.error("Transaction amount should be less than the GST due amount.");
             return;
         }
     } else if (form.gst === false) {
@@ -229,8 +224,8 @@ watch(() => form.payment_type, (newVal) => {
                                     <select v-model="form.gst"
                                         class="w-full border border-gray-300 rounded-md px-4 py-3 bg-white focus:ring focus:ring-cyan-100 focus:outline-none">
                                         <option disabled :value="null">Select</option>
+                                        <option :value="false">Base</option>
                                         <option :value="true">GST</option>
-                                        <option :value="false">Non-GST</option>
                                     </select>
                                 </div>
 

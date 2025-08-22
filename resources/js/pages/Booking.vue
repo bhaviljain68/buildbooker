@@ -37,8 +37,8 @@ function setCustomerDetails() {
 }
 
 function recalculateTotal() {
-  const base = parseFloat(form.customer.base) || 0
-  const gst = parseFloat(form.customer.gst) || 0
+  const base = parseFloat(form.customer.base) || 0.00
+  const gst = parseFloat(form.customer.gst) || 0.00
   form.customer.total = (base + gst).toFixed()
 }
 
@@ -145,7 +145,7 @@ function submitForm() {
               </template>
             </FormInput>
 
-            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total" readonly>
+            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total" :disabled="true">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
