@@ -8,7 +8,6 @@ defineEmits(['update:modelValue']);
       <span v-if="required" class="text-red-500 text-xs align-super">*</span>
       {{ label }}
       <span v-if="hint" class="text-gray-400 text-xs">{{ hint }}</span>
-
     </label>
     <div class="relative">
       <slot name="prefix" />

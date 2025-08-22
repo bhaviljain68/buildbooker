@@ -3,7 +3,7 @@ import BackButton from '@/components/BackButton.vue'
 import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 
 const toast = new ToastMagic()
@@ -21,9 +21,34 @@ const form = useForm({
     address: '',
     base: '',
     gst: '',
-    total: ''
+    total: '',
   }
 })
+
+watch(
+  () => form.customer.base,
+  (newBase) => {
+    if (newBase && !isNaN(newBase)) {
+      form.customer.gst = (newBase * 5) / 100; // 5% GST
+      form.customer.total = parseFloat(newBase) + parseFloat(form.customer.gst);
+    } else {
+      form.customer.gst = 0;
+      form.customer.total = 0;
+    }
+  }
+);
+
+// GST change thaye to Total update thashe
+watch(
+  () => form.customer.gst,
+  (newGst) => {
+    if (form.customer.base && !isNaN(newGst)) {
+      form.customer.total =
+        parseFloat(form.customer.base) + parseFloat(newGst);
+    }
+  }
+);
+
 
 function setCustomerDetails() {
   const selected = props.customers.find(c => c.id === form.selectedCustomerId)
@@ -69,7 +94,6 @@ function submitForm() {
         })" />
       </div>
     </div>
-
     <form @submit.prevent="submitForm" class="px-4 lg:px-0">
       <div
         class="grid grid-cols-1 max-w-4xl w-full mx-auto gap-y-8 px-4 lg:px-6 bg-gray-100 mb-10 mt-5 rounded-lg border-t-4 border-primary shadow-md">
@@ -105,13 +129,13 @@ function submitForm() {
             </option>
           </select>
         </div>
-
+     
         <!-- Customer Info Form (conditionally shown) -->
         <div v-if="isNewCustomer !== null && (isNewCustomer || form.selectedCustomerId)"
           class="flex flex-col gap-4 mt-4">
-         
-          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name" :error="form.errors['customer.name']"
-            required :disabled="!isNewCustomer" />
+
+          <FormInput label="Customer Name" id="customer_name" v-model="form.customer.name"
+            :error="form.errors['customer.name']" required :disabled="!isNewCustomer" />
 
           <div class="flex gap-2">
             <FormInput label="Mobile No." id="customer_phone" type="number" v-model="form.customer.mobile"
@@ -145,7 +169,8 @@ function submitForm() {
               </template>
             </FormInput>
 
-            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total" :disabled="true">
+            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total"
+              :disabled="true">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
