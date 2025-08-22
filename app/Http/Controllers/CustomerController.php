@@ -9,6 +9,7 @@ use App\Models\Unit;
 use Devrabiul\ToastMagic\Facades\ToastMagic;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Intervention\Image\Origin;
 
 class CustomerController extends Controller
 {
@@ -24,6 +25,7 @@ class CustomerController extends Controller
 
     public function getOrgCustomers(Organisation $organisation)
     {
+        // dd($organisation); 
 
         $organisation->load('projects.customers.units.transactions');
 
