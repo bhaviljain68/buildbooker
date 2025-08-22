@@ -86,10 +86,13 @@ function cancelBooking(unitId) {
                                 <p
                                     :class="['border-b py-2 border-x border-gray-300 flex justify-center items-center', index === units.length - 1 ? 'rounded-bl-lg' : '']">
                                     {{ unit.unit_no }}</p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
                                     {{ capitalizeFirst(unit.type) }}</p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">{{
-                                    unit.is_sold ? 'Sold' : 'Not Sold' }}
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                    {{
+                                        unit.is_sold ? 'Sold' : 'Not Sold' }}
                                     <!-- Show Edit button only if sold -->
                                 <div v-if="unit.is_sold" class="flex justify-center mt-2">
                                     <Link
@@ -139,26 +142,38 @@ function cancelBooking(unitId) {
                                     </button>
                                 </div>
 
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
                                     {{ unit.is_sold ? (unit.customer?.name ?? 'N/A') : 'N/A' }}
                                 </p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
                                     {{ unit.total_amount === 0 ? 'N/A' : formatCurrency(unit.total_amount) }}
                                 </p>
 
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
                                     {{ unit.base_amount === 0 ? 'N/A' :
                                         formatCurrency(unit.base_amount) }}
                                 </p>
-                                <p class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                <p
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
                                     {{ unit.gst_amount === 0 ? 'N/A' :
                                         formatCurrency(unit.gst_amount) }}
                                 </p>
-                                <div class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
-                                    <Link v-if="unit.is_sold" :href="route('units.show', unit.id) + '?back=' + route('units.index', {
+                                <div
+                                    class="border-b py-2 border-r border-gray-300 flex justify-center items-center text-center">
+                                    <!-- <Link v-if="unit.is_sold" :href="route('units.show', unit.id) + '?back=' + route('units.index', {
                                         organisation: project.organisation_id,
                                         project: project.id
                                     })"
+                                    
+                                        class="bg-primary text-white hover:bg-primary-dark rounded-lg flex items-center gap-x-2 px-3 py-1 text-base transition-colors">
+                                    <Icon icon="lets-icons:view-alt-fill" width="20" height="20" />
+                                    View
+                                    </Link> -->
+                                    <Link v-if="unit.is_sold"
+                                        :href="`${route('units.show', unit.id)}?back=UnitsIndex&organisation=${project.organisation_id}&project=${project.id}`"
                                         class="bg-primary text-white hover:bg-primary-dark rounded-lg flex items-center gap-x-2 px-3 py-1 text-base transition-colors">
                                     <Icon icon="lets-icons:view-alt-fill" width="20" height="20" />
                                     View
