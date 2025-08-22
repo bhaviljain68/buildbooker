@@ -3,7 +3,7 @@ import BackButton from '@/components/BackButton.vue'
 import FormInput from '@/components/FormInput.vue'
 import FormTextarea from '@/components/FormTextarea.vue'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 
 const toast = new ToastMagic()
@@ -82,6 +82,29 @@ function submitForm() {
     onError: () => toast.error('Failed to submit booking')
   })
 }
+
+// format
+function formatAmount(value) {
+  if (!value) return ""
+  return new Intl.NumberFormat("en-IN").format(value)
+}
+
+// Computed with getter/setter for base
+const formattedBase = computed({
+  get: () => formatAmount(form.customer.base),
+  set: (val) => {
+    // जब user type करे तब सिर्फ number रखो
+    form.customer.base = val.replace(/,/g, "")
+  }
+})
+const formattedGst = computed({
+  get: () => formatAmount(form.customer.gst),
+  set: (val) => {
+    // जब user type करे तब सिर्फ number रखो
+    form.customer.gst = val.replace(/,/g, "")
+  }
+})
+
 </script>
 
 <template>
@@ -129,7 +152,7 @@ function submitForm() {
             </option>
           </select>
         </div>
-     
+
         <!-- Customer Info Form (conditionally shown) -->
         <div v-if="isNewCustomer !== null && (isNewCustomer || form.selectedCustomerId)"
           class="flex flex-col gap-4 mt-4">
@@ -155,7 +178,7 @@ function submitForm() {
           </h1>
 
           <div class="grid lg:grid-cols-3 grid-cols-1 gap-4 lg:gap-x-2">
-            <FormInput label="Base Amount" id="base_amount" type="number" v-model="form.customer.base"
+            <FormInput label="Base Amount" id="base_amount" type="text" v-model="formattedBase"
               @input="recalculateTotal" :error="form.errors.base" required>
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>

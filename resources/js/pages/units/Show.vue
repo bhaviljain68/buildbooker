@@ -123,8 +123,8 @@ function formatCurrency(amount) {
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-600">₹ {{ unit.formatted_base_received_amount }}</span> /
-                                    <span class="text-red-500">₹ {{ unit.base_amount }}</span>
+                                    <span class="text-green-600">{{formatCurrency(unit.formatted_base_received_amount) }}</span> /
+                                    <span class="text-red-500">{{ formatCurrency(unit.base_amount) }}</span>
                                 </p>
                             </div>
 
@@ -137,7 +137,7 @@ function formatCurrency(amount) {
                                     </p>
                                 </div>
                                 <p class="text-2xl">
-                                    <span class="text-green-600">₹ {{ unit.formatted_gst_received_amount }}</span> /
+                                    <span class="text-green-600">{{ formatCurrency(unit.formatted_gst_received_amount) }}</span> /
                                     <span class="text-red-500">₹ {{ unit.formatted_gst_due_amount }}</span>
                                 </p>
                             </div>

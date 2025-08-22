@@ -83,7 +83,8 @@ const formatCurrency = (amount) => {
                         <Link :href="route('units.index', {
                             organisation: project.organisation_id,
                             project: project.id,
-                        })"> <h3 class="text-lg font-semibold text-gray-700">Total Units</h3>
+                        })">
+                        <h3 class="text-lg font-semibold text-gray-700">Total Units</h3>
                         <div class="mt-4 flex justify-center lg:justify-between items-center">
                             <span class="text-xl font-bold text-gray-800">{{ project.total_units }}</span>
                         </div>
@@ -108,10 +109,11 @@ const formatCurrency = (amount) => {
                     <div class="flex flex-col sm:flex-row gap-4 sm:w-auto">
                         <div>
                             <ButtonLink icon="ic:baseline-add"
-                                :href="route('transactions.create', project.id) + '?back=' + route('dashboard')">
+                                :href="route('transactions.create', project.id) + '?back=dashboard'">
                                 Add Transaction
                             </ButtonLink>
                         </div>
+
                         <div class="flex gap-5">
                             <ButtonLink icon="ic:twotone-add" :href="route('units.create', project.id)">Add Units
                             </ButtonLink>
