@@ -93,17 +93,22 @@ function formatAmount(value) {
 const formattedBase = computed({
   get: () => formatAmount(form.customer.base),
   set: (val) => {
-    // जब user type करे तब सिर्फ number रखो
     form.customer.base = val.replace(/,/g, "")
   }
 })
 const formattedGst = computed({
   get: () => formatAmount(form.customer.gst),
   set: (val) => {
-    // जब user type करे तब सिर्फ number रखो
     form.customer.gst = val.replace(/,/g, "")
   }
 })
+const formattedTotal = computed({
+  get: () => formatAmount(form.customer.total),
+  set: (val) => {
+    form.customer.total = Number(val.replace(/,/g, "")) || 0
+  }
+})
+
 
 </script>
 
@@ -185,19 +190,20 @@ const formattedGst = computed({
               </template>
             </FormInput>
 
-            <FormInput label="GST Amount" id="gst_amount" type="number" v-model="form.customer.gst"
-              @input="recalculateTotal" :error="form.errors.gst" required>
+            <FormInput label="GST Amount" id="gst_amount" type="text" v-model="formattedGst" @input="recalculateTotal"
+              :error="form.errors.gst" required>
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
 
-            <FormInput label="Total Amount" id="total_amount" type="number" :modelValue="form.customer.total"
+            <FormInput label="Total Amount" id="total_amount" type="number" v-model="form.customer.total"
               :disabled="true">
               <template #prefix>
                 <span class="absolute ml-2 top-1/2 -translate-y-1/2">₹</span>
               </template>
             </FormInput>
+
           </div>
         </div>
 

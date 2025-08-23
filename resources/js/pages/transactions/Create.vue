@@ -86,6 +86,14 @@ watch(() => form.payment_type, (newVal) => {
         form.payment_reference = null
     }
 })
+
+function formatAmount(value) {
+    if (!value) return "0.00"
+    return Number(value).toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    })
+}
 </script>
 
 <template>
@@ -150,10 +158,10 @@ watch(() => form.payment_type, (newVal) => {
                                 <p class="text-xl"><span class="text-green-600">Received</span> /<span
                                         class="text-red-500"> Due </span></p>
                                 <p class="text-2xl">
-                                    <span class="text-green-600">₹ {{ state.selectedUnit.formatted_base_received_amount
-                                        }}</span>
+                                    <span class="text-green-600">₹ {{ formatAmount(state.selectedUnit.formatted_base_received_amount)
+                                    }}</span>
                                     /
-                                    <span class="text-red-500">₹ {{ state.selectedUnit.base_amount }}</span>
+                                    <span class="text-red-500">₹ {{ formatAmount(state.selectedUnit.base_amount) }}</span>
                                 </p>
                             </div>
                             <div class="border-r border-teal-800"></div>
@@ -164,11 +172,11 @@ watch(() => form.payment_type, (newVal) => {
                                 <p class="text-xl"><span class="text-green-600">Received</span> /<span
                                         class="text-red-500"> Due </span></p>
                                 <p class="text-2xl">
-                                    <span class="text-green-600">₹ {{ state.selectedUnit.formatted_gst_received_amount
-                                        }}</span>
+                                    <span class="text-green-600">₹ {{ formatAmount(state.selectedUnit.formatted_gst_received_amount)
+                                    }}</span>
                                     /
                                     <span class="text-red-500">₹ {{ state.selectedUnit.formatted_gst_due_amount
-                                        }}</span>
+                                    }}</span>
                                 </p>
                             </div>
                             <div class="border-r border-teal-800"></div>
@@ -182,9 +190,9 @@ watch(() => form.payment_type, (newVal) => {
                                         class="text-red-500"> Due </span></p>
                                 <p class="text-2xl">
                                     <span class="text-green-600">₹ {{ state.selectedUnit.formatted_total_received_amount
-                                    }}</span> /
+                                        }}</span> /
                                     <span class="text-red-500">₹ {{ state.selectedUnit.formatted_total_due_amount
-                                    }}</span>
+                                        }}</span>
                                 </p>
                             </div>
                         </div>

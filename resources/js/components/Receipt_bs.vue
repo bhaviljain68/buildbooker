@@ -16,7 +16,10 @@ const formattedReceiptDate = computed(() => {
 const formattedPaymentDate = computed(() => {
   return new Date(props.transaction.payment_date).toLocaleDateString('en-GB')
 })
-
+const formatCurrency = (amount) => {
+  if (!amount) return "₹0.00"
+  return "₹" + Number(amount).toLocaleString("en-IN", { minimumFractionDigits: 2 })
+}
 </script>
 
 <template>
@@ -104,7 +107,7 @@ const formattedPaymentDate = computed(() => {
 
         <div class="flex items-center mt-2">
           <label class="text-base font-bold mt-4">Amount:</label>
-          <input :value="`₹${transaction.transaction_amount}`"
+          <input :value="formatCurrency(transaction.transaction_amount)"
             class="border border-black mt-3 rounded-sm border-dashed ml-4 w-48 text-center h-8 flex justify-center items-center"
             disabled />
         </div>
